@@ -1,0 +1,38 @@
+account:
+	- ID:str
+	- user_name:str
+	- password:str
+	- address:str
+	- IdRule:int
+	- email:str
+rule:
+	- ID:int
+	- TItle:str
+status:
+	- ID:int
+	- Title:str
+product_line:
+	- ID:str
+	- Name:str
+	- Infor: str
+	- quantity: int
+product:
+	- ID:str
+	- IdProductLine:int
+	- IdStatus:int
+	- History:str
+	- Note:str
+	- create_at:datetime
+Factory:
+	- ID:str
+	- Name:str
+	- address:str
+Shop:
+	- ID:str
+	- name:stt
+	- address:str
+warehouse:
+	- ID:int
+	- IDShop:str
+	- name:str
+	- address:str
