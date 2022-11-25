@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\api\create_user;
+use App\Http\Controllers\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,4 +24,6 @@ Route::post('/register',[create_user::class,'register']);
 Route::post('/login',[create_user::class,'login']);
 Route::post('/logout',[create_user::class,'logout']);
 
+
+Route::post('/create-product',[ProductController::class,'create']);
 // Route::middleware('auth:api')->get('/user/{$id}',[create_user::class,'show']);

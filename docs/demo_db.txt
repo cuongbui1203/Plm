@@ -1,3 +1,17 @@
+id:
+    product
+        13 ký tự (hex)
+        3 (dòng)
+        3 đời
+        7 stt sản xuất
+
+    account:
+        10 số (hex)
+        3 quyền (ban điều hành, Factory, dại lý)
+        7 ngẫu nhiên
+
+
+
 account:
 	- ID:str
 	- user_name:str
@@ -5,34 +19,41 @@ account:
 	- address:str
 	- IdRule:int
 	- email:str
+    - create_at
+    - update_at
 rule:
 	- ID:int
-	- TItle:str
+	- Title:str
 status:
 	- ID:int
 	- Title:str
 product_line:
 	- ID:str
 	- Name:str
-	- Infor: str
+	- Info: str
 	- quantity: int
+    - lô sx:int
+    - sl của lô: int
 product:
 	- ID:str
 	- IdProductLine:int
 	- IdStatus:int
-	- History:str
-	- Note:str
+	- History:str [ ['IdStatus':'?','time':'?','note':'?'], ['IdStatus':'?','time':'?']]
 	- create_at:datetime
+    - update_at:datetime
+
 Factory:
 	- ID:str
 	- Name:str
 	- address:str
+
 Shop:
 	- ID:str
 	- name:stt
 	- address:str
+    - IdWarehouse:str [ 'id':'?', ]
+
 warehouse:
 	- ID:int
-	- IDShop:str
 	- name:str
 	- address:str
