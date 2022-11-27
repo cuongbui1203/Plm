@@ -3,9 +3,7 @@
 namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Status;
-use Illuminate\Http\Request;
 use Exception;
-use GuzzleHttp\Psr7\Response;
 use Illuminate\Support\Facades\DB;
 
 class StatusController extends Controller
@@ -13,7 +11,7 @@ class StatusController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function index()
     {
@@ -24,7 +22,12 @@ class StatusController extends Controller
             return $this->sendError('error',$e);
         }
     }
-
+    /**
+     * get status title
+     *
+     * @param int $id
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function show($id)
     {
         try{
@@ -33,5 +36,4 @@ class StatusController extends Controller
             return $this->sendError('error',$e);
         }
     }
-
 }
