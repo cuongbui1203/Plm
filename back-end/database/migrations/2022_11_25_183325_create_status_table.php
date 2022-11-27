@@ -13,10 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('products', function (Blueprint $table) {
-            $table->string('productId')->unique()->nullable(false)->primary()->default("-1");
-            $table->string('name')->nullable(false)->default("-1");
-            $table->integer('idStatus')->nullable(false)->default("0");
+        Schema::create('statuses', function (Blueprint $table) {
+            $table->id();
+            $table->string('title');
             $table->timestamps();
         });
     }
@@ -28,6 +27,5 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('products');
     }
 };

@@ -13,12 +13,13 @@ class Controller
     /**
      * success response method.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Response \Illuminate\Http\JsonResponse
      */
     public function sendResponse($result, $message)
     {
     	$response = [
             'success' => true,
+            'size'    => count($result),
             'data'    => $result,
             'message' => $message,
         ];

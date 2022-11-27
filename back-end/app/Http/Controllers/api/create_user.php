@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\api;
+namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
@@ -47,13 +47,10 @@ class create_user extends Controller
         $input['password'] = bcrypt($input['password']);
         try{
             $user = $this->create($input);
-        // if($user){
-            $success['token'] =  $user->createToken('MyApp')->plainTextToken;
             $success['name'] =  $user->name;
             return $this->sendResponse($success,"Register Account successfully");
         }catch(Exception $e){
-            // } else{
-            return $this->sendError("Register fail",[$e]);
+            return $this->sendError("Register fail",[$e->getTrace()]);
         }
     }
 

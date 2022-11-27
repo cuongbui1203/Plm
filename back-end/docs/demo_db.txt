@@ -32,17 +32,20 @@ product_line:
 	- Name:str
 	- Info: str
 	- quantity: int
-    - lô sx:int
-    - sl của lô: int
 product:
 	- ID:str
-	- IdProductLine:int
+	- IdProductLine:str
 	- IdStatus:int
 	- History:str [ ['IdStatus':'?','time':'?','note':'?'], ['IdStatus':'?','time':'?']]
 	- create_at:datetime
     - update_at:datetime
 
 Factory:
+	- ID:str
+	- Name:str
+	- address:str
+
+Service Center:
 	- ID:str
 	- Name:str
 	- address:str
