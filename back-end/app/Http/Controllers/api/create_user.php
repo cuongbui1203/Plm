@@ -38,10 +38,10 @@ class create_user extends Controller
         $validator = Validator::make($request->all(),[
             'name'=>'required',
             'email'=>'required|email',
-            'password' => 'required'
+            'password' => 'confirmed|min:6'
         ]);
         if($validator->fails()){
-            return $this->sendError('Validation Error.',$validator->errors());
+            return $this->sendError('Validation Error.',$validator->errors(),500);
         }
         $input = $request->all();
         $input['password'] = bcrypt($input['password']);
@@ -50,7 +50,7 @@ class create_user extends Controller
             $success['name'] =  $user->name;
             return $this->sendResponse($success,"Register Account successfully");
         }catch(Exception $e){
-            return $this->sendError("Register fail",[$e->getTrace()]);
+            return $this->sendError("Register fail",$e,500);
         }
     }
 

@@ -13,14 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        // Schema::table('products',function(Blueprint $table){
-        //     $table->foreign('idProductLine')
-        //         ->references('productLineId')
-        //         ->on('productLine');
-        //     $table->foreign('idStatus')
-        //         ->references('id')
-        //         ->on('status');
-        // });
+        Schema::table('products',function(Blueprint $table){
+            $table->foreign('idProductLine')
+                ->references('productLineId')
+                ->on('productLines');
+            $table->foreign('idStatus')
+                ->references('id')
+                ->on('statuses');
+        });
     }
 
     /**

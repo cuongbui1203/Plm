@@ -13,7 +13,8 @@ class Product extends Model
 
     public static function createId(string $idProductLine,string $num ){
         $id = $idProductLine;
-        $id = $id.(string)DB::table('productLine')->where('productLineId','=',$idProductLine)->get('batch');
+        $id = $id.DB::table('productLines')->where('productLineId','=',$idProductLine)->get('batch')[0]->batch;
+        // if(ctype_xdigit($num)) return null;
         $id = $id.$num;
         return $id;
     }

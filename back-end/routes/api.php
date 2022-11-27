@@ -22,27 +22,27 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('/register',[create_user::class,'register']);
-Route::post('/login',[create_user::class,'login']);
+Route::post('/users/register',[create_user::class,'register']);
+Route::post('/users/login',[create_user::class,'login']);
 
-/** */
 
 //user
-Route::post('/logout',[create_user::class,'logout']);
-
+Route::post('/users/logout',[create_user::class,'logout']);
+Route::delete('/users/{idUser}/delete',[create_user::class,'destroy']);
 //status
-Route::get('/status/get/all',[StatusController::class,'index']);
-Route::get('/status/get/{id}',[StatusController ::class,'show']);
+Route::get('/statuses',[StatusController::class,'index']);
+Route::get('/statuses/{id}',[StatusController ::class,'show']);
 
 // product
-Route::post('/create-product',[ProductController::class,'create']);
-Route::get('/product/get/all',[ProductController::class,'index']);
-Route::get('/product/get/{id}',[ProductController::class,'getId']);
+Route::post('/products/create',[ProductController::class,'create']);
+Route::get('/products',[ProductController::class,'index']);
+Route::get('/products/{id}',[ProductController::class,'getId']);
+Route::patch('/products/{id}/change',[ProductController::class,'']);
 
 //productLine
-Route::get('/product-line/get/all',[ProductLineController::class,'index']);
-Route::post('/product-line/create',[ProductLineController::class,'create']);
-Route::get('/product-line/get/{id}',[ProductLineController::class,'getId']);
+Route::post('/product-lines/create',[ProductLineController::class,'create']);
+Route::get('/product-lines',[ProductLineController::class,'index']);
+Route::get('/product-lines/{id}',[ProductLineController::class,'getId']);
 
 // Route::group(['middleware'=>'auth:sanctum'],function(){
 //     //user

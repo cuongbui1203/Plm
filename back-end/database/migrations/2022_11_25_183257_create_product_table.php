@@ -18,8 +18,8 @@ return new class extends Migration
                     ->primary()
                     ->nullable(false);
             $table->string('name');
-            $table->string('idProductLine');
-            $table->bigInteger('idStatus')->unsigned();
+            $table->string('idProductLine')->nullable(false)->default('test0');
+            $table->bigInteger('idStatus')->unsigned()->nullable(false)->default(1);
             $table->string('history');
             $table->timestamps();
         });

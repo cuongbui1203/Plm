@@ -22,7 +22,7 @@ class ProductLineController extends Controller
     {
         // return $this->sendResponse('test',"test");
         try{
-            $allProductLine = DB::table('productLine')->get();
+            $allProductLine = DB::table('productLines')->get();
         return $this->sendResponse($allProductLine,/*"lay list{count($allProductLine)} cac dong san pham"*/count($allProductLine));
         }catch(Exception $e){
             return $this->sendError('Error',$e);
@@ -48,25 +48,20 @@ class ProductLineController extends Controller
         }
         try{
             $productLine = new ProductLine();
-            $productLine->productLineId = ProductLine::createId($response->idFactory,"123",$response->quantity);
+            $productLine->productLineId = ProductLine::createId($response->idFactory,"123");
             $productLine->save();
-            return $this->sendResponse($productLine,"thanh vong");
+            return $this->sendResponse($productLine,"thanh cong");
         } catch(Exception $e){
             return $this->sendError('error',$e);
         }
     }
 
-    public function getId(Request $request)
+    public function getId(string $id)
     {
         # code...
-        $validator = Validator::make($request->all(),[
-            'productLineId'=>'required'
-        ]);
-        if($validator->fails()){
-            return $this->sendError('Not validator',$validator->errors());
-        }
         try{
-            return $this->sendResponse(DB::table('productLine')->where('productLineId','=',$request->productLineId),"thanh cong");
+            return $this->sendResponse(DB::table('productLines')->where('productLineId','=',$id)->get(),
+                                        "thanh cong");
         }catch(Exception $e){
             return $this->sendError('error',$e);
         }

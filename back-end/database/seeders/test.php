@@ -17,13 +17,13 @@ class test extends Seeder
     {
         for( $i = 0;$i<10;$i++){
         //
-            DB::table('productline')->insert([
+            DB::table('productLines')->insert([
                 [
-                    'productLineId'=>'teat'.(string)($i),
+                    'productLineId'=>'test'.(string)($i),
                     'name'=>'name'.(string)$i,
                     'info'=>(string)$i,
                     'quantity'=>$i,
-                    'batch'=>'12/22',
+                    'batch'=>'1222',
                 ]
         ]);}
     }
