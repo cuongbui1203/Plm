@@ -4,12 +4,14 @@ import Form from 'react-bootstrap/Form';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
+import { FaCannabis } from "react-icons/fa";
+import "./HeaderBar.css";
 
-function NavScrollExample() {
+function HeaderBar() {
   return (
-    <Nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <Navbar className="navbar navbar-expand-lg navbar-dark bg-dark">
       <Container fluid>
-        <Navbar.Brand href="#home">"Logo"</Navbar.Brand>
+        <Navbar.Brand href="#home"> <FaCannabis className='cannabis'/></Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll">
           <Nav
@@ -18,17 +20,13 @@ function NavScrollExample() {
             navbarScroll
           >
             <Nav.Link href="#home">Home</Nav.Link>
-            <Nav.Link href="#" disabled>"Chức vụ"</Nav.Link>
+            <Nav.Link href="#" disabled>"chức vụ"</Nav.Link>
             <NavDropdown title="User" id="navbarScrollingDropdown">
-            <NavDropdown.Item href="#infor">Hồ sơ</NavDropdown.Item>
-            <NavDropdown.Item href="#setting">Cài đặt</NavDropdown.Item>
-            <NavDropdown.Divider />
-            <NavDropdown.Item href="#lobby">
-            Đổi tài khoản
-            </NavDropdown.Item>
-            <NavDropdown.Item href="#lobby">
-            Đăng xuất
-            </NavDropdown.Item>
+              <NavDropdown.Item href="#infor">Hồ sơ</NavDropdown.Item>
+              <NavDropdown.Item href="#setting">Cài đặt</NavDropdown.Item>
+              <NavDropdown.Divider />
+              <NavDropdown.Item href="#lobby">Đổi tài khoản</NavDropdown.Item>
+              <NavDropdown.Item href="#lobby">Đăng xuất</NavDropdown.Item>
             </NavDropdown>
           </Nav>
           <Form className="d-flex">
@@ -41,11 +39,9 @@ function NavScrollExample() {
             <Button variant="outline-success">Search</Button>
           </Form>
         </Navbar.Collapse>
-        
       </Container>
-      
-    </Nav>
+    </Navbar>
   );
 }
 
-export default NavScrollExample;
+export default HeaderBar;

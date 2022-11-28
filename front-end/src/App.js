@@ -1,9 +1,14 @@
 import './App.css';
-import Components1 from './components/Components1';
+import HeaderBar from './components/HeaderBar';
+import SideBar from './components/SideBar';
 
 function App() {
   return (
-    <Components1 />
+    <div>
+      <HeaderBar />
+
+      <SideBar />
+    </div>
   );
 }
 
