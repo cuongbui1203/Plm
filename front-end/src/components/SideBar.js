@@ -1,5 +1,5 @@
 import React from "react";
-import {Nav} from "react-bootstrap";
+import {Nav, NavDropdown} from "react-bootstrap";
 import './SideBar.css'
 
 function SideBar() {
@@ -9,21 +9,24 @@ function SideBar() {
             activeKey="/home"
             onSelect={selectedKey => alert(`selected ${selectedKey}`)}
             >
-                <div className="sidebar-sticky"></div>
-            <Nav.Item>
-                <Nav.Link href="/home">Active</Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-                <Nav.Link eventKey="link-1">Link</Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-                <Nav.Link eventKey="link-2">Link</Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-                <Nav.Link eventKey="disabled" disabled>
-                Disabled
-                </Nav.Link>
-            </Nav.Item>
+                
+            
+                <NavDropdown title="Sắp xếp theo" id="navbarSortDropdown">
+                  <NavDropdown title="A-Z" id="navbarSortA-ZDropdown">
+                    <NavDropdown.Item href="#">A->Z</NavDropdown.Item>
+                    <NavDropdown.Item href="#">Z->A</NavDropdown.Item>
+                  </NavDropdown>
+                  <NavDropdown title="Date" id="navbarSortDateDropdown">
+                    <NavDropdown.Item href="#">new</NavDropdown.Item>
+                    <NavDropdown.Item href="#">old</NavDropdown.Item>
+                  </NavDropdown>
+                  <NavDropdown title="Quantity" id="navbarSortA-ZDropdown">
+                    <NavDropdown.Item href="#">Low to High</NavDropdown.Item>
+                    <NavDropdown.Item href="#">High to Low</NavDropdown.Item>
+                  </NavDropdown>
+                </NavDropdown>
+            
+            
             </Nav>
           
         </>

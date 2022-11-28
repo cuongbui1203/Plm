@@ -1,0 +1,17 @@
+.product {
+    margin-left: 15%;;
+    padding: 30px;
+}
+
+.product-item {
+    padding: 10px;
+}
+
+.card {
+    max-width: 20% ;
+    max-height: 400px ;
+}
+
+.card-img-top {
+    height: 250px;
+}
