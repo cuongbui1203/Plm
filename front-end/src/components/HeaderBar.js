@@ -9,7 +9,7 @@ import "./HeaderBar.css";
 
 function HeaderBar() {
   return (
-    <Navbar className="navbar navbar-expand-lg navbar-dark bg-dark">
+    <Navbar id="hd" className="navbar navbar-expand-lg navbar-dark bg-dark">
       <Container fluid>
         <Navbar.Brand href="#home"> <FaCannabis className='cannabis'/></Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" />

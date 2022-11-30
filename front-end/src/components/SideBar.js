@@ -4,7 +4,7 @@ import './SideBar.css'
 
 function SideBar() {
     return (
-        <>
+        <div>
             <Nav id="b" className="col-md-12 d-none d-md-block bg-light sidebar"
             activeKey="/home"
             onSelect={selectedKey => alert(`selected ${selectedKey}`)}
@@ -29,7 +29,7 @@ function SideBar() {
             
             </Nav>
           
-        </>
+        </div>
         );
 }
 

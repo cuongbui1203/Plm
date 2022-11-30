@@ -15,3 +15,8 @@
 .card-img-top {
     height: 250px;
 }
+
+#sc {
+    top: 50px;
+    position: absolute;
+}

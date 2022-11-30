@@ -3,8 +3,8 @@ import { data } from '../data';
 import './Product.css'
 export default function Product() {
     return (
-        <>
-            <section className="product">
+        <div>
+            <section id="sc" className="product">
                 <div className="container" >
                     <div className="row" >
                         {data.map((course, index) => {
@@ -23,6 +23,6 @@ export default function Product() {
                     </div>
                 </div>
             </section>
-        </>
+        </div>
     )
 }

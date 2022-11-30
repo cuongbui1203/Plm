@@ -3,7 +3,9 @@
     font-size: 30px;
 }
 
-.navbar navbar-expand-lg navbar-dark bg-dark {
+#hd {
     position: fixed;
-    width: 100%;
+        width: 100%;
+        top: 0;
+        z-index: 1;
 }
