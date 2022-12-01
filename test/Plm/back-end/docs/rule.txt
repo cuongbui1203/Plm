@@ -1,0 +1,15 @@
+rule:
+    - admin
+    - Factory
+    - Shop
+    - Service
+
+Permission:
+    admin (ban điều hành)
+        - thêm danh mục sản phẩm
+        - thêm tài khoản
+
+    Factory
+        - nhập các lô hàng mới đc sản xuất
+        - thống kê sản phẩm trên toàn quốc
+        -
