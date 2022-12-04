@@ -8,6 +8,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Exception;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use PhpParser\Node\Expr\Cast\Object_;
@@ -39,17 +40,15 @@ class ProductController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function create(Request $request)
-    {
+    public function create(Request $request){
         // $n = $request->num;
 
         $validator =  Validator::make($request->all(),[
             'idProductLine'=>'required',
             'name'=>'required',
             'num'=>'required|numeric',
-            'idStatus'=>'required',
             'batch'=>'required'
         ]);
         if($validator->fails()){
@@ -67,7 +66,7 @@ class ProductController extends Controller
                 $product = new Product();
                 $product->productId = Product::createId($request->idProductLine,$i);
                 $product->name = $name;
-                $product->idStatus = $idStatus;
+                $product->idStatus = 0;
                 $product->idProductLine=$request->idProductLine;
                 $product->history = $request->idProductLine;
                 $product->save();
@@ -84,10 +83,16 @@ class ProductController extends Controller
                                         'quantity'=>$arr->quantity,
                                         'updated_at'=>$arr->updated_at
                                     ]);
-            return $this->sendResponse($res,"Create product successfully");
+            return $this->sendResponse($res,"Create products successfully");
         } catch(Exception $e){
             return $this->sendError("Create failed",$e);
         }
     }
 
+    public function sendToShop(Request $request){
+        $validate = Validator::make($request->all(),[
+            'idShop'=>'required'
+        ])
+        if
+    }
 }

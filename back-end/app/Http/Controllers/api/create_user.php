@@ -31,7 +31,7 @@ class create_user extends Controller
      * register api
      *
      * @param Request $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function register(Request $request)
     {
@@ -39,7 +39,8 @@ class create_user extends Controller
         $validator = Validator::make($request->all(),[
             'name'=>'required',
             'email'=>'required|email',
-            'password' => 'confirmed|min:6'
+            'password' => 'confirmed|min:6',
+            'wordPlateId' =>'required'
         ]);
         if($validator->fails()){
             return $this->sendError('Validation Error.',$validator->errors(),500);
@@ -74,7 +75,7 @@ class create_user extends Controller
             return $this->sendResponse($success, 'User login successfully.');
         }
         else{
-            return $this->sendError('Unauthorised.', ['error'=>'Unauthorised']);
+            return $this->sendError('Unauthorize.', ['error'=>'Unauthorize']);
         }
     }
 
@@ -82,13 +83,14 @@ class create_user extends Controller
     {
         # code...
         Auth::logout();
+
         return "ok";
     }
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request)
     {

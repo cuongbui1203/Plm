@@ -1,8 +1,8 @@
 rule:
-    - admin
-    - Factory
-    - Shop
-    - Service
+    - admin = 0
+    - Factory = 1
+    - Shop = 2
+    - Service = 3
 
 Permission:
     admin (ban điều hành)
@@ -13,3 +13,25 @@ Permission:
         - nhập các lô hàng mới đc sản xuất
         - thống kê sản phẩm trên toàn quốc
         -
+    Shop
+        - nhập lô hàng mới
+        - nhập thông tin bán sản phẩm
+        - gửi bảo hành
+    Service
+        - nhập hàng cần bảo hành
+        - trả hàng cho Shop
+        - thông báo lỗi nặng cần thu hồi cho ban điều hành
+
+
+0-  Mới sản xuất: Sản xuất tại cơ sở nào thì nằm tại kho của cơ sở đó.
+1-  Đưa về đại lý: Đại lý nào.
+2-  Đã bán: Khách hàng nào (Thông tin của khách hàng).
+3-  Lỗi, cần bảo hành: Bảo hành lần thứ mấy, đại lý đã nhận lại từ khách hàng.
+4-  Đang sửa chữa bảo hành: Ở trung tâm bảo hành nào.
+5-  Đã bảo hành xong: Quay lại đại lý.
+6-  Đã trả lại bảo hành cho khách hàng: Quay lại khách hàng
+7-  Lỗi, cần trả về nhà máy: Đang ở trung tâm bảo hành nào.
+8-  Lỗi, đã đưa về cơ sở sản xuất: Cơ sở sản xuất nào.
+9- Lỗi cần triệu hồi: Đang ở khách hàng (sản phẩm triệu hồi được đưa đi bảo hành như sản phẩm khách hàng chủ động yêu cầu bảo hành).
+10- Hết thời gian bảo hành.
+11- Trả lại cơ sở sản xuất (do lâu không bán được)
