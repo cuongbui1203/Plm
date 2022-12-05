@@ -27,7 +27,7 @@ Route::post('/user/login',[create_user::class,'login']);
 
 
 //user
-Route::post('/users/logout',[create_user::class,'logout']);
+Route::post('/user/logout',[create_user::class,'logout']);
 Route::delete('/users/{idUser}/delete',[create_user::class,'destroy']);
 //status
 Route::get('/statuses',[StatusController::class,'index']);

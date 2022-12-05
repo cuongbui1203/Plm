@@ -1,0 +1,5 @@
+export const SET_LOGIN_BEGIN = 'set_login_begin'
+export const SET_LOGIN_SUCCESS = 'set_login_success'
+export const SET_LOGIN_FAIL = 'set_login_fail'
+export const SET_LOGOUT_SUCCESS= 'set_logout_success'
+export const SET_LOGOUT_FAIL= 'set_logout_fail'

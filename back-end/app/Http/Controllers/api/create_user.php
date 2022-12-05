@@ -84,7 +84,7 @@ class create_user extends Controller
         # code...
         Auth::logout();
 
-        return "ok";
+        return $this->sendResponse('ok','Logout success');
     }
     /**
      * Store a newly created resource in storage.

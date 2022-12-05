@@ -1,9 +1,12 @@
 import React from 'react';
-import { data } from '../data';
+import { data } from '../../data';
+import {HeaderBar,SideBar} from '../../layout';
 import './Product.css'
-export default function Product() {
+function Product() {
     return (
         <div>
+        <HeaderBar />
+        <SideBar />
             <section id="sc" className="product">
                 <div className="container" >
                     <div className="row" >
@@ -26,3 +29,5 @@ export default function Product() {
         </div>
     )
 }
+
+export default Product;

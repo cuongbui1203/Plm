@@ -90,9 +90,8 @@ class ProductController extends Controller
     }
 
     public function sendToShop(Request $request){
-        $validate = Validator::make($request->all(),[
-            'idShop'=>'required'
-        ])
-        if
+        $validate = Validator::make($request->all(), [
+            'idShop' => 'required'
+        ]);
     }
 }
