@@ -6,8 +6,8 @@ import {
     MDBRow,
     MDBInput,
     MDBCheckbox
-  }
-  from 'mdb-react-ui-kit';
+}
+from 'mdb-react-ui-kit';
 import Button from 'react-bootstrap/Button';
 import './Loginform.css'
 import { useNavigate } from "react-router-dom";
@@ -32,15 +32,15 @@ function LoginForm(){
         const response = await loginApi(data)
         console.log(response)
         if(response.success){
-            console.log(response)
-            dispatch(actions.setLoginSuccess(response.data.token))
+            // console.log(response)
+            dispatch(actions.setLoginSuccess(''))
             localStorage.setItem('token',response.data.token)
             Notification("success","Login Success")
             navigation('/home')
-            console.log(state)
+            // console.log(state)
         }else{
-            dispatch(actions.setLoginFail(''))
             Notification('error','Login Fail')
+            dispatch(actions.setLoginFail(''))
             
         }
         console.log(state);
@@ -57,34 +57,35 @@ function LoginForm(){
 
     return(
         <>
-            <MDBContainer fluid className="p-3 my-5">
+            <div className="login-container">
+                <MDBContainer fluid className="p-3 my-5 ">
 
-                <MDBRow>
+                    <MDBRow>
 
-                    <MDBCol col='10' md='6'>
-                        <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.svg" className="img-fluid" alt="Phone image" />
-                    </MDBCol>
+                        <MDBCol col='10' md='6'>
+                            <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.svg" className="img-fluid" alt="Phone image" />
+                        </MDBCol>
 
-                    <MDBCol col='4' md='6'>
-
-
-                        <MDBInput wrapperClass='mb-4'  id='email' type='email' size="lg" placeholder="Email"/>
-                        <MDBInput wrapperClass='mb-4'  id='password' type='password' size="lg" placeholder="Mật khẩu"/>
+                        <MDBCol col='4' md='6' center='true'>
 
 
-                        <div className="d-flex justify-content-between mx-4 mb-4">
-                            <MDBCheckbox name='flexCheck' value='' id='rememberCheckBox' label='Remember me' onChange={rememberMe}/>
-                            <a href="!#">Forgot password?</a>
-                        </div>
+                            <MDBInput wrapperClass='mb-4'  id='email' type='email' size="lg" placeholder="Email"/>
+                            <MDBInput wrapperClass='mb-4'  id='password' type='password' size="lg" placeholder="Mật khẩu"/>
 
-                        <Button variant="primary" className="mb-3 w-100" onClick={login}>login</Button>
 
-                    </MDBCol>
+                            <div className="d-flex justify-content-between mx-4 mb-4">
+                                <MDBCheckbox name='flexCheck' value='' id='rememberCheckBox' label='Remember me' onChange={rememberMe}/>
+                                <a href="!#">Forgot password?</a>
+                            </div>
 
-                </MDBRow>
+                            <Button variant="primary" className="mb-3 w-100" onClick={login}>login</Button>
 
-            </MDBContainer>
+                        </MDBCol>
 
+                    </MDBRow>
+
+                </MDBContainer>
+            </div>
         </>
     );
 }

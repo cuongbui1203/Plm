@@ -14,7 +14,7 @@ root.render(
     <BrowserRouter>
       <StoreProvider>
         <App />
-        <ToastContainer  pauseOnHover={false} />
+        <ToastContainer  pauseOnHover={false} pauseOnFocusLoss={false}/>
       </StoreProvider>
     </BrowserRouter>
   </React.StrictMode>

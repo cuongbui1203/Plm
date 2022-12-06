@@ -1,11 +1,9 @@
-import React, { useState } from 'react';
-import Toast from 'react-bootstrap/Toast';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 
 /**
  * this function is showing notify in app
  * @param {string} type { success, warning, info, error }
- * @param {string} message message í showing
+ * @param {string} message message for show
  */
 function Notification(type,message){
     console.log('notifycation')

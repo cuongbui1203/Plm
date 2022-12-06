@@ -1,6 +1,5 @@
 import { Navigate, Outlet, useLocation } from "react-router-dom";
 import Loading from "../page/loading";
-import Product from "../page/product/Product";
 import { useStore } from "../store";
 
 function Authenticator(){
