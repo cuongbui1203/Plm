@@ -22,7 +22,7 @@ class createProduct extends Seeder
                     [
                         'productId'=>'test'.(string)($i),
                         'name'=>fake()->name(),
-                        'history'=>fake()->paragraph(),
+                        'history'=>fake()->paragraph(1),
                         'idStatus'=>1,
                         'idProductLine'=>'test0',
                         

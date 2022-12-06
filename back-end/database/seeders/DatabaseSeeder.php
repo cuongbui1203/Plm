@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
         // ]);
         $this->call([
             status::class,
+            account::class,
             createProductLine::class,
             createProduct::class
         ]);

@@ -10,7 +10,7 @@ function RequiredAuth() {
     if(isLoading){
         return <Loading show='yes' />
     }
-    return <>{isLogin ? <Outlet />:<Navigate to="/" /> }</>
+    return <>{isLogin ? <Outlet />:<Navigate to="/login" /> }</>
 }
 
 export default RequiredAuth

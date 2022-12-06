@@ -37,7 +37,7 @@ Route::get('/statuses/{id}',[StatusController ::class,'show']);
 Route::post('/products/create',[ProductController::class,'create']);
 Route::get('/products',[ProductController::class,'index']);
 Route::get('/products/{id}',[ProductController::class,'getId']);
-Route::patch('/products/{id}/change',[ProductController::class,'']);
+Route::patch('/products/{id}/change',[ProductController::class,'']); /// 
 
 //productLine
 Route::post('/product-lines/create',[ProductLineController::class,'create']);

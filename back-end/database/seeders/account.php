@@ -4,6 +4,9 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Schema;
 
 class account extends Seeder
 {
@@ -15,5 +18,12 @@ class account extends Seeder
     public function run()
     {
         //
+        DB::table('users')->insert([
+            'name' => 'test',
+            'email' => 'admin@gmail.com',
+            'password' => Hash::make('pass123'),
+            'created_at' => today(),
+        ]);
+        
     }
 }

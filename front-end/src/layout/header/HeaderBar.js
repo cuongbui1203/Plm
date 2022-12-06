@@ -21,8 +21,9 @@ function HeaderBar() {
     dispatch(actions.setLoading(''))
     if(response.success){
       dispatch(actions.setLogOutSuccess(''))
+      localStorage.removeItem('token')
       Notification("success","đăng xuất thành công")
-      navi('/')
+      // navi('/')
     } else {
       dispatch(actions.setLogoutFail(''))
       Notification("error","Đăng xuất thất bại")
