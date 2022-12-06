@@ -1,4 +1,10 @@
-import { SET_LOGOUT_SUCCESS, SET_LOGIN_BEGIN, SET_LOGIN_FAIL, SET_LOGIN_SUCCESS, SET_LOGOUT_FAIL} from "./constants"
+import { 
+    SET_LOGOUT_SUCCESS,
+    LOADING, 
+    SET_LOGIN_FAIL, 
+    SET_LOGIN_SUCCESS, 
+    SET_LOGOUT_FAIL
+} from "./constants"
 
 const initState = {
     isLogin: false,
@@ -9,7 +15,7 @@ function reducer(state,action){
     console.log('state: '+state)
     console.log('action.type: '+action.type)
     switch(action.type){
-       case SET_LOGIN_BEGIN:
+       case LOADING:
             return{
                 ...state,
                 isLoading: true
@@ -17,7 +23,7 @@ function reducer(state,action){
         case SET_LOGIN_SUCCESS:
             return {
                 isLogin:true,
-                isLoading: false
+                isLoading: false,
             }
         case SET_LOGIN_FAIL:
             return {

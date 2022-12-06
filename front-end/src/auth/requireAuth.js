@@ -1,4 +1,5 @@
 import { Outlet,Navigate } from "react-router-dom"
+import Loading from "../page/loading"
 import { useStore } from "../store"
 
 function RequiredAuth() {
@@ -7,7 +8,7 @@ function RequiredAuth() {
 
 
     if(isLoading){
-        return <></>
+        return <Loading show='yes' />
     }
     return <>{isLogin ? <Outlet />:<Navigate to="/" /> }</>
 }

@@ -1,9 +1,13 @@
 import axios from "axios";
+const config = {
+  headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+};
+
 
 async function loginApi(data){
   // axios.post('http://127.0.0.1:8000/api/user/login"')
     try {
-        const response = await axios.post("http://127.0.0.1:8000/api/user/login", data);
+        const response = await axios.post(process.env.REACT_APP_API_ENDPOINT + "/user/login", data);
         // console.log(response);
         return response.data;
       } catch (error) {
@@ -15,10 +19,14 @@ async function loginApi(data){
 async function logoutApi(){
   try{
     const response = await axios.post(
-      'http://127.0.0.1:8000/api/user/logout',
-      ''
+      process.env.REACT_APP_API_ENDPOINT + '/user/logout',
+      '',
+      {
+        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+      }
     )
-    return response;
+    console.log(response)
+    return response.data;
   } catch(e){
     return {
       success:false,
@@ -31,5 +39,3 @@ export {
   loginApi,
   logoutApi
 }
-
-

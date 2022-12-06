@@ -1,5 +1,5 @@
+/* eslint-disable jsx-a11y/img-redundant-alt */
 import React from "react";
-import axios from 'axios';
 import {
     MDBContainer,
     MDBCol,
@@ -10,17 +10,10 @@ import {
   from 'mdb-react-ui-kit';
 import Button from 'react-bootstrap/Button';
 import './Loginform.css'
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Notification from "../notification/notification";
-import { ToastContainer,toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { handleAuth } from "../../hook/authHook";
 import { useStore,actions } from "../../store";
-import { 
-    SET_LOGIN_BEGIN, 
-    SET_LOGIN_SUCCESS,
-    SET_LOGIN_FAIL
-} from "../../store/constants";
 import { loginApi } from "../../API/auth";
 
 
@@ -35,13 +28,13 @@ function LoginForm(){
             'password':document.getElementById('password').value
         }
         // console.log(data);
-        dispatch(actions.setLoginBegin(''))
+        dispatch(actions.setLoading(''))
         const response = await loginApi(data)
         console.log(response)
         if(response.success){
             console.log(response)
-            dispatch(actions.setLoginSuccess(''))
-            // navi('/home')
+            dispatch(actions.setLoginSuccess(response.data.token))
+            localStorage.setItem('token',response.data.token)
             Notification("success","Login Success")
             navigation('/home')
             console.log(state)
@@ -52,6 +45,16 @@ function LoginForm(){
         }
         console.log(state);
     }
+
+    const rememberMe = () =>{
+        let rememberCheckBox = document.getElementById('rememberCheckBox')
+        if(rememberCheckBox.checked){
+            localStorage.setItem('e',document.getElementById('email').value)
+            localStorage.setItem('p',document.getElementById('password').value)
+            Notification('info',"remember")
+        }
+    }
+
     return(
         <>
             <MDBContainer fluid className="p-3 my-5">
@@ -70,7 +73,7 @@ function LoginForm(){
 
 
                         <div className="d-flex justify-content-between mx-4 mb-4">
-                            <MDBCheckbox name='flexCheck' value='' id='flexCheckDefault' label='Remember me' />
+                            <MDBCheckbox name='flexCheck' value='' id='rememberCheckBox' label='Remember me' onChange={rememberMe}/>
                             <a href="!#">Forgot password?</a>
                         </div>
 
@@ -81,7 +84,6 @@ function LoginForm(){
                 </MDBRow>
 
             </MDBContainer>
-            {/* <ToastContainer autoClose={false} draggableDirection="y" /> */}
 
         </>
     );

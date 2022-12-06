@@ -6,11 +6,15 @@ import { useStore } from './store';
 import { Routes, Route } from "react-router-dom";
 import Authenticator from './auth/Authenticator';
 import RequiredAuth from './auth/requireAuth';
+import { Spinner } from 'react-bootstrap';
+import Loading from './page/loading';
+import HashLoader from "react-spinners/HashLoader";
 function App() {
   const [state,dispatch] = useStore()
   console.log(state)
   
-  return (
+  return ( 
+    <>
       <Routes>
         <Route path="/" element={<Authenticator />} > 
           <Route path="/" element={<LoginForm />} />
@@ -20,7 +24,8 @@ function App() {
         </Route>
           {/* <Route path="contact" element={<Contact />} />
           <Route path="*" element={<NoPage />} /> */}
-      </Routes>
+        </Routes>
+      </>
   );
 }
 

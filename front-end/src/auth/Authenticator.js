@@ -1,16 +1,16 @@
-import { Navigate, Outlet, useLocation, useNavigate } from "react-router-dom";
+import { Navigate, Outlet, useLocation } from "react-router-dom";
+import Loading from "../page/loading";
 import Product from "../page/product/Product";
 import { useStore } from "../store";
 
 function Authenticator(){
-    const navigation = useNavigate()
     const location = useLocation()
     console.log('Auth')
     const [state,dispatch] = useStore()
     const {isLogin,isLoading} = state
     let body;
     if(isLoading){
-        body = <></>
+        body = <Loading show='yes' />
     }else if(isLogin){
         // navigation('/home')
         console.log(state)

@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Laravel\Sanctum\PersonalAccessToken;
 class create_user extends Controller
 {
     /**
@@ -82,9 +83,16 @@ class create_user extends Controller
     public function logout(Request $request)
     {
         # code...
-        Auth::logout();
+        // Get bearer token from the request
+        $accessToken = $request->bearerToken();
+    
+        // Get access token from database
+        $token = PersonalAccessToken::findToken($accessToken);
 
-        return $this->sendResponse('ok','Logout success');
+        // Revoke token
+        $token->delete();
+        Auth::logout();
+        return $this->sendResponse(['ok'],'Logout success');
     }
     /**
      * Store a newly created resource in storage.

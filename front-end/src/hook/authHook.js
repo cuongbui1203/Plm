@@ -1,8 +1,8 @@
 import { useStore } from "../store"
 import { 
-    SET_LOGIN_BEGIN,
     SET_LOGIN_SUCCESS,
-    SET_LOGIN_FAIL
+    SET_LOGIN_FAIL,
+    LOADING
 } from "../store/constants"
 import { loginApi } from '../API/auth' 
 import Notification from "../components/notification/notification"
@@ -10,7 +10,7 @@ import Notification from "../components/notification/notification"
 const handleAuth = async (data) =>{
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const [ state,dispatch] = useStore()
-    dispatch(state,SET_LOGIN_BEGIN)
+    dispatch(state,LOADING)
     const response = await loginApi(data)
     if(response.success){
         console.log(response)
@@ -22,6 +22,12 @@ const handleAuth = async (data) =>{
         Notification('error','Login Fail')
     }
     console.log(state)
+}
+
+const handleGetProducts = async () =>{
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const [ state,dispatch] = useStore()
+    
 }
 
 export {handleAuth}

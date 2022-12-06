@@ -1,7 +1,11 @@
 import React from 'react';
 import { data } from '../../data';
+import { handleGetAllProduct } from '../../hook/productHook';
 import {HeaderBar,SideBar} from '../../layout';
 import './Product.css'
+
+
+
 function Product() {
     return (
         <div>
@@ -10,7 +14,8 @@ function Product() {
             <section id="sc" className="product">
                 <div className="container" >
                     <div className="row" >
-                        {data.map((course, index) => {
+                        {   handleGetAllProduct()
+                            /* data.map((course, index) => {
                             return (
                                 <div className="col-xl-3 col-lg-4 col-md-6 col-sm-12 product-item card" key={index} >
                                     
@@ -22,7 +27,8 @@ function Product() {
                                     
                                 </div>
                             )
-                        })}
+                        }) */
+                        }
                     </div>
                 </div>
             </section>

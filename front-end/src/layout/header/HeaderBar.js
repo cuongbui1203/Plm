@@ -18,7 +18,7 @@ function HeaderBar() {
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const {isLogin,isLoading} = state
     let response = await logoutApi()
-    dispatch(actions.setLoginBegin(''))
+    dispatch(actions.setLoading(''))
     if(response.success){
       dispatch(actions.setLogOutSuccess(''))
       Notification("success","đăng xuất thành công")

@@ -1,13 +1,13 @@
 import {
-    SET_LOGIN_BEGIN,
+    LOADING,
     SET_LOGIN_SUCCESS,
     SET_LOGIN_FAIL,
     SET_LOGOUT_SUCCESS,
     SET_LOGOUT_FAIL
 } from './constants'
 
-const setLoginBegin = payload =>({
-    type: SET_LOGIN_BEGIN,
+const setLoading = payload =>({
+    type: LOADING,
     payload
 })
 
@@ -31,7 +31,7 @@ const setLogoutFail = () =>({
 })
 
 export {
-    setLoginBegin,
+    setLoading,
     setLoginSuccess,
     setLoginFail,
     setLogOutSuccess,
