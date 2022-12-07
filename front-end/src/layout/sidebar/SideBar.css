@@ -13,6 +13,35 @@
     font-size: 1.2rem;
 }
 
+.bt {
+    margin-left: 2px;
+    margin-top: 5px;
+    
+    border-radius: 50% !important;
+    }
+
+ul.sort li.sortBy {
+    cursor: pointer;
+}
+
+ul.sort li.sortBy span.arrow::after {
+    content: "\2191";
+}
+
+ul.sort li.asc span.arrow::after {
+    content: "\2191";
+    background-color: yellow;
+    color: red;
+    font-weight: bold;
+}
+
+ul.sort li.desc span.arrow::after {
+    content: "\2193";
+    background-color: yellow;
+    color: red;
+    font-weight: bold;
+}
+
 #page-content-wrapper {
     min-width: 0;
     width: 20%;
@@ -21,8 +50,13 @@
 
 #b {
     width: 15%;
-    background: #ff00802b !important;
+    background: #f1acce2b !important;
+    border-right: 2px solid rgb(98, 69, 69);
     position: fixed;
     height: 100%;
     top: 60px;
+}
+
+.btns {
+    width:  60% !important;
 }

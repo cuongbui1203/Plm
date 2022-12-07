@@ -67,19 +67,20 @@ function LoginForm(){
                         </MDBCol>
 
                         <MDBCol col='4' md='6' center='true'>
+                            <div style={{marginRight: "5%", marginTop: "2%"}}>
+                                <MDBInput wrapperClass='mb-4'  id='email' type='email' size="lg" placeholder="Email"/>
+                                <MDBInput wrapperClass='mb-4'  id='password' type='password' size="lg" placeholder="Mật khẩu"/>
 
 
-                            <MDBInput wrapperClass='mb-4'  id='email' type='email' size="lg" placeholder="Email"/>
-                            <MDBInput wrapperClass='mb-4'  id='password' type='password' size="lg" placeholder="Mật khẩu"/>
+                                <div className="d-flex justify-content-between mx-4 mb-4">
+                                    <MDBCheckbox name='flexCheck' value='' id='rememberCheckBox' label='Remember me' onChange={rememberMe}/>
+                                    <a href="!#">Forgot password?</a>
+                                </div>
 
+                                <Button variant="primary" className="mb-3 w-100" onClick={login}>login</Button>
 
-                            <div className="d-flex justify-content-between mx-4 mb-4">
-                                <MDBCheckbox name='flexCheck' value='' id='rememberCheckBox' label='Remember me' onChange={rememberMe}/>
-                                <a href="!#">Forgot password?</a>
                             </div>
-
-                            <Button variant="primary" className="mb-3 w-100" onClick={login}>login</Button>
-
+                            
                         </MDBCol>
 
                     </MDBRow>

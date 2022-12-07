@@ -41,8 +41,16 @@ function HeaderBar() {
             navbarScroll
           >
             <Nav.Link href="/home">Home</Nav.Link>
-            <Nav.Link href="#" disabled>"chức vụ"</Nav.Link>
-            <NavDropdown title="User" id="navbarScrollingDropdown">
+          </Nav>
+          <Nav>
+            <NavDropdown title="Chức vụ" id="navbarScrollingDropdown" align="end">
+              <NavDropdown.Item href="#infor">thêm</NavDropdown.Item>
+              <NavDropdown.Item href="#setting">sửa</NavDropdown.Item>
+              <NavDropdown.Divider />
+              <NavDropdown.Item href="#lobby">xóa</NavDropdown.Item>
+              <NavDropdown.Item onClick={logout}>Đăng xuất</NavDropdown.Item>
+            </NavDropdown>
+            <NavDropdown title="User" id="navbarScrollingDropdown" align="end">
               <NavDropdown.Item href="#infor">Hồ sơ</NavDropdown.Item>
               <NavDropdown.Item href="#setting">Cài đặt</NavDropdown.Item>
               <NavDropdown.Divider />
@@ -50,15 +58,6 @@ function HeaderBar() {
               <NavDropdown.Item onClick={logout}>Đăng xuất</NavDropdown.Item>
             </NavDropdown>
           </Nav>
-          <Form className="d-flex">
-            <Form.Control
-              type="search"
-              placeholder="Search"
-              className="me-2"
-              aria-label="Search"
-            />
-            <Button variant="outline-success">Search</Button>
-          </Form>
         </Navbar.Collapse>
       </Container>
     </Navbar>
