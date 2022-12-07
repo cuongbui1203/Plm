@@ -7,18 +7,14 @@ import Authenticator from './auth/Authenticator';
 import RequiredAuth from './auth/requireAuth';
 function App() {
   return ( 
-    <>
       <Routes>
-        <Route path="/" element={<Authenticator />} > 
+        <Route exact path="/login" element={<Authenticator />} > 
           <Route path="/login" element={<LoginForm />} />
         </Route>
-        <Route path="/" element={<RequiredAuth />}> 
+        <Route exact path="/" element={<RequiredAuth />}> 
           <Route path="/home" element={<Product />} />
         </Route>
-          {/* <Route path="contact" element={<Contact />} />
-          <Route path="*" element={<NoPage />} /> */}
-        </Routes>
-      </>
+      </Routes>
   );
 }
 
