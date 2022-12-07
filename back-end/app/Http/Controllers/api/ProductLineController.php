@@ -37,9 +37,9 @@ class ProductLineController extends Controller
         $validator = Validator::make($response->all(),[
             'name'=>'required',
             'info'=>'required',
-            'quantity'=>'required',
-            'batch'=>'required',
-            'idFactory'=>'required'
+            'bath'=>'required',
+            'idFactory'=>'required',
+            
         ]);
         if($validator->fails()){
             return $this->sendError('Not validate',$validator->errors());

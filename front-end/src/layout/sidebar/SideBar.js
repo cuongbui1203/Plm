@@ -1,14 +1,72 @@
-import React from "react";
-import {Container, Nav, NavDropdown, NavItem} from "react-bootstrap";
+import React, { useState } from "react";
+import {Container, Modal, Nav, NavDropdown, NavItem} from "react-bootstrap";
 import './SideBar.css'
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { IoRefresh } from "react-icons/io5";
 import { IoAdd } from "react-icons/io5";
 import { AiFillDelete } from "react-icons/ai";
-
-
+import {getAllProductLine,createProduct} from '../../API/productApi'
+import Select from 'react-select'
+import Notification from "../../components/notification/notification";
 function SideBar() {
+  const [show,setShow] = useState(false)
+
+  const [productLines,handle] = useState([])
+
+  const [selectId,setId] = useState(-1)
+
+  const handleGetProductLine = async () =>{
+    let response = await getAllProductLine()
+    console.log(response.data)
+    if(response.success){
+      let res = []
+      response.data.map((item,index)=>{
+        console.log(item.name)
+        console.log(item.productLineId)
+        let tg = {
+          label:item.name,
+          value:item.productLineId
+        }
+        res.push(tg)
+      })
+      
+      handle(res)
+    }
+  }
+
+
+
+  const handleShow = () => {
+    handleGetProductLine()
+    setShow(true)
+  }
+  const handleClose = () => setShow(false)
+  
+  const handleChange = (e) =>{
+    setId(e.value)
+  }
+
+  const handleSend = async () =>{
+    console.log('id: ' + selectId);
+    console.log('sl: ' + document.getElementById('numOfProduct').value);
+    let data = {
+      'idProductLine': selectId,
+      'name':'string',
+      'num':document.getElementById('numOfProduct').value,
+      'isStatus':0,
+      'batch':'string'
+
+    }
+    let response = await createProduct(data)
+    if(response.success){
+      Notification('success','Tạo sản phẩm thành công')
+    }else{
+      Notification('error','tạo sản phẩm thất bại')
+    }
+    handleClose()
+  }
+
     return (
         <div>
             <Nav id="b" className="col-md-12 d-none d-md-block bg-dark sidebar"
@@ -16,7 +74,7 @@ function SideBar() {
             onSelect={selectedKey => alert(`selected ${selectedKey}`)}
         >
           
-                <Button variant="outline-success" className="bt"> <IoAdd /> </Button>
+                <Button variant="outline-success" className="bt" onClick={handleShow}> <IoAdd /> </Button>
                 <Button variant="outline-danger" className="bt"><AiFillDelete /></Button>
                 <Button variant="outline-primary" className="bt"><IoRefresh /></Button>
             
@@ -82,7 +140,37 @@ function SideBar() {
                   </li>
                 </ul>
             </Nav>
-          
+
+
+
+
+            <Modal show={show} onHide={handleClose} >
+              <Modal.Header closeButton>
+                <Modal.Title>Tạo sản phẩm</Modal.Title>
+              </Modal.Header>
+              <Modal.Body>
+                <div>
+                  <label>
+                    Dòng sản phẩm
+                  </label>
+                  <Select options={productLines} id='idProductLineSelect' onChange={handleChange} />
+                </div>
+                <div>
+                  <label >Số lượng Sản phẩm</label><br/>
+                  <input type='number' id='numOfProduct'></input>
+                </div>
+              </Modal.Body>
+              <Modal.Footer>
+                <Button variant="secondary" onClick={handleClose}>
+                  Huỷ
+                </Button>
+                <Button variant="primary" onClick={handleSend}>
+                  Xác nhận
+                </Button>
+              </Modal.Footer>
+            </Modal>
+        
+        
         </div>
         );
 }

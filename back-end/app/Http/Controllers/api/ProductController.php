@@ -66,7 +66,7 @@ class ProductController extends Controller
                 $product = new Product();
                 $product->productId = Product::createId($request->idProductLine,$i);
                 $product->name = $name;
-                $product->idStatus = 0;
+                $product->idStatus = 1;
                 $product->idProductLine=$request->idProductLine;
                 $product->history = $request->idProductLine;
                 $product->save();

@@ -27,5 +27,6 @@ class ProductLine extends Model
         'info',
         'quantity',
         'batch',
+        'imgPath'
     ];
 }

@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('info');
             $table->string('batch');
             $table->integer('quantity');
+            $table->string('imgPath')->nullable();
             $table->timestamps();
         });
     }

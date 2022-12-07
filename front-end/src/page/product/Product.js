@@ -28,7 +28,10 @@ function Product() {
         <HeaderBar />
         <SideBar />
             <section id="sc" className="product">
+            
             <Button onClick={getProduct} >name</Button>
+            
+            
                 <div className="container" >
                     <div className="row" >
                         {   //handleGetAllProduct()
