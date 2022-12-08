@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\ProductLine;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use TheSeer\Tokenizer\Exception;
@@ -48,7 +49,7 @@ class ProductLineController extends Controller
             $productLine = new ProductLine();
             $productLine->productLineId = ProductLine::createId($response->idFactory,"123");
             $productLine->save();
-            return $this->sendResponse($productLine,"thanh cong");
+            return $this->sendResponse($productLine,"thanh cong",Response::HTTP_CREATED);
         } catch(Exception $e){
             return $this->sendError('error',$e);
         }
