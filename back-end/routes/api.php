@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\create_user;
+use App\Http\Controllers\Api\ImageController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\ProductLineController;
 use App\Http\Controllers\Api\StatusController;
@@ -44,6 +45,8 @@ Route::post('/product-lines/create',[ProductLineController::class,'create']);
 Route::get('/product-lines',[ProductLineController::class,'index']);
 Route::get('/product-lines/{id}',[ProductLineController::class,'getId']);
 
+//img
+Route::post('/image', [ImageController::class, 'store']);
 // Route::group(['middleware'=>'auth:sanctum'],function(){
 //     //user
 //     Route::post('/logout',[create_user::class,'logout']);

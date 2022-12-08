@@ -14,9 +14,9 @@ class Controller
     /**
      * success response method.
      *
-     * @return \Illuminate\Http\JsonResponse \Illuminate\Http\JsonResponse
+     * @return \Illuminate\Http\JsonResponse 
      */
-    public function sendResponse($result, $message)
+    public function sendResponse($result, $message, $httpCode = 200)
     {
     	$response = [
             'success' => true,
@@ -26,7 +26,7 @@ class Controller
         ];
 
 
-        return response()->json($response, 200);
+        return response()->json($response, $httpCode);
     }
 
 
