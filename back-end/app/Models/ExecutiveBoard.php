@@ -10,4 +10,9 @@ use Illuminate\Database\Eloquent\Model;
 class ExecutiveBoard extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'id',
+        'name',
+        'address'
+    ];
 }
