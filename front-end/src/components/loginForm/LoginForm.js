@@ -67,7 +67,8 @@ function LoginForm(){
                         </MDBCol>
 
                         <MDBCol col='4' md='6' center='true'>
-                            <div style={{marginRight: "5%", marginTop: "2%"}}>
+                            <div style={{ marginTop: "2%", marginLeft: "2%", maxWidth: "420px" }}>
+                                <h2>Đăng nhập</h2>
                                 <MDBInput wrapperClass='mb-4'  id='email' type='email' size="lg" placeholder="Email"/>
                                 <MDBInput wrapperClass='mb-4'  id='password' type='password' size="lg" placeholder="Mật khẩu"/>
 

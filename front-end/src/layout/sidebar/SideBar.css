@@ -50,7 +50,7 @@ ul.sort li.desc span.arrow::after {
 
 #b {
     width: 15%;
-    background: #f1acce2b !important;
+    background: #fdfafc2b !important;
     border-right: 2px solid rgb(98, 69, 69);
     position: fixed;
     height: 100%;
@@ -59,4 +59,11 @@ ul.sort li.desc span.arrow::after {
 
 .btns {
     width:  60% !important;
+}
+
+#numOfProduct {
+    width: 100%;
+    border-radius: 5px;
+    padding: 5px;
+    border: 1px solid grey;
 }

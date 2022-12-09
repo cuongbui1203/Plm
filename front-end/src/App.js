@@ -1,11 +1,12 @@
 import './App.css';
 import Product from './page/product/Product';
 import LoginForm from './components/loginForm/LoginForm';
-
+import AdvancedExample from './page/product/Pagination';
 import { Routes, Route } from "react-router-dom";
 import Authenticator from './auth/Authenticator';
 import RequiredAuth from './auth/requireAuth';
 import { SideBar, HeaderBar } from './layout';
+import RegisterForm from './components/registerForm/registerForm';
 function App() {
   return ( 
       // <Routes>
@@ -17,22 +18,17 @@ function App() {
       //   </Route>
       // </Routes>
     <div>
-      {/* <Login /> */}
       <div>
-
       <HeaderBar />
       </div>
       <div>
       <SideBar />
-
       </div>
       <div>
       <Product />
-
-      </div>
-
-
-    </div>
+     </div>
+    // </div>
+    // <RegisterForm />
   );
 }
 

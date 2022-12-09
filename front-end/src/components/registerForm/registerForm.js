@@ -25,77 +25,44 @@ function register(){
 
 export default function RegisterForm() {
   return (
-        <>
-            <div className='d-flex justify-content-center sm'>
-                <img src='Logo.jpg' alt='Logo' ></img>
-            </div> 
-            <div className="Auth-form-container">
-            
-
-
-            <div className="Auth-form">
-                <div className="Auth-form-content">
-                    <h3 className="Auth-form-title">Register</h3>
-                    <div className="form-group mt-3">
-                        <label>name</label>
-                        <input
-                            type="text"
-                            className="form-control mt-1"
-                            placeholder="Enter name"
-                            id="name"
-                        />
-                    </div>
-                    <div className="form-group mt-3">
-                        <label>Email address</label>
-                        <input
-                            type="email"
-                            className="form-control mt-1"
-                            placeholder="Enter email"
-                            id='email'
-                        />
-                    </div>
-                    
-                    <div className="form-group mt-3">
-                        <label>Address</label>
-                        <input
-                            type="text"
-                            className="form-control mt-1"
-                            placeholder="Enter address"
-                            id='address'
-                        />
-                    </div>
-                    <div className="form-group mt-3">
-                        <label>Password</label>
-                        <input
-                            type="password"
-                            className="form-control mt-1 "
-                            placeholder="Enter password"
-                            id='password'
-                        />
-                    </div>
-                    <div className="form-group mt-3">
-                        <label>Password confirm</label>
-                        <input
-                            type="password"
-                            className="form-control mt-1 "
-                            placeholder="Enter password confirm"
-                            id='password_confirm'
-                        />
-                    </div>
-                    <div className="d-grid gap-2 mt-3">
-                        <button 
-                            type="submit" 
-                            className="btn btn-primary"
-                            onClick={register} 
-                        >
-                                Submit
-                        </button>
-                    </div>
-                        <div className='d-flex justify-content-center'>
-                    </div>
+        <div id="wrapper">
+          <div className="box" >
+              <div className='form'>
+                <h3>Tạo tài khoản</h3>
+                <div className="form-group">
+                    <input type="text" name="name" required />
+                    <span>Tên</span>
+                    <i></i>  
                 </div>
+                <div className="form-group">
+                    <input type="text" name="email" required />
+                    <span>Email</span>
+                    <i></i>  
+                </div>
+                <div className="form-group">
+                    <input type="password" name="password" required />
+                    <span>Mật khẩu</span>
+                    <i></i>
+                </div>
+                <div className="form-group">
+                    <input type="password" name="password" required />
+                    <span>Nhập lại mật khẩu</span>
+                    <i></i>
+                </div>
+                <div className="form-group">
+                    <input type="text" name="address" required />
+                    <span>Nơi làm việc</span>
+                    <i></i>
+                </div>
+                <div className="form-group">
+                    <input type="text" name="Chuc" required />
+                    <span>Chức vụ</span>
+                    <i></i>
+                </div>  
+                <input type="submit" defaultValue="Đăng nhập" id="btn-login" />
+               </div>
             </div>
-    </div>
-    </>
+        </div>
+
   );
 }
