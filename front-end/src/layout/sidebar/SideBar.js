@@ -16,14 +16,15 @@ function SideBar() {
 
   const [selectId,setId] = useState(-1)
 
+  
   const handleGetProductLine = async () =>{
     let response = await getAllProductLine()
     console.log(response.data)
     if(response.success){
       let res = []
       response.data.map((item,index)=>{
-        console.log(item.name)
-        console.log(item.productLineId)
+        // console.log(item.name)
+        // console.log(item.productLineId)
         let tg = {
           label:item.name,
           value:item.productLineId
@@ -142,9 +143,7 @@ function SideBar() {
             </Nav>
 
 
-
-
-            <Modal show={show} onHide={handleClose} >
+            <Modal show={show} onHide={handleClose} className='modal-custom'>
               <Modal.Header closeButton>
                 <Modal.Title>Tạo sản phẩm</Modal.Title>
               </Modal.Header>
