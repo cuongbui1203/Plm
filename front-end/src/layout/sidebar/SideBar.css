@@ -51,10 +51,17 @@ ul.sort li.desc span.arrow::after {
 #b {
     width: 15%;
     background: #fdfafc2b !important;
-    border-right: 2px solid rgb(98, 69, 69);
     position: fixed;
     height: 100%;
     top: 60px;
+}
+
+#b input {
+    height: 30px;   
+}
+
+#b button.btns {
+    padding: 0;
 }
 
 .btns {
