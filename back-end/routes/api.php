@@ -7,6 +7,8 @@ use App\Http\Controllers\Api\ImageController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\ProductLineController;
 use App\Http\Controllers\Api\StatusController;
+use App\Http\Controllers\NotificationController;
+use App\Models\Role;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,8 +47,16 @@ Route::post('/product-lines/create',[ProductLineController::class,'create']);
 Route::get('/product-lines',[ProductLineController::class,'index']);
 Route::get('/product-lines/{id}',[ProductLineController::class,'getId']);
 
+Route::get('/notifications/{id}', [NotificationController::class, 'show']);
+Route::post('/notifications/create', [NotificationController::class, 'create']);
 //img
 Route::post('/image', [ImageController::class, 'store']);
+Route::get('/image/get/{path}', [ImageController::class, 'getImage']);
+
+//notification
+Route::get('/notifications/sended/{id}',[NotificationController::class,'showSendNotification']);
+Route::get('/notifications/recv/{id}', [NotificationController::class, 'showRecvNotification']);
+Route::put('notifications/accept/', [NotificationController::class, 'acceptNotification']);
 // Route::group(['middleware'=>'auth:sanctum'],function(){
 //     //user
 //     Route::post('/logout',[create_user::class,'logout']);

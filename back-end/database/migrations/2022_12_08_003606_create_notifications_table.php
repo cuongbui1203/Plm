@@ -17,8 +17,8 @@ return new class extends Migration
             $table->id();
             $table->string('idSender');
             $table->string('idReceiver');
-            $table->string('message');
-            
+            $table->string('data');
+            $table->boolean('accepted');
             $table->timestamps();
         });
     }
