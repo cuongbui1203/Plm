@@ -11,10 +11,11 @@ import Select from "react-select";
 import Notification from "../../components/notification/notification";
 const SideBar = () => {
   const [show, setShow] = useState(false);
-  const [visible, setVisible] = useState(true);
+  const [visible, setVisible] = useState(false);
   const [productLines, handle] = useState([]);
 
   const [selectId, setId] = useState(-1);
+  
 
   const handleGetProductLine = async () => {
     let response = await getAllProductLine();
@@ -67,6 +68,12 @@ const SideBar = () => {
   const handleClick = () => {
     setVisible(!visible);
   };
+<<<<<<< HEAD
+=======
+  useEffect(() => {
+    console.log(visible);
+  }, [visible]);
+>>>>>>> 4c17723d8eb03da2b946b28665dbbe57ae20364f
 
   return (
     <div>
@@ -79,6 +86,107 @@ const SideBar = () => {
         <Button onClick={handleClick}>
           <AiFillDelete />
         </Button>
+<<<<<<< HEAD
+=======
+        {/* {visible && ( */}
+        <div style={{ display: visible ? "block" : "none" }}>
+          <Button variant="outline-success" className="bt" onClick={handleShow}>
+            {" "}
+            <IoAdd />{" "}
+          </Button>
+          <Button variant="outline-danger" className="bt">
+            <AiFillDelete />
+          </Button>
+          <Button variant="outline-primary" className="bt">
+            <IoRefresh />
+          </Button>
+        </div>
+        {/* )} */}
+
+        {/* {visible && ( */}
+        <div style={{ display: visible ? "block" : "none" }}>
+          <ul className="list-group list-group-flush">
+            {" "}
+            &ensp;Search by:
+            <li className="list-group-item">
+              {" "}
+              {/* ID: */}
+              <Form className="d-flex">
+                <Form.Control
+                  type="search"
+                  placeholder="ID"
+                  className="me-2"
+                  aria-label="Search"
+                />
+                <Button variant="outline-success" className="btns">
+                  <IoAdd />
+                </Button>
+              </Form>
+            </li>
+            <li className="list-group-item">
+              {/* Date: */}
+              <Form className="d-flex">
+                <Form.Control
+                  type="search"
+                  placeholder="Date"
+                  className="me-2"
+                  aria-label="Search"
+                />
+                <Button variant="outline-success" className="btns">
+                  <IoAdd />
+                </Button>
+              </Form>
+            </li>
+            <li className="list-group-item">
+              {/* Kho: */}
+              <Form className="d-flex">
+                <Form.Control
+                  type="search"
+                  placeholder="Kho"
+                  className="me-2"
+                  aria-label="Search"
+                />
+                <Button variant="outline-success" className="btns">
+                  <IoAdd />
+                </Button>
+              </Form>
+            </li>
+            <li className="list-group-item">
+              {/* Time: */}
+              <Form className="d-flex">
+                <Form.Control
+                  type="search"
+                  placeholder="Time"
+                  className="me-2"
+                  aria-label="Search"
+                />
+                <Button variant="outline-success" className="btns">
+                  <IoAdd />
+                </Button>
+              </Form>
+            </li>
+          </ul>
+
+          <ul className="list-group list-group-flush sort" id="sortList">
+            {" "}
+            &ensp;Sort by:
+            <li className="list-group-item sortBy" id="SortA-Z">
+              A-Z
+              <span className="arrow"></span>
+            </li>
+            <li className="list-group-item sortBy" id="SortDate">
+              Date
+              <span class="arrow"></span>
+            </li>
+            <li className="list-group-item sortBy" id="SortQ">
+              Quantity
+              <span class="arrow"></span>
+            </li>
+          </ul>
+        </div>
+        {/* )} */}
+=======
+>>>>>>> 4c17723d8eb03da2b946b28665dbbe57ae20364f
         {visible && (
           <div>
             <Button
@@ -160,6 +268,61 @@ const SideBar = () => {
                 </Form>
               </li>
             </ul>
+<<<<<<< HEAD
+
+            <ul className="list-group list-group-flush sort" id="sortList">
+              {" "}
+              &ensp;Sort by:
+              <li className="list-group-item sortBy" id="SortA-Z">
+                A-Z
+                <span className="arrow"></span>
+              </li>
+              <li className="list-group-item sortBy" id="SortDate">
+                Date
+                <span class="arrow"></span>
+              </li>
+              <li className="list-group-item sortBy" id="SortQ">
+                Quantity
+                <span class="arrow"></span>
+              </li>
+            </ul>
+          </div>
+        )}
+      </Nav>
+
+      <Modal show={show} onHide={handleClose} className="modal-custom">
+        <Modal.Header closeButton>
+          <Modal.Title>Tạo sản phẩm</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <div>
+            <label>Dòng sản phẩm</label>
+            <Select
+              options={productLines}
+              id="idProductLineSelect"
+              onChange={handleChange}
+            />
+          </div>
+          <div>
+            <label>Số lượng Sản phẩm</label>
+            <br />
+            <input type="number" id="numOfProduct"></input>
+          </div>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Huỷ
+          </Button>
+          <Button variant="primary" onClick={handleSend}>
+            Xác nhận
+          </Button>
+        </Modal.Footer>
+      </Modal>
+    </div>
+  );
+};
+=======
+>>>>>>> 4c17723d8eb03da2b946b28665dbbe57ae20364f
 
             <ul className="list-group list-group-flush sort" id="sortList">
               {" "}

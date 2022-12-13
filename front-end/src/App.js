@@ -7,6 +7,8 @@ import Authenticator from './auth/Authenticator';
 import RequiredAuth from './auth/requireAuth';
 import { SideBar, HeaderBar } from './layout';
 import RegisterForm from './components/registerForm/registerForm';
+import Admin from './components/Admin/Admin'
+
 function App() {
   return ( 
       // <Routes>
@@ -26,8 +28,10 @@ function App() {
       </div>
       <div>
         <Product />
-     </div>
-   </div>
+      </div>
+      
+    </div>
+    
     // <RegisterForm />
   );
 }

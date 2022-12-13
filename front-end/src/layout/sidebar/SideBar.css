@@ -16,9 +16,9 @@
 .bt {
     margin-left: 2px;
     margin-top: 5px;
-    
+
     border-radius: 50% !important;
-    }
+}
 
 ul.sort li.sortBy {
     cursor: pointer;
@@ -45,7 +45,7 @@ ul.sort li.desc span.arrow::after {
 #page-content-wrapper {
     min-width: 0;
     width: 20%;
-    
+
 }
 
 #b {
@@ -65,7 +65,7 @@ ul.sort li.desc span.arrow::after {
 }
 
 .btns {
-    width:  60% !important;
+    width: 60% !important;
 }
 
 #numOfProduct {
