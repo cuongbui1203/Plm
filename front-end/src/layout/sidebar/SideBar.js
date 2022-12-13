@@ -15,6 +15,7 @@ const SideBar = () => {
   const [productLines, handle] = useState([]);
 
   const [selectId, setId] = useState(-1);
+  
 
   const handleGetProductLine = async () => {
     let response = await getAllProductLine();
@@ -179,6 +180,107 @@ const SideBar = () => {
           </ul>
         </div>
         {/* )} */}
+=======
+        {visible && (
+          <div>
+            <Button
+              variant="outline-success"
+              className="bt"
+              onClick={handleShow}>
+              {" "}
+              <IoAdd />{" "}
+            </Button>
+            <Button variant="outline-danger" className="bt">
+              <AiFillDelete />
+            </Button>
+            <Button variant="outline-primary" className="bt">
+              <IoRefresh />
+            </Button>
+          </div>
+        )}
+
+        {visible && (
+          <div>
+            <ul className="list-group list-group-flush">
+              {" "}
+              &ensp;Search by:
+              <li className="list-group-item">
+                {" "}
+                {/* ID: */}
+                <Form className="d-flex">
+                  <Form.Control
+                    type="search"
+                    placeholder="ID"
+                    className="me-2"
+                    aria-label="Search"
+                  />
+                  <Button variant="outline-success" className="btns">
+                    <IoAdd />
+                  </Button>
+                </Form>
+              </li>
+              <li className="list-group-item">
+                {/* Date: */}
+                <Form className="d-flex">
+                  <Form.Control
+                    type="search"
+                    placeholder="Date"
+                    className="me-2"
+                    aria-label="Search"
+                  />
+                  <Button variant="outline-success" className="btns">
+                    <IoAdd />
+                  </Button>
+                </Form>
+              </li>
+              <li className="list-group-item">
+                {/* Kho: */}
+                <Form className="d-flex">
+                  <Form.Control
+                    type="search"
+                    placeholder="Kho"
+                    className="me-2"
+                    aria-label="Search"
+                  />
+                  <Button variant="outline-success" className="btns">
+                    <IoAdd />
+                  </Button>
+                </Form>
+              </li>
+              <li className="list-group-item">
+                {/* Time: */}
+                <Form className="d-flex">
+                  <Form.Control
+                    type="search"
+                    placeholder="Time"
+                    className="me-2"
+                    aria-label="Search"
+                  />
+                  <Button variant="outline-success" className="btns">
+                    <IoAdd />
+                  </Button>
+                </Form>
+              </li>
+            </ul>
+
+            <ul className="list-group list-group-flush sort" id="sortList">
+              {" "}
+              &ensp;Sort by:
+              <li className="list-group-item sortBy" id="SortA-Z">
+                A-Z
+                <span className="arrow"></span>
+              </li>
+              <li className="list-group-item sortBy" id="SortDate">
+                Date
+                <span class="arrow"></span>
+              </li>
+              <li className="list-group-item sortBy" id="SortQ">
+                Quantity
+                <span class="arrow"></span>
+              </li>
+            </ul>
+          </div>
+        )}
       </Nav>
 
       <Modal show={show} onHide={handleClose} className="modal-custom">

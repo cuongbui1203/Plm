@@ -11,7 +11,8 @@ class Notification extends Model
     protected $fillable = [
         'sender',
         'receiver',
-        'message'
+        'data',
+        'accepted'
     ];
 
     

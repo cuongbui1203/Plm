@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Image;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
@@ -19,7 +20,7 @@ class create_user extends Controller
      * @param array $data
      * @return \App\Models\User
      */
-    public function create(array $data)
+    private function create(array $data)
     {
         return User::create([
             'name'=>$data['name'],
@@ -41,13 +42,19 @@ class create_user extends Controller
             'name'=>'required',
             'email'=>'required|email',
             'password' => 'confirmed|min:6',
-            'wordPlateId' =>'required'
+            'wordPlateId' =>'required',
+            'image'=>'required|image|mimes:jpg,png,jpeg,gif,svg'
         ]);
         if($validator->fails()){
             return $this->sendError('Validation Error.',$validator->errors(),500);
         }
+        $image_path = $request->file('image')->store('public');
+        $image = Image::create([
+            'img' => $image_path
+        ]);
         $input = $request->all();
         $input['password'] = bcrypt($input['password']);
+        $input['image'] = $image->id;
         try{
             $user = $this->create($input);
             $success['name'] =  $user->name;
@@ -71,8 +78,12 @@ class create_user extends Controller
         if(Auth::attempt(['email' => $request->email, 'password' => $request->password])){
             $user = Auth::user();
             $success['token'] =  $user->createToken('MyApp')->plainTextToken;
+            // $user->currentAccessToken();
             $success['name'] =  $user->name;
-
+            if($user->imageId != null)
+                $success['imageId'] = DB::table('images')->select('img')->where('id','=',$user->imageId);
+            else
+                $success['imageId'] = null;
             return $this->sendResponse($success, 'User login successfully.');
         }
         else{

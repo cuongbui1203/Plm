@@ -19,6 +19,7 @@ function App() {
       //     <Route path="/home" element={<Product />} />
       //   </Route>
       // </Routes>
+<<<<<<< HEAD
     // <div>
     //   <div>
     //   <HeaderBar />
@@ -33,6 +34,20 @@ function App() {
     <Admin />
     //  <RegisterForm />
     // <PaginatedItems />
+=======
+    <div>
+      <div>
+        <HeaderBar />
+      </div>
+      <div>
+        <SideBar />
+      </div>
+      <div>
+        <Product />
+     </div>
+   </div>
+    // <RegisterForm />
+>>>>>>> 5e6ae004d8a74092fc5a46c51f4a016d3594d70e
   );
 }
 

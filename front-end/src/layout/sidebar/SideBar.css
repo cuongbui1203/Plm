@@ -57,7 +57,11 @@ ul.sort li.desc span.arrow::after {
 }
 
 #b input {
+<<<<<<< HEAD
     height: 30px;
+=======
+    height: 30px;   
+>>>>>>> 5e6ae004d8a74092fc5a46c51f4a016d3594d70e
 }
 
 #b button.btns {
