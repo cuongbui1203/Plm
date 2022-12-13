@@ -9,10 +9,12 @@
     "axios": "^1.2.0",
     "axois": "^0.0.1-security",
     "bootstrap": "^5.2.3",
+    "cdbreact": "^1.5.3",
     "circular-json": "^0.5.9",
     "mdb-react-ui-kit": "^5.0.0",
     "react": "^18.2.0",
     "react-bootstrap": "^2.6.0",
+    "react-bootstrap-sidebar-menu": "^2.0.3",
     "react-dom": "^18.2.0",
     "react-icons": "^4.7.1",
     "react-scripts": "^5.0.1",
@@ -47,6 +49,6 @@
     ]
   },
   "devDependencies": {
-    "react-router-dom": "^6.4.4"
+    "react-router-dom": "^6.4.5"
   }
 }
