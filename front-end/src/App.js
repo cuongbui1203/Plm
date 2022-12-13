@@ -18,7 +18,6 @@ function App() {
       //   </Route>
       // </Routes>
     <div>
-      <div>
       <HeaderBar />
       </div>
       <div>

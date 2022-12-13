@@ -14,7 +14,7 @@ class ImageController extends Controller
     public function store(Request $request){
             
         $validator =  Validator::make($request->all(),[
-            'image' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
+            'image' => 'required|image|mimes:jpg,png,jpeg,gif,svg',
         ]);
         
         if($validator->fails()){
@@ -32,6 +32,6 @@ class ImageController extends Controller
 
     public function getImage($path){
         // return response($file, 200);
-        return response()->download(Storage::disk('public')->path($path), 'test');
+        return response()->download(Storage::disk('public')->path($path));
     }
 }
