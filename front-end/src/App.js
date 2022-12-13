@@ -6,6 +6,7 @@ import { Routes, Route } from "react-router-dom";
 import Authenticator from './auth/Authenticator';
 import RequiredAuth from './auth/requireAuth';
 import { SideBar, HeaderBar } from './layout';
+import RegisterForm from './components/registerForm/registerForm';
 function App() {
   return ( 
       // <Routes>
@@ -17,8 +18,8 @@ function App() {
       //   </Route>
       // </Routes>
     <div>
-      {/* <Login /> */}
-      <div>
+      <RegisterForm />
+      {/* <div>
 
       <HeaderBar />
       </div>
@@ -29,7 +30,7 @@ function App() {
       <div>
       <Product />
 
-      </div>
+      </div> */}
 
 
     </div>

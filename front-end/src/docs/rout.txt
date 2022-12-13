@@ -1,7 +1,7 @@
 các đường link:
 
 chức năng               link
-login:                  /login
+login                   /login
 product                 /home
 product line            /product-line
 change                  /product/{id}/edit
