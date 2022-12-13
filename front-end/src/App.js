@@ -18,15 +18,16 @@ function App() {
       //   </Route>
       // </Routes>
     <div>
-      <HeaderBar />
+      <div>
+        <HeaderBar />
       </div>
       <div>
-      <SideBar />
+        <SideBar />
       </div>
       <div>
-      <Product />
+        <Product />
      </div>
-    // </div>
+   </div>
     // <RegisterForm />
   );
 }
