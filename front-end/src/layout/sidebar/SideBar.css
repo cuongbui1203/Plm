@@ -50,13 +50,27 @@ ul.sort li.desc span.arrow::after {
 
 #b {
     width: 15%;
-    background: #f1acce2b !important;
-    border-right: 2px solid rgb(98, 69, 69);
+    background: #fdfafc2b !important;
     position: fixed;
     height: 100%;
     top: 60px;
 }
 
+#b input {
+    height: 30px;   
+}
+
+#b button.btns {
+    padding: 0;
+}
+
 .btns {
     width:  60% !important;
+}
+
+#numOfProduct {
+    width: 100%;
+    border-radius: 5px;
+    padding: 5px;
+    border: 1px solid grey;
 }
