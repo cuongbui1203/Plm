@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-
+import Form from "react-bootstrap/Form";
 import './registerForm.css';
 
 function register(){
@@ -50,14 +50,22 @@ export default function RegisterForm() {
                     <i></i>
                 </div>
                 <div className="form-group">
-                    <input type="text" name="address" required />
-                    <span>Nơi làm việc</span>
-                    <i></i>
+                    <Form.Select className='rsF'>
+                    <option selected disabled>Nơi làm việc</option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                    </Form.Select>
+                    
                 </div>
                 <div className="form-group">
-                    <input type="text" name="Chuc" required />
-                    <span>Chức vụ</span>
-                    <i></i>
+                    <Form.Select className='rsF'>
+                    <option selected disabled>Chức vụ</option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                    </Form.Select>
+                    
                 </div>  
                 <input type="submit" defaultValue="Đăng nhập" id="btn-login" />
                </div>

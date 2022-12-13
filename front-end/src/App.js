@@ -7,6 +7,8 @@ import Authenticator from './auth/Authenticator';
 import RequiredAuth from './auth/requireAuth';
 import { SideBar, HeaderBar } from './layout';
 import RegisterForm from './components/registerForm/registerForm';
+import Admin from './components/Admin/Admin'
+
 function App() {
   return ( 
       // <Routes>
@@ -17,18 +19,20 @@ function App() {
       //     <Route path="/home" element={<Product />} />
       //   </Route>
       // </Routes>
-    <div>
-      <div>
-      <HeaderBar />
-      </div>
-      <div>
-      <SideBar />
-      </div>
-      <div>
-      <Product />
-     </div>
+    // <div>
+    //   <div>
+    //   <HeaderBar />
+    //   </div>
+    //   <div>
+    //   <SideBar />
+    //   </div>
+    //   <div>
+    //   <Product />
+    //  </div>
     // </div>
-    // <RegisterForm />
+    <Admin />
+    //  <RegisterForm />
+    // <PaginatedItems />
   );
 }
 
