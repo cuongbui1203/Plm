@@ -28,8 +28,10 @@ function App() {
       </div>
       <div>
         <Product />
-     </div>
-   </div>
+      </div>
+      
+    </div>
+    
     // <RegisterForm />
   );
 }
