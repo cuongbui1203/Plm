@@ -194,6 +194,9 @@ const SideBar = () => {
             />
           </div>
           <div>
+            
+          </div>
+          <div>
             <label>Số lượng Sản phẩm</label>
             <br />
             <input type="number" id="numOfProduct"></input>

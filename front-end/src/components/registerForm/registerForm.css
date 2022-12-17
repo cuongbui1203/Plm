@@ -67,8 +67,8 @@
 
 .rsF {
   border: none !important;
-  color: white !important;
-  background: #23242a !important;
+  color: red !important;
+  background: #28292d !important;
 }
 
 h3 {
@@ -85,7 +85,7 @@ h3 {
   position: relative;
 }
 
-.form-group input {
+.form-group .register {
   background: transparent;
   border: none;
   outline: none;
@@ -93,7 +93,7 @@ h3 {
   color: #23242a;
 }
 
-input {
+.register {
   height: 50px;
   width: 300px;
   outline: none;
@@ -118,7 +118,7 @@ span {
   transition: all 0.3s ease-in-out;
 }
 
-/* .form-group input:focus {
+/* .form-group .register:focus {
   border: 2px solid #45f3ff;
 } */
 
@@ -134,13 +134,13 @@ span {
   pointer-events: none;
 }
 
-.form-group input:focus+i,
-.form-group input:valid+i {
+.form-group .register:focus+i,
+.form-group .register:valid+i {
   height: 44px;
 }
 
-.form-group input:focus+span,
-.form-group input:valid+span {
+.form-group .register:focus+span,
+.form-group .register:valid+span {
   top: 0px;
   font-size: 13px;
   font-weight: 500;

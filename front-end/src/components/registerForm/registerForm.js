@@ -30,41 +30,42 @@ export default function RegisterForm() {
               <div className='form'>
                 <h3>Tạo tài khoản</h3>
                 <div className="form-group">
-                    <input type="text" name="name" required />
+                    <input type="text" name="name" className='register' required />
                     <span>Tên</span>
                     <i></i>  
                 </div>
                 <div className="form-group">
-                    <input type="text" name="email" required />
+                    <input type="text" name="email" className='register' required />
                     <span>Email</span>
                     <i></i>  
                 </div>
                 <div className="form-group">
-                    <input type="password" name="password" required />
+                    <input type="password" name="password" className='register' required />
                     <span>Mật khẩu</span>
                     <i></i>
                 </div>
                 <div className="form-group">
-                    <input type="password" name="password" required />
+                    <input type="password" name="password" className='register' required />
                     <span>Nhập lại mật khẩu</span>
                     <i></i>
                 </div>
                 <div className="form-group">
                     <Form.Select className='rsF'>
-                    <option selected disabled>Nơi làm việc</option>
+                    {/* <option selected disabled >Chức vụ</option> */}
                         <option value="1">One</option>
                         <option value="2">Two</option>
                         <option value="3">Three</option>
                     </Form.Select>
-                    
+                    <i></i>
                 </div>
                 <div className="form-group">
                     <Form.Select className='rsF'>
-                    <option selected disabled>Chức vụ</option>
+                    {/* <option selected disabled>Nơi làm việc</option> */}
                         <option value="1">One</option>
                         <option value="2">Two</option>
                         <option value="3">Three</option>
                     </Form.Select>
+                    <i></i>
                     
                 </div>  
                 <input type="submit" defaultValue="Đăng nhập" id="btn-login" />
