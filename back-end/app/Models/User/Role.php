@@ -1,16 +1,16 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\User;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Shop extends Model
+class Role extends Model
 {
     use HasFactory;
-    protected $fillable = [
-        'id',
-        'name',
-        'address'
+
+    protected $hidden = [
+        
     ];
+    
 }

@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('executive_boards', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
             $table->timestamps();
         });
     }

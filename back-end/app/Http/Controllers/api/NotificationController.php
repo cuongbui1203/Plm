@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Notification;
+use App\Models\Other\Notification;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;

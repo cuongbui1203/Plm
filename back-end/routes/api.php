@@ -9,6 +9,7 @@ use App\Http\Controllers\Api\ProductLineController;
 use App\Http\Controllers\Api\StatusController;
 use App\Http\Controllers\NotificationController;
 use App\Models\Role;
+use Illuminate\Support\Facades\DB;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,6 +33,11 @@ Route::post('/user/login',[create_user::class,'login']);
 //user
 Route::post('/user/logout',[create_user::class,'logout']);
 Route::delete('/users/{idUser}/delete',[create_user::class,'destroy']);
+Route::patch('/users/{id}/change', [create_user::class, 'update']);
+
+// Role
+Route::get('/roles', [create_user::class,'getAllRole']);
+
 //status
 Route::get('/statuses',[StatusController::class,'index']);
 Route::get('/statuses/{id}',[StatusController ::class,'show']);

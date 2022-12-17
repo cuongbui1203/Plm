@@ -1,14 +1,20 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\WorkPlate;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
-class Image extends Model
+/**
+ * Thực thể Nhà máy
+ */
+class Factory extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'img'
+        'id',
+        'name',
+        'address'
     ];
+
+    
 }

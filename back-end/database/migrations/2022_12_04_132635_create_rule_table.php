@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('rule', function (Blueprint $table) {
+        Schema::create('roles', function (Blueprint $table) {
             $table->id();
             $table->string('title')->nullable(false);
             $table->timestamps();
@@ -27,7 +27,7 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('rule');
+        Schema::dropIfExists('roles');
         
     }
 };
