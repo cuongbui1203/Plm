@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
-use App\Models\Status;
+use App\Models\Other\Status;
 use Exception;
 use Illuminate\Support\Facades\DB;
 

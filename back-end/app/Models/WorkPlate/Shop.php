@@ -1,11 +1,13 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\WorkPlate;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
-class Service extends Model
+/**
+ * Thực thể Shop
+ */
+class Shop extends Model
 {
     use HasFactory;
     protected $fillable = [
@@ -13,5 +15,4 @@ class Service extends Model
         'name',
         'address'
     ];
-    
 }

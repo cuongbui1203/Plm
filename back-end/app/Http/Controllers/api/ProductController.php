@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Product;
+use App\Models\Product\Product;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -49,7 +49,7 @@ class ProductController extends Controller
             'idProductLine'=>'required',
             'name'=>'required',
             'num'=>'required|numeric',
-            'batch'=>'required'
+            // 'batch'=>'required'
         ]);
         if($validator->fails()){
             return $this->sendError('Validation Error.',$validator->errors());

@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Image;
-use App\Models\User;
+use App\Models\User\Role;
+use App\Models\User\User;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -18,7 +20,7 @@ class create_user extends Controller
      * Create new user
      *
      * @param array $data
-     * @return \App\Models\User
+     * @return \App\Models\User\User
      */
     private function create(array $data)
     {
@@ -43,24 +45,29 @@ class create_user extends Controller
             'email'=>'required|email',
             'password' => 'confirmed|min:6',
             'wordPlateId' =>'required',
-            'image'=>'required|image|mimes:jpg,png,jpeg,gif,svg'
+            'image'=>'image|mimes:jpg,png,jpeg,gif,svg'
         ]);
         if($validator->fails()){
             return $this->sendError('Validation Error.',$validator->errors(),500);
         }
-        $image_path = $request->file('image')->store('public');
-        $image = Image::create([
-            'img' => $image_path
-        ]);
         $input = $request->all();
         $input['password'] = bcrypt($input['password']);
-        $input['image'] = $image->id;
+        if($request->file('image') != null){
+            $image_path = $request->file('image')->store('public');
+            $image = Image::create([
+                'img' => $image_path
+            ]);
+            $input['imageId'] = $image->id;
+        } else {
+            $input['imageId'] = null;
+
+        }
         try{
             $user = $this->create($input);
             $success['name'] =  $user->name;
-            return $this->sendResponse($success,"Register Account successfully");
+            return $this->sendResponse($success,"Register Account Successfully");
         }catch(Exception $e){
-            return $this->sendError("Register fail",$e,500);
+            return $this->sendError("Register Fail",$e,500);
         }
     }
 
@@ -126,7 +133,7 @@ class create_user extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function show($id)
     {
@@ -144,11 +151,36 @@ class create_user extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function update(Request $request, $id)
-    {
-        //
+    public function update(Request $request, $id) {
+        $user = User::find($id);
+        // switch($request->type){
+        //     case 'name':
+        //         $user->name = $request->name;
+        //         break;
+        //     case '':
+        //         break;        
+        // }
+        $user->name = $request->name;
+        $user->updated_at = Carbon::now()->format('Y-m-d H:i:s');
+        $user->save();
+        return $this->sendResponse([], 'thanh cong');
+    }
+
+
+    public function updateCurrentUser(Request $request,$id){
+        $user = User::find($id);
+        switch($request->type){
+            case 'name':
+                $user->name = $request->name;
+                break;
+            case '':
+                break;        
+        }
+        // $user->updated_at = Carbon::now()->format('Y-m-d H:i:s');
+        $user->save();
+        return $this->sendResponse([], 'thanh cong');
     }
 
     /**
@@ -162,5 +194,9 @@ class create_user extends Controller
         //
             $res = DB::table('users')->where('id','=',$id)->delete();
             return $this->sendResponse([$res],'thanh cong');
+    }
+
+    public function getAllRole(Request $request) {
+        return $this->sendResponse(Role::get(), "thanh cong");
     }
 }

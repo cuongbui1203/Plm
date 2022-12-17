@@ -24,7 +24,8 @@ class DatabaseSeeder extends Seeder
             status::class,
             account::class,
             createProductLine::class,
-            createProduct::class
+            createProduct::class,
+            createRule::class,
         ]);
     }
 }

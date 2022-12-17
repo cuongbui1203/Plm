@@ -1,19 +1,19 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\WorkPlate;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
-class Notification extends Model
+/**
+ * Thực thể cho Bảo hành
+ */
+class Service extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'sender',
-        'receiver',
-        'data',
-        'accepted'
+        'id',
+        'name',
+        'address'
     ];
-
     
 }

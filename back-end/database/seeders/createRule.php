@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use Carbon\Carbon;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -15,18 +16,26 @@ class createRule extends Seeder
      */
     public function run()
     {
-        DB::table('rule')->insert([
+        DB::table('roles')->insert([
             [
-                'title'=>'Ban điều hành'
+                'title'=>'Ban điều hành',
+                'created_at'=>Carbon::now()->format('Y-m-d H:i:s'),
+                'updated_at'=>Carbon::now()->format('Y-m-d H:i:s')
             ],
             [
-                'title'=>'Nhà máy'
+                'title'=>'Nhà máy',
+                'created_at'=>Carbon::now()->format('Y-m-d H:i:s'),
+                'updated_at'=>Carbon::now()->format('Y-m-d H:i:s')
             ],
             [
-                'title'=>'Shop'
+                'title'=>'Shop',
+                'created_at'=>Carbon::now()->format('Y-m-d H:i:s'),
+                'updated_at'=>Carbon::now()->format('Y-m-d H:i:s')
             ],
             [
-                'title'=>'Bảo hành'
+                'title'=>'Bảo hành',
+                'created_at'=>Carbon::now()->format('Y-m-d H:i:s'),
+                'updated_at'=>Carbon::now()->format('Y-m-d H:i:s')
             ]
         ]);
     }

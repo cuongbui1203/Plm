@@ -1,16 +1,19 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Other;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Factory extends Model
+class Notification extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'id',
-        'name',
-        'address'
+        'sender',
+        'receiver',
+        'data',
+        'accepted'
     ];
+
+    
 }
