@@ -20,6 +20,8 @@ function Product() {
             console.log(response.data)
             data = response.data
             dispatch(response.data)
+        }else{
+            Notification('error','Get All Product Fail')
         }
         
     }
@@ -37,13 +39,15 @@ function Product() {
                         {   //handleGetAllProduct()
                              state.map((course, index) => {
                             return (
-                                <div className="col-xl-3 col-lg-4 col-md-6 col-sm-12 product-item card" key={index} >
-                                    
-                                        <img src={course.imageUrl} className="card-img-top" alt="..." />
+                                <div className="col-xl-3 col-lg-4 col-md-6 col-sm-12 product-item" key={index} >
+                                    <div className="m-2 card p-2">
+                                    <img src={course.imageUrl} className="card-img-top" alt="..." />
                                         <div className="card-body">
                                             <h5 className="card-title">{course.name}</h5>
                                             <p className="card-text">{course.history}</p>
                                         </div>
+                                    </div>
+                                        
                                     
                                 </div>
                             )
