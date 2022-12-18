@@ -51,7 +51,7 @@ export default function RegisterForm() {
                 </div>
                 <div className="form-group">
                     <Form.Select className='rsF'>
-                    {/* <option selected disabled >Chức vụ</option> */}
+                    <option selected disabled >Chức vụ</option>
                         <option value="1">One</option>
                         <option value="2">Two</option>
                         <option value="3">Three</option>
@@ -60,7 +60,7 @@ export default function RegisterForm() {
                 </div>
                 <div className="form-group">
                     <Form.Select className='rsF'>
-                    {/* <option selected disabled>Nơi làm việc</option> */}
+                    <option selected disabled>Nơi làm việc</option>
                         <option value="1">One</option>
                         <option value="2">Two</option>
                         <option value="3">Three</option>

@@ -8,6 +8,8 @@ import RequiredAuth from './auth/requireAuth';
 import { SideBar, HeaderBar } from './layout';
 import RegisterForm from './components/registerForm/registerForm';
 import Admin from './components/Admin/Admin'
+import Shop from './components/Shop/Shop';
+import CR from './components/createRequest/CR';
 
 function App() {
   return ( 
@@ -19,20 +21,22 @@ function App() {
       //     <Route path="/home" element={<Product />} />
       //   </Route>
       // </Routes>
-    <div>
-      <div>
-        <HeaderBar />
-      </div>
-      <div>
-        <SideBar />
-      </div>
-      <div>
-        <Product />
-      </div>
+    // <div>
+    //   <div>
+    //     <HeaderBar />
+    //   </div>
+    //   <div>
+    //     <SideBar />
+    //   </div>
+    //   <div>
+    //     <Product />
+    //   </div>
       
-    </div>
-    
+    // </div>
+    // <Admin />
+    // <Shop />
     // <RegisterForm />
+    <CR />
   );
 }
 
