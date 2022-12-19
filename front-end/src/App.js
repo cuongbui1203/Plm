@@ -8,6 +8,8 @@ import RequiredAuth from './auth/requireAuth';
 import { SideBar, HeaderBar } from './layout';
 import RegisterForm from './components/registerForm/registerForm';
 import Admin from './components/Admin/Admin'
+import Shop from './components/Shop/Shop';
+import CR from './components/createRequest/CR';
 
 function App() {
   return ( 
@@ -31,8 +33,10 @@ function App() {
     //   </div>
       
     // </div>
-    
-    <RegisterForm />
+    // <Admin />
+    // <Shop />
+    // <RegisterForm />
+    <CR />
   );
 }
 
