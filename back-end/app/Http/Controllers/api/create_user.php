@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Image;
 use App\Models\User\Role;
-use App\Models\User\User;
+use App\Models\User;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
@@ -44,7 +44,7 @@ class create_user extends Controller
             'name'=>'required',
             'email'=>'required|email',
             'password' => 'confirmed|min:6',
-            'wordPlateId' =>'required',
+            // 'wordPlateId' =>'required',
             'image'=>'image|mimes:jpg,png,jpeg,gif,svg'
         ]);
         if($validator->fails()){
