@@ -5,14 +5,22 @@ import './registerForm.css';
 
 function register(){
     // const CircularJSON = require('circular-json');
+    // let request = {
+    //     'email': document.getElementById('email').value,
+    //     'name': document.getElementById('name').value,
+    //     'password': document.getElementById('password').value,
+    //     'address': document.getElementById('address').value,
+    //     'password_confirmation': document.getElementById('password_confirm').value,
+    //     'img': document.getElementById('file').files,
+    // }
     let request = {
-        'email': document.getElementById('email').value,
-        'name': document.getElementById('name').value,
-        'password': document.getElementById('password').value,
-        'address': document.getElementById('address').value,
-        'password_confirmation': document.getElementById('password_confirm').value     
+        'email': 'email@gmail.com',
+        'name': 'test',
+        'password_confirmation': 'password',
+        'password': 'password',
+        'img': document.getElementById('file').files[0],
     }
-
+    console.log(request)
     axios.post('http://127.0.0.1:8000/api/user/register', request).then(res=>{
             console.log('thanh cong')
             console.log(res.response)
@@ -68,7 +76,10 @@ export default function RegisterForm() {
                     <i></i>
                     
                 </div>  
-                <input type="submit" defaultValue="Đăng nhập" id="btn-login" />
+                <div className='form-group'>
+                    <input type='file' id='file'></input>
+                </div>
+                <input type="submit" defaultValue="Đăng nhập" id="btn-login" onClick={register}/>
                </div>
             </div>
         </div>

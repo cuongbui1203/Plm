@@ -19,20 +19,20 @@ function App() {
       //     <Route path="/home" element={<Product />} />
       //   </Route>
       // </Routes>
-    <div>
-      <div>
-        <HeaderBar />
-      </div>
-      <div>
-        <SideBar />
-      </div>
-      <div>
-        <Product />
-      </div>
+    // <div>
+    //   <div>
+    //     <HeaderBar />
+    //   </div>
+    //   <div>
+    //     <SideBar />
+    //   </div>
+    //   <div>
+    //     <Product />
+    //   </div>
       
-    </div>
+    // </div>
     
-    // <RegisterForm />
+    <RegisterForm />
   );
 }
 

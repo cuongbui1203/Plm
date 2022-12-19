@@ -21,9 +21,7 @@ async function logoutApi(){
     const response = await axios.post(
       process.env.REACT_APP_API_ENDPOINT + '/user/logout',
       '',
-      {
-        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
-      }
+      config
     )
     console.log(response)
     return response.data;
