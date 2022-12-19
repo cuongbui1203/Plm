@@ -22,7 +22,7 @@ function Admin() {
                     <MDBRow>
 
                         <MDBCol col='10' md='6'>
-                            <div style={{ marginTop: "2%", marginLeft: "2%", maxWidth: "420px"}}>
+                            <div className="cr">
                                 <h2>Tạo dòng sản phẩm</h2>
                                 <MDBInput wrapperClass='mb-4'  id='name' type='text' size="lg" placeholder="Name"/>
                                 <MDBInput wrapperClass='mb-4'  id='mota' type='text' size="lg" placeholder="Mô tả"/>
@@ -35,7 +35,7 @@ function Admin() {
                         </MDBCol>
 
                         <MDBCol col='4' md='6' center='true'>
-                            <div style={{ marginTop: "2%", marginLeft: "2%", maxWidth: "420px" }}>
+                            <div className="cr">
                                 <h2>Tạo sản phẩm</h2>
                                   <Form.Select className='rsA' size="lg">
                                       <option selected disabled>Dòng sản phẩm</option>
