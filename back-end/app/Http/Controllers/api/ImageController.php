@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Other\Image;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\Response;
@@ -30,8 +32,15 @@ class ImageController extends Controller
         return $this->sendResponse([$data], 'thanh cong',Response::HTTP_CREATED);
     }
 
-    public function getImage($path){
+    public function getImage($id){
+        $fullPath = Image::where('id', '=', $id)->firstOrFail();
+        $arr = explode("/", $fullPath->img);
+        $store = $arr[0];
+        $path = $arr[1];
+
         // return response($file, 200);
-        return response()->download(Storage::disk('public')->path($path));
+        // Log::alert($path);
+        return response()->download(Storage::disk($store)->path($path));
+        // return response()->json($arr);
     }
 }

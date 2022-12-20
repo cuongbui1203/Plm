@@ -25,6 +25,7 @@ class createProductLine extends Seeder
                     'info' => (string) $i,
                     'quantity' => $i,
                     'batch' => '1222',
+                    'imgId' => 1,
                 ]
             ]);
         }
