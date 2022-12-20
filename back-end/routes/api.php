@@ -31,8 +31,8 @@ Route::post('/user/login',[create_user::class,'login']);
 
 
 //user
-Route::post('/user/logout',[create_user::class,'logout']);
-Route::delete('/users/{idUser}/delete',[create_user::class,'destroy']);
+Route::get('/user/logout',[create_user::class,'logout']);
+Route::delete('/users/{id}/delete',[create_user::class,'destroy']);
 Route::patch('/users/{id}/change', [create_user::class, 'update']);
 
 // Role
@@ -43,26 +43,26 @@ Route::get('/statuses',[StatusController::class,'index']);
 Route::get('/statuses/{id}',[StatusController ::class,'show']);
 
 // product
-Route::post('/products/create',[ProductController::class,'create']);
 Route::get('/products',[ProductController::class,'index']);
 Route::get('/products/{id}',[ProductController::class,'getId']);
-Route::patch('/products/{id}/change',[ProductController::class,'']); /// 
+Route::post('/products/create',[ProductController::class,'create']);
+Route::patch('/products/{id}/change',[ProductController::class,'']); 
 
 //productLine
-Route::post('/product-lines/create',[ProductLineController::class,'create']);
 Route::get('/product-lines',[ProductLineController::class,'index']);
 Route::get('/product-lines/{id}',[ProductLineController::class,'getId']);
+Route::post('/product-lines/create',[ProductLineController::class,'create']);
 
-Route::get('/notifications/{id}', [NotificationController::class, 'show']);
-Route::post('/notifications/create', [NotificationController::class, 'create']);
 //img
 Route::post('/image', [ImageController::class, 'store']);
-Route::get('/image/get/{path}', [ImageController::class, 'getImage']);
+Route::get('/image/get/{id}', [ImageController::class, 'getImage']);
 
 //notification
+Route::get('/notifications/{id}', [NotificationController::class, 'show']);
 Route::get('/notifications/sended/{id}',[NotificationController::class,'showSendNotification']);
 Route::get('/notifications/recv/{id}', [NotificationController::class, 'showRecvNotification']);
-Route::put('notifications/accept/', [NotificationController::class, 'acceptNotification']);
+Route::post('/notifications/create', [NotificationController::class, 'create']);
+Route::patch('notifications/accept/', [NotificationController::class, 'acceptNotification']);
 // Route::group(['middleware'=>'auth:sanctum'],function(){
 //     //user
 //     Route::post('/logout',[create_user::class,'logout']);

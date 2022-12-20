@@ -1,21 +1,24 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
+import "bootstrap/dist/css/bootstrap.min.css";
 import { ToastContainer } from "react-toastify";
-import { StoreProvider } from './store';
-import { BrowserRouter } from 'react-router-dom';
-import 'react-toastify/dist/ReactToastify.css';
-const root = ReactDOM.createRoot(document.getElementById('root'));
+import { BrowserRouter } from "react-router-dom";
+import "react-toastify/dist/ReactToastify.css";
+import SettingProvider from "./state/provider/SettingProvider";
+import LoginProvider from "./state/provider/LoginProvider";
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <StoreProvider>
-        <App />
-        <ToastContainer  pauseOnHover={false} pauseOnFocusLoss={false}/>
-      </StoreProvider>
+      <SettingProvider>
+        <LoginProvider>
+          <App />
+          <ToastContainer pauseOnHover={false} pauseOnFocusLoss={false} />
+        </LoginProvider>
+      </SettingProvider>
     </BrowserRouter>
   </React.StrictMode>
 );

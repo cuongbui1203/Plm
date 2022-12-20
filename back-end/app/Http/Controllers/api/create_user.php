@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Image;
-use App\Models\User\Role;
+use App\Models\Role;
 use App\Models\User;
 use Carbon\Carbon;
 use Exception;
@@ -86,11 +86,12 @@ class create_user extends Controller
             $user = Auth::user();
             $success['token'] =  $user->createToken('MyApp')->plainTextToken;
             // $user->currentAccessToken();
-            $success['name'] =  $user->name;
-            if($user->imageId != null)
-                $success['imageId'] = DB::table('images')->select('img')->where('id','=',$user->imageId);
-            else
-                $success['imageId'] = null;
+            // $success['name'] =  $user->name;
+            $success['user'] = $user;
+            // if($user->imageId != null)
+            //     $success['imageId'] = DB::table('images')->select('img')->where('id','=',$user->imageId);
+            // else
+            //     $success['imageId'] = null;
             return $this->sendResponse($success, 'User login successfully.');
         }
         else{
@@ -132,10 +133,9 @@ class create_user extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
      * @return \Illuminate\Http\JsonResponse
      */
-    public function show($id)
+    public function show()
     {
         //
         try{

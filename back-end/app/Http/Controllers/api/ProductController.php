@@ -5,13 +5,10 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Product\Product;
 use Carbon\Carbon;
-use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 use Exception;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
-use PhpParser\Node\Expr\Cast\Object_;
 
 class ProductController extends Controller
 {
@@ -19,14 +16,43 @@ class ProductController extends Controller
 
     public function index(){
         try{
-            return $this->sendResponse(Product::get(),"thanh cong lay het san pham");
+            $res = DB::table('products')
+                ->join('productLines', 'products.idProductLine', '=', 'productLines.productLineId')
+                ->join('images','productLines.imgId','=','images.id')
+                ->join('statuses','products.idStatus','=','statuses.id')
+                ->select(
+                    'products.productId',
+                    'products.name',
+                    DB::raw('productLines.name as productLine'),
+                    'products.history',
+                    'products.created_at',
+                    'products.updated_at',
+                    DB::raw('statuses.title as status'),
+                    DB::raw('images.id as imgId')
+                )
+                ->get();
+            return $this->sendResponse($res,"thanh cong lay het san pham");
         }catch(Exception $e){
             return $this->sendError("error",$e);
         }
     }
     public function getId($id){
         try{
-            $p = Product::where('productId','=',$id)->get();
+            $p = Product::where('productId', '=', $id)
+                ->join('productLines', 'products.idProductLine', '=', 'productLines.productLineId')
+                ->join('images', 'productLines.imgId', '=', 'images.id')
+                ->join('statuses', 'products.idStatus', '=', 'statuses.id')
+                ->select(
+                    'products.productId',
+                    'products.name',
+                    DB::raw('productLines.name as productLine'),
+                    'products.history',
+                    'products.created_at',
+                    'products.updated_at',
+                    DB::raw('statuses.title as status'),
+                    DB::raw('images.id as imgId')
+                )
+                ->get();
             // if($p)
             return $this->sendResponse($p,"thanh cong lay het san pham");
             // else {
