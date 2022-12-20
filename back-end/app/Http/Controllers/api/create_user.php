@@ -140,6 +140,7 @@ class create_user extends Controller
         //
         try{
             $user = Auth::user();
+            // $user->workPlateId;
             return $this->sendResponse($user,"thanh cong");
         } catch(Exception $e){
             return $this->sendError("error",$e);
@@ -156,7 +157,7 @@ class create_user extends Controller
     public function update(Request $request, $id) {
         $user = User::find($id);
         // switch($request->type){
-        //     case 'name':
+        //     case 'img':
         //         $user->name = $request->name;
         //         break;
         //     case '':
