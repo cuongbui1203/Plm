@@ -11,7 +11,6 @@ const setLoginSuccess = (token, user) => {
   console.log(user);
   return {
     type: SET_LOGIN_SUCCESS,
-    token: token,
     user: user,
   };
 };

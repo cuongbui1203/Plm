@@ -6,15 +6,16 @@ import {
 } from "../constants";
 
 const initState = {
+  isLogin: false,
   user: null,
-  token: null,
 };
 
 let updateLoginState = (state, action) => {
   switch (action.type) {
     case SET_LOGIN_SUCCESS:
       return {
-        // ...state,
+        ...state,
+        isLogin: true,
         token: action.token,
         user: action.user,
       };

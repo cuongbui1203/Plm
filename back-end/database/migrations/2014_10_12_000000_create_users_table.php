@@ -20,7 +20,8 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('workPlateId')->nullable();
-            $table->integer('idImage')->unsigned()->default(1);
+            $table->bigInteger('imageId')->unsigned()->default(1);
+            $table->bigInteger('roleId')->unsigned();
             $table->rememberToken();
             $table->timestamps();
         });
@@ -33,6 +34,5 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
     }
 };

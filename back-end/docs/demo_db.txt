@@ -22,7 +22,7 @@ account:
     - update_at
 	- idWordPLate:str
 rule:
-	- ID:int
+	- +
 	- Title:str
 status:
 	- ID:int
