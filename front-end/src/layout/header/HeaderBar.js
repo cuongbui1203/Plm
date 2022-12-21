@@ -1,49 +1,65 @@
-import Button from 'react-bootstrap/Button';
-import Container from 'react-bootstrap/Container';
-import Form from 'react-bootstrap/Form';
-import Nav from 'react-bootstrap/Nav';
-import Navbar from 'react-bootstrap/Navbar';
-import NavDropdown from 'react-bootstrap/NavDropdown';
+import Button from "react-bootstrap/Button";
+import Container from "react-bootstrap/Container";
+import Form from "react-bootstrap/Form";
+import Nav from "react-bootstrap/Nav";
+import Navbar from "react-bootstrap/Navbar";
+import NavDropdown from "react-bootstrap/NavDropdown";
 import { FaCannabis } from "react-icons/fa";
-import { useNavigate } from 'react-router-dom';
-import { logoutApi } from '../../API/auth';
-import Notification from '../../components/notification/notification';
-import { actions, useStore } from '../../store';
+import { useNavigate } from "react-router-dom";
+import { logoutApi } from "../../API/auth";
+import Notification from "../../components/notification/notification";
+import {
+  setLogoutFail,
+  setLogoutSuccess,
+} from "../../state/actions/loginActions";
+import { setLoaded, setLoading } from "../../state/actions/settingActions";
+import { useLoginContext, useSettingContext } from "../../state/hook/hooks";
 import "./HeaderBar.css";
 
 function HeaderBar() {
-  const navi = useNavigate()
-  const [state,dispatch] = useStore()
-  const logout = async () =>{
+  const navig = useNavigate();
+  const [settingState, updateSettingState] = useSettingContext();
+  const [loginState, updateLoginState] = useLoginContext();
+  const logout = async () => {
     // eslint-disable-next-line react-hooks/rules-of-hooks
-    const {isLogin,isLoading} = state
-    let response = await logoutApi()
-    dispatch(actions.setLoading(''))
-    if(response.success){
-      dispatch(actions.setLogOutSuccess(''))
-      localStorage.removeItem('token')
-      Notification("success","đăng xuất thành công")
-      // navi('/')
+
+    updateSettingState(setLoading());
+    let response = await logoutApi();
+    // dispatch(actions.setLoading(''))
+
+    if (response.success) {
+      updateLoginState(setLogoutSuccess());
+      localStorage.removeItem("token");
+      Notification("success", "đăng xuất thành công");
+      navig("/");
     } else {
-      dispatch(actions.setLogoutFail(''))
-      Notification("error","Đăng xuất thất bại")
+      updateLoginState(setLogoutFail());
+      Notification("error", "Đăng xuất thất bại");
     }
-  }
+    updateSettingState(setLoaded());
+  };
   return (
     <Navbar id="hd" className="navbar navbar-expand-lg navbar-dark bg-dark">
       <Container fluid>
-        <Navbar.Brand href="home"> <FaCannabis className='cannabis'/></Navbar.Brand>
+        <Navbar.Brand href="home">
+          {" "}
+          <FaCannabis className="cannabis" />
+        </Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll">
           <Nav
             className="me-auto my-2 my-lg-0"
-            style={{ maxHeight: '100px' }}
+            style={{ maxHeight: "100px" }}
             navbarScroll
           >
             <Nav.Link href="/home">Home</Nav.Link>
           </Nav>
           <Nav>
-            <NavDropdown title="Chức vụ" id="navbarScrollingDropdown" align="end">
+            <NavDropdown
+              title="Chức vụ"
+              id="navbarScrollingDropdown"
+              align="end"
+            >
               <NavDropdown.Item href="#infor">thêm</NavDropdown.Item>
               <NavDropdown.Item href="#setting">sửa</NavDropdown.Item>
               <NavDropdown.Divider />

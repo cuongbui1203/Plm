@@ -22,12 +22,11 @@ use Illuminate\Support\Facades\DB;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::middleware('auth:sanctum')->get('/user',[create_user::class,'index']);
 
 Route::post('/user/register',[create_user::class,'register']);
 Route::post('/user/login',[create_user::class,'login']);
+Route::post('/user/login/token',[create_user::class,'login']);
 
 
 //user

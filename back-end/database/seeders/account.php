@@ -21,7 +21,7 @@ class account extends Seeder
         DB::table('users')->insert([
             'name' => 'test',
             'email' => 'admin@gmail.com',
-            'password' => Hash::make('pass123'),
+            'password' => Hash::make('password'),
             'created_at' => today(),
         ]);
         

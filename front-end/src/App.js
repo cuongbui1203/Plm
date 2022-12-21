@@ -14,7 +14,7 @@ import CR from "./components/createRequest/CR";
 function App() {
   return (
     // <Routes>
-    //   <Route exact path="/login" element={<Authenticator />} >
+    //   <Route exact path="/login" element={<Authenticator />}>
     //     <Route path="/login" element={<LoginForm />} />
     //   </Route>
     //   <Route exact path="/" element={<RequiredAuth />}>
@@ -27,17 +27,17 @@ function App() {
     //   </div>
     // <div>
     //   <div>
-    //     <SideBar />
+    // <SideBar />
     //   </div>
     //   <div>
     //     <Product />
     //   </div>
     // </div>
-    // <Admin />
+    <Admin />
     // <Shop />
     // <RegisterForm />
     // <CR />
-    <LoginForm />
+    // <LoginForm />
   );
 }
 

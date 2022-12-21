@@ -11,16 +11,14 @@ import SettingProvider from "./state/provider/SettingProvider";
 import LoginProvider from "./state/provider/LoginProvider";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <React.StrictMode>
-    <BrowserRouter>
-      <SettingProvider>
-        <LoginProvider>
-          <App />
-          <ToastContainer pauseOnHover={false} pauseOnFocusLoss={false} />
-        </LoginProvider>
-      </SettingProvider>
-    </BrowserRouter>
-  </React.StrictMode>
+  <BrowserRouter>
+    <SettingProvider>
+      <LoginProvider>
+        <App />
+        <ToastContainer pauseOnHover={false} pauseOnFocusLoss={false} />
+      </LoginProvider>
+    </SettingProvider>
+  </BrowserRouter>
 );
 
 // If you want to start measuring performance in your app, pass a function

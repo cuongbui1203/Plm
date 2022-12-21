@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Image;
+use App\Models\Other\Image;
 use App\Models\Role;
 use App\Models\User;
 use Carbon\Carbon;
@@ -14,13 +14,16 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Laravel\Sanctum\PersonalAccessToken;
+use LogicException;
+
 class create_user extends Controller
 {
     /**
      * Create new user
      *
      * @param array $data
-     * @return \App\Models\User\User
+     * @return \App\Models\User
+     * \User
      */
     private function create(array $data)
     {
@@ -74,44 +77,59 @@ class create_user extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function index()
-    {
-        //
+    public function index(Request $request) {
+        $id = explode('|', $request->bearerToken())[0];
+        DB::table('personal_access_tokens')
+                ->where('id', '=', $id)
+                ->update([
+                    'last_used_at'=>Carbon::now()->timezone('Asia/Phnom_Penh')->format('Y-m-d H:i:s'),
+                    'updated_at'=>Carbon::now()->timezone('Asia/Phnom_Penh')->format('Y-m-d H:i:s')
+                ]);
+        return $this->sendResponse([$request->user()], "ok");
     }
 
     public function login(Request $request){
         if(Auth::attempt(['email' => $request->email, 'password' => $request->password])){
             $user = Auth::user();
             $success['token'] =  $user->createToken('MyApp')->plainTextToken;
+            $id = explode('|', $success['token'])[0];
             // $user->currentAccessToken();
             // $success['name'] =  $user->name;
             $success['user'] = $user;
-            // if($user->imageId != null)
-            //     $success['imageId'] = DB::table('images')->select('img')->where('id','=',$user->imageId);
-            // else
-            //     $success['imageId'] = null;
+            PersonalAccessToken::findToken($success['token'])
+            ->update([
+                'created_at'=>Carbon::now()->timezone('Asia/Phnom_Penh')->format('Y-m-d H:i:s'),
+                'updated_at'=>Carbon::now()->timezone('Asia/Phnom_Penh')->format('Y-m-d H:i:s'),
+                'expires_at'=>Carbon::now()->timezone('Asia/Phnom_Penh')->addDay()->format('Y-m-d H:i:s')
+            ]);
+            
+            
             return $this->sendResponse($success, 'User login successfully.');
         }
         else{
             return $this->sendError('Unauthorize.', ['error'=>'Unauthorize']);
         }
     }
+    
 
     public function logout(Request $request)
     {
         # code...
         // Get bearer token from the request
         $accessToken = $request->bearerToken();
-    
         // Get access token from database
         $token = PersonalAccessToken::findToken($accessToken);
-
+        
+        
         // Revoke token
+        if($token == null){
+            return $this->sendError("Invalid Token",[]);
+        }
         $token->delete();
         Auth::logout();
-        return $this->sendResponse(['ok'],'Logout success');
+        return $this->sendResponse(['ok'], 'Logout success');
     }
     /**
      * Store a newly created resource in storage.
@@ -140,6 +158,7 @@ class create_user extends Controller
         //
         try{
             $user = Auth::user();
+            // $user->workPlateId;
             return $this->sendResponse($user,"thanh cong");
         } catch(Exception $e){
             return $this->sendError("error",$e);
@@ -156,7 +175,7 @@ class create_user extends Controller
     public function update(Request $request, $id) {
         $user = User::find($id);
         // switch($request->type){
-        //     case 'name':
+        //     case 'img':
         //         $user->name = $request->name;
         //         break;
         //     case '':

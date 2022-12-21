@@ -12,60 +12,43 @@ import "./Loginform.css";
 import { useNavigate } from "react-router-dom";
 import Notification from "../notification/notification";
 import "react-toastify/dist/ReactToastify.css";
-import { useStore, actions } from "../../store";
 import { loginApi } from "../../API/auth";
 import { useLoginContext, useSettingContext } from "../../state/hook/hooks";
-import { setLoaded } from "../../state/actions/settingActions";
+import { setLoaded, setLoading } from "../../state/actions/settingActions";
 import { setLoginSuccess } from "../../state/actions/loginActions";
 import { SET_LOGIN_SUCCESS } from "../../state/constants";
 import axios from "axios";
 
 function LoginForm() {
   const navigation = useNavigate();
-  // const [setting, updateSettingState] = useSettingContext();
+  const [setting, updateSettingState] = useSettingContext();
   const [loginState, updateLoginState] = useLoginContext();
   const [img, updateImg] = useState(null);
   async function login() {
-    // let data = {
-    //   email: document.getElementById("email").value,
-    //   password: document.getElementById("password").value,
-    // };
-    // // console.log(data);
-    // // updateSetting(actions.setLoading(""));
-    // const response = await loginApi(data);
-    // if (response.success) {
-    //   console.log(response);
-    //   // console.log(response)
-    //   //   dispatch(actions.setLoginSuccess(""));
-    //   //   updateSettingState(setLoaded());
-    //   await updateLoginState(
-    //     setLoginSuccess(response.data.token, response.data.user)
-    //   );
-    //   Notification("success", "Login Success");
-    //   console.log(loginState);
-    //   //   navigation("/home");
-    //   // console.log(state)
-    // } else {
-    //   Notification("error", "Login Fail");
-    //   //   dispatch(actions.setLoginFail(""));
-    // }
-    // // console.log(state);
-    let container = document.getElementById("test");
-    // container.appendChild()
-    let img = document.createElement("img");
-    const reader = new FileReader();
-    let file = await axios.get("http://127.0.0.1:8000/api/image/get/1", {
-      responseType: "blob",
-    });
-    console.log(file);
-    // let blob = new Blob(file.data);
-    // console.log(blob);
+    let data = {
+      email: document.getElementById("email").value,
+      password: document.getElementById("password").value,
+    };
+    // console.log(data);
+    // updateSetting(actions.setLoading(""));
+    updateSettingState(setLoading());
+    const response = await loginApi(data);
+    if (response.success) {
+      console.log(response);
+      updateLoginState(
+        setLoginSuccess(response.data.token, response.data.user)
+      );
+      Notification("success", "Login Success");
 
-    const url = URL.createObjectURL(file.data);
-    console.log(url);
-    img.setAttribute("src", url);
-
-    container.appendChild(img);
+      //   navigation("/home");
+      // console.log(state)
+    } else {
+      Notification("error", "Login Fail");
+      //   dispatch(actions.setLoginFail(""));
+    }
+    updateSettingState(setLoaded());
+    // console.log(state);
+    console.log(loginState);
   }
 
   const rememberMe = () => {

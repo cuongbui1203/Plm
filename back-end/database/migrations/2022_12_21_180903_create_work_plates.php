@@ -13,8 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('services', function (Blueprint $table) {
-            $table->id();
+        Schema::create('work_plates', function (Blueprint $table) {
+            $table->string("id")->unique()->nullable(false);
+            $table->bigInteger('roleId')->unsigned();
+            $table->string('name')->nullable(false);
+            $table->string('address');
             $table->timestamps();
         });
     }
@@ -26,6 +29,5 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('services');
     }
 };
