@@ -32,7 +32,7 @@ class NotificationController extends Controller
                 'sender'    => $request->sender,
                 'receiver'  => $request->receiver,
                 'message'   => $request->message,
-                'accepted'    => false
+                'accepted'  => false
             ]);
             return $this->sendResponse([$notification->id], 'Create Request Success');
         } catch(Exception $e){
