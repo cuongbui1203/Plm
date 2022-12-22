@@ -1,3 +1,4 @@
+import { handleGetUrlImage } from "../../hook/getInformation";
 import {
   SET_LOGIN_FAIL,
   SET_LOGIN_SUCCESS,
@@ -5,13 +6,15 @@ import {
   SET_LOGOUT_SUCCESS,
 } from "../constants";
 
-const setLoginSuccess = (token, user) => {
+const setLoginSuccess = async (token, user) => {
   localStorage.setItem("token", token);
   console.log(token);
   console.log(user);
+  let url = await handleGetUrlImage(user.imageId);
   return {
     type: SET_LOGIN_SUCCESS,
     user: user,
+    url: url,
   };
 };
 

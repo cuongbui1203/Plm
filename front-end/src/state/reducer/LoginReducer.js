@@ -8,6 +8,8 @@ import {
 const initState = {
   isLogin: false,
   user: null,
+  token: "",
+  imgUrl: "",
 };
 
 let updateLoginState = (state, action) => {
@@ -18,6 +20,7 @@ let updateLoginState = (state, action) => {
         isLogin: true,
         token: action.token,
         user: action.user,
+        imgUrl: action.url,
       };
     case SET_LOGIN_FAIL:
     case SET_LOGOUT_SUCCESS:
@@ -30,6 +33,7 @@ let updateLoginState = (state, action) => {
         ...state,
       };
     default:
+      console.log(action);
       throw new Error("Invalid Action");
   }
 };

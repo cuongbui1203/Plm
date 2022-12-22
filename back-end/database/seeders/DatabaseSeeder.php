@@ -22,10 +22,10 @@ class DatabaseSeeder extends Seeder
         // ]);
         $this->call([
             status::class,
+            createRule::class,
             account::class,
             createProductLine::class,
             createProduct::class,
-            createRule::class,
         ]);
     }
 }

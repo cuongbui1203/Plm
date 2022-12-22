@@ -20,4 +20,13 @@ const handleGetImage = async (id) => {
   }
 };
 
-export { handleGetRoleApi, handleGetImage };
+const handleGetUrlImage = async (id) => {
+  const response = await getImageApi(id);
+  if (response.success) {
+    return URL.createObjectURL(response.data);
+  } else {
+    return null;
+  }
+};
+
+export { handleGetRoleApi, handleGetImage, handleGetUrlImage };

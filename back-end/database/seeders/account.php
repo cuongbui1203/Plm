@@ -23,6 +23,7 @@ class account extends Seeder
             'email' => 'admin@gmail.com',
             'password' => Hash::make('password'),
             'created_at' => today(),
+            'roleId' => 1
         ]);
         
     }
