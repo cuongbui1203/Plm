@@ -41,7 +41,7 @@ function HeaderBar({ role }) {
     updateSettingState(setLoaded());
   };
   const navigateToHome = () => {
-    navig("/product");
+    navig("/home/product");
   };
 
   const getChucVu = () => {

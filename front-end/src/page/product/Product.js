@@ -36,7 +36,7 @@ function Product() {
     <div>
       <Container className="product">
         <Button onClick={getProduct}>btn</Button>
-        <ProductComponent products={limitedProduct} />;
+        <ProductComponent products={limitedProduct} />
       </Container>
       <PaginationComponent
         itemsCount={allProductCount}

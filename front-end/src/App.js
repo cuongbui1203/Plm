@@ -64,7 +64,8 @@ function App() {
               path="/home/"
               element={<User user={loginState.user} image={urlImage} />}
             />
-            <Route path="/product" element={<Product />} />
+            <Route path="/home/product" element={<Product />} />
+            <Route path="/home/product/:id" element={<h1>id</h1>} />
           </Route>
           <Route path="/*" element={<NotFound />} />
         </Routes>
