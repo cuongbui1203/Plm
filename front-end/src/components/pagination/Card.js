@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import "./Card.css";
 
 const CardComponent = ({ id, name, productLine, imageUrl }) => {
+
   const navig = useNavigate();
   const goto = () => {
     navig(`/home/product/${id}`);
@@ -17,7 +18,7 @@ const CardComponent = ({ id, name, productLine, imageUrl }) => {
           <Card.Text>{productLine}</Card.Text>
         </Card.Body>
       </Card>
-    </>
+    </div>
   );
 };
 
