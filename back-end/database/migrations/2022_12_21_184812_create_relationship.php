@@ -42,8 +42,16 @@ return new class extends Migration
                 ->references('id')
                 ->on('images');
         });
-        Schema::table('personal_access_tokens', function (Blueprint $table) {
-            $table->foreign('tokenAble_id')
+        // Schema::table('personal_access_tokens', function (Blueprint $table) {
+        //     $table->foreign('tokenAble_id')
+        //         ->references('id')
+        //         ->on('users');
+        // });
+        Schema::table('notifications', function (Blueprint $table) {
+            $table->foreign('idSender')
+                ->references('id')
+                ->on('users');
+            $table->foreign('idReceiver')
                 ->references('id')
                 ->on('users');
         });
