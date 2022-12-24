@@ -1,10 +1,17 @@
 import PropTypes from "prop-types";
 import { Card } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 import "./Card.css";
 
 const CardComponent = ({ id, name, productLine, imageUrl }) => {
+  const navigate = useNavigate();
   return (
-    <>
+    <div
+      className="col-xl-3 col-lg-4 col-md-6 col-sm-12"
+      onClick={() => {
+        navigate("/productDetail");
+      }}
+    >
       <Card>
         <Card.Img variant="top" src={imageUrl} alt={id} />
         <Card.Body>
@@ -12,7 +19,7 @@ const CardComponent = ({ id, name, productLine, imageUrl }) => {
           <Card.Text>{productLine}</Card.Text>
         </Card.Body>
       </Card>
-    </>
+    </div>
   );
 };
 

@@ -20,6 +20,8 @@ import { handleGetUrlImage } from "./hook/getInformation";
 import { getRoleId } from "./API/Other";
 import { Container } from "react-bootstrap";
 import NotFound from "./page/error/404";
+import { ProductDetail } from "./page/product/ProductDetail";
+import { Profile } from "./components/User/Profile";
 
 function App() {
   const [loginState, loginHandle] = useLoginContext();
@@ -64,7 +66,9 @@ function App() {
               path="/home/"
               element={<User user={loginState.user} image={urlImage} />}
             />
+            <Route path="/profile" element={<Profile />} />
             <Route path="/product" element={<Product />} />
+            <Route path="/productDetail" element={<ProductDetail />} />
           </Route>
           <Route path="/*" element={<NotFound />} />
         </Routes>

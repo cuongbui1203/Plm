@@ -1,0 +1,12 @@
+.float-right {
+    float: right;
+}
+
+.clear-both {
+    clear: both;
+}
+
+.profile {
+    border: 2px solid black;
+    border-radius: 10px;
+}

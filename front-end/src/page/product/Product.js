@@ -4,13 +4,13 @@ import { getAllProductApi } from "../../API/productApi";
 import Notification from "../../components/notification/notification";
 import PaginationComponent from "../../components/pagination/Pagination";
 import ProductComponent from "../../components/showProducts/ProductComponent";
-import { data } from "../../data";
+import { data, testProduct } from "../../data";
 import { handleGetAllProduct } from "../../hook/productHook";
 import { HeaderBar, SideBar } from "../../layout";
 import "./Product.css";
 
 function Product() {
-  const [products, setProduct] = useState([]);
+  const [products, setProduct] = useState(testProduct);
   const allProductCount = products.length;
   const [ProductPerPage, setProductPerPage] = useState(5);
   const [currentPage, setCurrentPage] = useState(1);
@@ -25,8 +25,9 @@ function Product() {
     // dispatch(actions.setLoading(''))
     if (response.success) {
       Notification("success", "Get All Product Success");
-      // console.log(response.data);
-      setProduct(response.data);
+      console.log(response.data);
+      // setProduct(response.data);
+      // console.log(products);
     } else {
       Notification("error", "Get All Product Fail");
     }
@@ -34,9 +35,11 @@ function Product() {
 
   return (
     <div>
-      <Container className="product">
+      <div>
         <Button onClick={getProduct}>btn</Button>
-        <ProductComponent products={limitedProduct} />;
+      </div>
+      <Container className="product">
+        <ProductComponent products={limitedProduct} />
       </Container>
       <PaginationComponent
         itemsCount={allProductCount}

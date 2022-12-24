@@ -44,6 +44,9 @@ function HeaderBar({ role }) {
     navig("/product");
   };
 
+  const navigateProfile = () => {
+    navig("/profile");
+  };
   const getChucVu = () => {
     updateRoleTitle(loginState.isLogin ? loginState.user.role : "");
   };
@@ -88,7 +91,7 @@ function HeaderBar({ role }) {
                 id="navbarScrollingDropdown"
                 align="end"
               >
-                <NavDropdown.Item onClick={navigateToHome}>
+                <NavDropdown.Item onClick={navigateProfile}>
                   Hồ sơ
                 </NavDropdown.Item>
                 <NavDropdown.Item href="#setting">Cài đặt</NavDropdown.Item>
