@@ -19,6 +19,7 @@ class account extends Seeder
     {
         //
         DB::table('users')->insert([
+            'id'=>"teeeet",
             'name' => 'test',
             'email' => 'admin@gmail.com',
             'password' => Hash::make('password'),

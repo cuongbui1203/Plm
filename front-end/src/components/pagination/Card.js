@@ -4,13 +4,12 @@ import { useNavigate } from "react-router-dom";
 import "./Card.css";
 
 const CardComponent = ({ id, name, productLine, imageUrl }) => {
-
   const navig = useNavigate();
   const goto = () => {
     navig(`/home/product/${id}`);
   };
   return (
-    <>
+    <div>
       <Card onClick={goto}>
         <Card.Img variant="top" src={imageUrl} alt={id} />
         <Card.Body>
