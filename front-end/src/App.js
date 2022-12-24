@@ -53,6 +53,7 @@ function App() {
   return (
     <>
       <HeaderBar role={roleTitle} />
+      {/* <SideBar /> */}
       <Container className="content">
         <Routes>
           <Route exact path="/login" element={<Authenticator />}>
@@ -63,7 +64,7 @@ function App() {
               path="/home/"
               element={<User user={loginState.user} image={urlImage} />}
             />
-            <Route path="/home/product" element={<Product />} />
+            <Route path="/product" element={<Product />} />
           </Route>
           <Route path="/*" element={<NotFound />} />
         </Routes>

@@ -41,7 +41,7 @@ function HeaderBar({ role }) {
     updateSettingState(setLoaded());
   };
   const navigateToHome = () => {
-    navig("/home/user");
+    navig("/product");
   };
 
   const getChucVu = () => {
@@ -70,7 +70,7 @@ function HeaderBar({ role }) {
               style={{ maxHeight: "100px" }}
               navbarScroll
             >
-              <Nav.Link href="/home">Home</Nav.Link>
+              <Nav.Link onClick={navigateToHome}>Home</Nav.Link>
             </Nav>
             <Nav hidden={!loginState.isLogin}>
               <NavDropdown

@@ -10,7 +10,15 @@ import { HeaderBar, SideBar } from "../../layout";
 import "./Product.css";
 
 function Product() {
-  const [state, dispatch] = useState([]);
+  const [products, setProduct] = useState([]);
+  const allProductCount = products.length;
+  const [ProductPerPage, setProductPerPage] = useState(5);
+  const [currentPage, setCurrentPage] = useState(1);
+  // const scrollPosition = useScroll();
+
+  const lastSessionNumber = currentPage * ProductPerPage;
+  const firstSessionIndex = lastSessionNumber - ProductPerPage;
+  const limitedProduct = products.slice(firstSessionIndex, lastSessionNumber);
   // const [state,dispatch] = useStore()
   async function getProduct() {
     let response = await getAllProductApi();
@@ -18,7 +26,7 @@ function Product() {
     if (response.success) {
       Notification("success", "Get All Product Success");
       // console.log(response.data);
-      dispatch(response.data);
+      setProduct(response.data);
     } else {
       Notification("error", "Get All Product Fail");
     }
@@ -27,11 +35,15 @@ function Product() {
   return (
     <div>
       <Container className="product">
-        {/* <div> */}
-        <ProductComponent products={state} />;
-        {/* <PaginationComponent state/> */}
-        {/* </div> */}
+        <Button onClick={getProduct}>btn</Button>
+        <ProductComponent products={limitedProduct} />;
       </Container>
+      <PaginationComponent
+        itemsCount={allProductCount}
+        currentPage={currentPage}
+        itemsPerPage={ProductPerPage}
+        setCurrentPage={setCurrentPage}
+      />
     </div>
   );
 }
