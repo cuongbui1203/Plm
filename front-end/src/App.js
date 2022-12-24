@@ -22,6 +22,7 @@ import { Container } from "react-bootstrap";
 import NotFound from "./page/error/404";
 import { ProductDetail } from "./page/product/ProductDetail";
 import { Profile } from "./components/User/Profile";
+import { ChangePass } from "./components/User/ChangePass";
 
 function App() {
   const [loginState, loginHandle] = useLoginContext();
@@ -67,6 +68,7 @@ function App() {
               element={<User user={loginState.user} image={urlImage} />}
             />
             <Route path="/profile" element={<Profile />} />
+            <Route path="/changePass" element={<ChangePass />} />
             <Route path="/product" element={<Product />} />
             <Route path="/productDetail" element={<ProductDetail />} />
           </Route>
