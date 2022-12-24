@@ -218,4 +218,8 @@ class create_user extends Controller
     public function getAllRole(Request $request) {
         return $this->sendResponse(Role::get(), "thanh cong");
     }
+    public function getRoleById($id) {
+        return $this->sendResponse(Role::where('id','=',$id)->get(), "thanh cong");
+    }
+    
 }

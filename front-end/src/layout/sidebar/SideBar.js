@@ -15,7 +15,6 @@ const SideBar = () => {
   const [productLines, handle] = useState([]);
 
   const [selectId, setId] = useState(-1);
-  
 
   const handleGetProductLine = async () => {
     let response = await getAllProductLine();
@@ -79,7 +78,8 @@ const SideBar = () => {
         id="b"
         className="col-md-12 d-none d-md-block bg-dark sidebar"
         activeKey="/home"
-        onSelect={(selectedKey) => alert(`selected ${selectedKey}`)}>
+        onSelect={(selectedKey) => alert(`selected ${selectedKey}`)}
+      >
         <Button onClick={handleClick}>
           <AiFillDelete />
         </Button>
@@ -191,15 +191,14 @@ const SideBar = () => {
               options={productLines}
               id="idProductLineSelect"
               onChange={handleChange}
+              isSearchable={true}
             />
           </div>
-          <div>
-            
-          </div>
+          <div></div>
           <div>
             <label>Số lượng Sản phẩm</label>
             <br />
-            <input type="number" id="numOfProduct"></input>
+            <input type="number" id="numOfProduct" max={1234}></input>
           </div>
         </Modal.Body>
         <Modal.Footer>

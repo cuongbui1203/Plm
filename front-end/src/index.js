@@ -7,17 +7,14 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { ToastContainer } from "react-toastify";
 import { BrowserRouter } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
-import SettingProvider from "./state/provider/SettingProvider";
-import LoginProvider from "./state/provider/LoginProvider";
+import AppProvider from "./state/provider/AppProvider";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <BrowserRouter>
-    <SettingProvider>
-      <LoginProvider>
-        <App />
-        <ToastContainer pauseOnHover={false} pauseOnFocusLoss={false} />
-      </LoginProvider>
-    </SettingProvider>
+    <AppProvider>
+      <App />
+      <ToastContainer pauseOnHover={false} pauseOnFocusLoss={false} />
+    </AppProvider>
   </BrowserRouter>
 );
 

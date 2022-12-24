@@ -17,6 +17,9 @@ const getImageApi = async (id) => {
       process.env.REACT_APP_API_ENDPOINT + `/image/get/${id}`,
       {
         responseType: "blob",
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+        },
       }
     );
     return response;
@@ -28,7 +31,7 @@ const getImageApi = async (id) => {
 const sendImageApi = async (data) => {
   try {
     const response = await axios.post(
-      process.env.REACT_APP_API_ENDPOINT + "image",
+      process.env.REACT_APP_API_ENDPOINT + "/image",
       data
     );
     return response;
@@ -37,4 +40,15 @@ const sendImageApi = async (data) => {
   }
 };
 
-export { getAllRoleApi, getImageApi, sendImageApi };
+const getRoleId = async (id) => {
+  try {
+    const response = await axios.get(
+      process.env.REACT_APP_API_ENDPOINT + `/roles/${id}`
+    );
+    // console.log(response);
+    return response.data;
+  } catch (error) {
+    return { success: false, error: error };
+  }
+};
+export { getAllRoleApi, getImageApi, sendImageApi, getRoleId };

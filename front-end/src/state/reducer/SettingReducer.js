@@ -17,7 +17,7 @@ const updateSettingState = (state, action) => {
         isLoading: false,
       };
     default:
-      throw new Error("Invalid Action");
+      throw new Error("Invalid Update Setting Action");
   }
 };
 

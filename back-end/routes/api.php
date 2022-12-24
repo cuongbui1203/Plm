@@ -36,6 +36,7 @@ Route::patch('/users/{id}/change', [create_user::class, 'update']);
 
 // Role
 Route::get('/roles', [create_user::class,'getAllRole']);
+Route::get('/roles/{id}', [create_user::class, 'getRoleById']);
 
 //status
 Route::get('/statuses',[StatusController::class,'index']);

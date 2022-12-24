@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Form from "react-bootstrap/Form";
 import Table from "react-bootstrap/Table";
 import { IoAdd } from "react-icons/io5";
@@ -7,6 +7,7 @@ import { AiFillDelete } from "react-icons/ai";
 import "./CR.css";
 
 function CR() {
+  const [senderState, updateSenderState] = useState([]);
   return (
     <div id="wrapper">
       <div className="box">

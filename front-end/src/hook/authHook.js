@@ -1,4 +1,4 @@
-import { loginApi } from "../API/auth";
+import { getUserApi, loginApi } from "../API/auth";
 import Notification from "../components/notification/notification";
 import { setLoginFail, setLoginSuccess } from "../state/actions/loginActions";
 import { setLoaded, setLoading } from "../state/actions/settingActions";

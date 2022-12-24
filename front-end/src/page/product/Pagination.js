@@ -1,6 +1,9 @@
-import Pagination from 'react-bootstrap/Pagination';
+import Pagination from "react-bootstrap/Pagination";
+import { data } from "../../data";
 
 function AdvancedExample() {
+  let items = data;
+
   return (
     <Pagination>
       <Pagination.First />

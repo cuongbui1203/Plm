@@ -1,6 +1,5 @@
-import Button from "react-bootstrap/Button";
+import { useEffect, useState } from "react";
 import Container from "react-bootstrap/Container";
-import Form from "react-bootstrap/Form";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
@@ -13,20 +12,23 @@ import {
   setLogoutSuccess,
 } from "../../state/actions/loginActions";
 import { setLoaded, setLoading } from "../../state/actions/settingActions";
-import { useLoginContext, useSettingContext } from "../../state/hook/hooks";
+import {
+  useDataContext,
+  useLoginContext,
+  useSettingContext,
+} from "../../state/hook/hooks";
 import "./HeaderBar.css";
 
-function HeaderBar() {
+function HeaderBar({ role }) {
   const navig = useNavigate();
   const [settingState, updateSettingState] = useSettingContext();
   const [loginState, updateLoginState] = useLoginContext();
+  const [dataState, updateDateState] = useDataContext();
+  const [roleTitle, updateRoleTitle] = useState("");
   const logout = async () => {
     // eslint-disable-next-line react-hooks/rules-of-hooks
-
     updateSettingState(setLoading());
     let response = await logoutApi();
-    // dispatch(actions.setLoading(''))
-
     if (response.success) {
       updateLoginState(setLogoutSuccess());
       localStorage.removeItem("token");
@@ -38,45 +40,67 @@ function HeaderBar() {
     }
     updateSettingState(setLoaded());
   };
+  const navigateToHome = () => {
+    navig("/home/user");
+  };
+
+  const getChucVu = () => {
+    updateRoleTitle(loginState.isLogin ? loginState.user.role : "");
+  };
+  useEffect(() => {
+    getChucVu();
+    console.log("test");
+  }, [settingState]);
   return (
-    <Navbar id="hd" className="navbar navbar-expand-lg navbar-dark bg-dark">
-      <Container fluid>
-        <Navbar.Brand href="home">
-          {" "}
-          <FaCannabis className="cannabis" />
-        </Navbar.Brand>
-        <Navbar.Toggle aria-controls="navbarScroll" />
-        <Navbar.Collapse id="navbarScroll">
-          <Nav
-            className="me-auto my-2 my-lg-0"
-            style={{ maxHeight: "100px" }}
-            navbarScroll
-          >
-            <Nav.Link href="/home">Home</Nav.Link>
-          </Nav>
-          <Nav>
-            <NavDropdown
-              title="Chức vụ"
-              id="navbarScrollingDropdown"
-              align="end"
+    <div>
+      <Navbar
+        id="hd"
+        className="navbar navbar-expand-lg navbar-dark bg-dark"
+        hidden={!loginState.isLogin}
+      >
+        <Container fluid>
+          <Navbar.Brand href="home">
+            {" "}
+            <FaCannabis className="cannabis" />
+          </Navbar.Brand>
+          <Navbar.Toggle aria-controls="navbarScroll" />
+          <Navbar.Collapse id="navbarScroll">
+            <Nav
+              className="me-auto my-2 my-lg-0"
+              style={{ maxHeight: "100px" }}
+              navbarScroll
             >
-              <NavDropdown.Item href="#infor">thêm</NavDropdown.Item>
-              <NavDropdown.Item href="#setting">sửa</NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item href="#lobby">xóa</NavDropdown.Item>
-              <NavDropdown.Item onClick={logout}>Đăng xuất</NavDropdown.Item>
-            </NavDropdown>
-            <NavDropdown title="User" id="navbarScrollingDropdown" align="end">
-              <NavDropdown.Item href="#infor">Hồ sơ</NavDropdown.Item>
-              <NavDropdown.Item href="#setting">Cài đặt</NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item href="#lobby">Đổi tài khoản</NavDropdown.Item>
-              <NavDropdown.Item onClick={logout}>Đăng xuất</NavDropdown.Item>
-            </NavDropdown>
-          </Nav>
-        </Navbar.Collapse>
-      </Container>
-    </Navbar>
+              <Nav.Link href="/home">Home</Nav.Link>
+            </Nav>
+            <Nav hidden={!loginState.isLogin}>
+              <NavDropdown
+                title={role}
+                id="navbarScrollingDropdown"
+                align="end"
+              >
+                <NavDropdown.Item href="/info">thêm</NavDropdown.Item>
+                <NavDropdown.Item href="#setting">sửa</NavDropdown.Item>
+                {/* <NavDropdown.Divider /> */}
+                <NavDropdown.Item href="#lobby">xóa</NavDropdown.Item>
+              </NavDropdown>
+              <NavDropdown
+                title="User"
+                id="navbarScrollingDropdown"
+                align="end"
+              >
+                <NavDropdown.Item onClick={navigateToHome}>
+                  Hồ sơ
+                </NavDropdown.Item>
+                <NavDropdown.Item href="#setting">Cài đặt</NavDropdown.Item>
+                <NavDropdown.Divider />
+                <NavDropdown.Item href="#lobby">Đổi tài khoản</NavDropdown.Item>
+                <NavDropdown.Item onClick={logout}>Đăng xuất</NavDropdown.Item>
+              </NavDropdown>
+            </Nav>
+          </Navbar.Collapse>
+        </Container>
+      </Navbar>
+    </div>
   );
 }
 

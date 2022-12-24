@@ -8,8 +8,3 @@ change                  /product/{id}/edit
 status                  /product/{id}/status
 change status           /product/{id}/status/change
 
-
-thống kê                /statistics
-    product             /statistics/product
-    status              /statistics/status/{id}
-

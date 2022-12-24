@@ -34,7 +34,7 @@ let updateLoginState = (state, action) => {
       };
     default:
       console.log(action);
-      throw new Error("Invalid Action");
+      throw new Error("Invalid Update Login Action");
   }
 };
 

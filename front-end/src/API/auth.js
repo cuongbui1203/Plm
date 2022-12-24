@@ -1,5 +1,4 @@
-import axios from "axios";
-import { config, net } from "./axiosConfig";
+import { net } from "./axiosConfig";
 
 async function loginApi(data) {
   // axios.post('http://127.0.0.1:8000/api/user/login"')
@@ -9,7 +8,7 @@ async function loginApi(data) {
       process.env.REACT_APP_API_ENDPOINT + "/user/login",
       data
     );
-    // console.log(response);
+    console.log(response);
     return response.data;
   } catch (error) {
     return { success: false, error: error.message };

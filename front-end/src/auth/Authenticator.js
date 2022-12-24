@@ -14,7 +14,7 @@ function Authenticator() {
   } else if (loginState.isLogin) {
     // navigation('/home')
     console.log(setting);
-    body = <Navigate to="/home" state={{ from: location }} replace />;
+    body = <Navigate to="/home/" state={{ from: location }} replace />;
   } else {
     body = <Outlet />;
   }
