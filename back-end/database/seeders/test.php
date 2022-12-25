@@ -17,12 +17,8 @@ class test extends Seeder
      */
     public function run()
     {
-<<<<<<< HEAD
-        DB::table('images')->insert(['img'=>'']);
-=======
         DB::table('images')->insert([
             'img'=>'',
         ]);
->>>>>>> 156a85506c4629f5c6a8e55e20eab4fe067084b0
     }
 }
