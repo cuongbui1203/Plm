@@ -47,6 +47,9 @@ function HeaderBar({ role }) {
   const navigateProfile = () => {
     navig("/profile");
   };
+  const navigateChangePass = () => {
+    navig("/changePass");
+  };
   const getChucVu = () => {
     updateRoleTitle(loginState.isLogin ? loginState.user.role : "");
   };
@@ -94,9 +97,11 @@ function HeaderBar({ role }) {
                 <NavDropdown.Item onClick={navigateProfile}>
                   Hồ sơ
                 </NavDropdown.Item>
-                <NavDropdown.Item href="#setting">Cài đặt</NavDropdown.Item>
+                <NavDropdown.Item onClick={navigateChangePass}>
+                  Đổi mật khẩu
+                </NavDropdown.Item>
                 <NavDropdown.Divider />
-                <NavDropdown.Item href="#lobby">Đổi tài khoản</NavDropdown.Item>
+
                 <NavDropdown.Item onClick={logout}>Đăng xuất</NavDropdown.Item>
               </NavDropdown>
             </Nav>

@@ -22,6 +22,7 @@ import { Container } from "react-bootstrap";
 import NotFound from "./page/error/404";
 import { ProductDetail } from "./page/product/ProductDetail";
 import { Profile } from "./components/User/Profile";
+import { ChangePass } from "./components/User/ChangePass";
 
 function App() {
   const [loginState, loginHandle] = useLoginContext();
@@ -62,6 +63,7 @@ function App() {
             <Route path="/login" element={<LoginForm />} />
           </Route>
           <Route exact path="/" element={<RequiredAuth />}>
+
             <Route path="/home/" element={<Profile />} />
             <Route path="/home/product" element={<Product />} />
             <Route path="/home/product/:id" element={<ProductDetail />} />
