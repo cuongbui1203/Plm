@@ -12,7 +12,7 @@ import "./Product.css";
 function Product() {
   const [products, setProduct] = useState(testProduct);
   const allProductCount = products.length;
-  const [ProductPerPage, setProductPerPage] = useState(5);
+  const [ProductPerPage, setProductPerPage] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
   // const scrollPosition = useScroll();
 
@@ -26,7 +26,7 @@ function Product() {
     if (response.success) {
       Notification("success", "Get All Product Success");
       console.log(response.data);
-      // setProduct(response.data);
+      setProduct(response.data);
       // console.log(products);
     } else {
       Notification("error", "Get All Product Fail");

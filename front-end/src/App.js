@@ -1,34 +1,32 @@
 import "./App.css";
 import Product from "./page/product/Product";
 import LoginForm from "./components/loginForm/LoginForm";
-import AdvancedExample from "./page/product/Pagination";
 import { Routes, Route } from "react-router-dom";
 import Authenticator from "./auth/Authenticator";
 import RequiredAuth from "./auth/requireAuth";
 import { SideBar, HeaderBar } from "./layout";
-import RegisterForm from "./components/registerForm/registerForm";
-import Admin from "./components/Admin/Admin";
-import Shop from "./components/Shop/Shop";
-import CR from "./components/createRequest/CR";
-import { useLoginContext, useSettingContext } from "./state/hook/hooks";
+import {
+  useLoginContext,
+  useProductLinesContext,
+  useSettingContext,
+} from "./state/hook/hooks";
 import { getUserApi } from "./API/auth";
 import { useEffect, useState } from "react";
 import { setLoaded, setLoading } from "./state/actions/settingActions";
 import { setLoginSuccess } from "./state/actions/loginActions";
-import User from "./page/home/user";
 import { handleGetUrlImage } from "./hook/getInformation";
 import { getRoleId } from "./API/Other";
 import { Container } from "react-bootstrap";
 import NotFound from "./page/error/404";
 import { ProductDetail } from "./page/product/ProductDetail";
 import { Profile } from "./components/User/Profile";
-import { ChangePass } from "./components/User/ChangePass";
 
 function App() {
   const [loginState, loginHandle] = useLoginContext();
   const [setting, settingHandle] = useSettingContext();
   const [urlImage, urlImageHandle] = useState("");
   const [roleTitle, updateRoleTitle] = useState("");
+  const [productLines, updateProductLines] = useProductLinesContext();
   const getUser = async () => {
     let token = localStorage.getItem("token");
     if (token !== null && !loginState.isLogin) {
@@ -51,8 +49,10 @@ function App() {
         : "https://i.pinimg.com/564x/62/ed/6e/62ed6ea71018a57a3ab0c8c959d78cb0.jpg"
     );
     updateRoleTitle(loginState.isLogin ? loginState.user.role : "");
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loginState]);
+
   return (
     <>
       <HeaderBar role={roleTitle} />
@@ -63,8 +63,7 @@ function App() {
             <Route path="/login" element={<LoginForm />} />
           </Route>
           <Route exact path="/" element={<RequiredAuth />}>
-
-            <Route path="/home/" element={<Profile />} />
+            <Route path="/home/profile/:id" element={<Profile />} />
             <Route path="/home/product" element={<Product />} />
             <Route path="/home/product/:id" element={<ProductDetail />} />
           </Route>

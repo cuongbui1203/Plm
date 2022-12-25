@@ -1,9 +1,16 @@
-import React from 'react'
+/* eslint-disable jsx-a11y/alt-text */
+import React, { useState } from "react";
 import Table from "react-bootstrap/Table";
+import { useParams } from "react-router-dom";
 
 export const ProductDetail = () => {
+  const { id } = useParams();
+  const [product, updateProduct] = useState({});
+  const getProduct = () => {
+    // let response =
+  };
   return (
-    <div>
+    <div className="product-detail">
       <img
         style={{
           marginLeft: "30%",
@@ -21,6 +28,10 @@ export const ProductDetail = () => {
           </tr>
         </thead>
         <tbody>
+          <tr>
+            <td>ID</td>
+            <td>{id}</td>
+          </tr>
           <tr>
             <td>Tên</td>
             <td>Mark</td>
@@ -45,4 +56,4 @@ export const ProductDetail = () => {
       </Table>
     </div>
   );
-}
+};

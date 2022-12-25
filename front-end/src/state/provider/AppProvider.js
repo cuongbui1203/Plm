@@ -1,12 +1,15 @@
 import DataProvider from "./DataProvider";
 import LoginProvider from "./LoginProvider";
+import ProductLinesProvider from "./ProductLinesProvider";
 import SettingProvider from "./SettingProvider";
 
 const AppProvider = ({ children }) => {
   return (
     <SettingProvider>
       <LoginProvider>
-        <DataProvider>{children}</DataProvider>
+        <DataProvider>
+          <ProductLinesProvider>{children}</ProductLinesProvider>
+        </DataProvider>
       </LoginProvider>
     </SettingProvider>
   );
