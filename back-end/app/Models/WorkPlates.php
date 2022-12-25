@@ -8,4 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class WorkPlates extends Model
 {
     use HasFactory;
+    protected $table = "work_plates";
+    protected $fillable = [
+        'id',
+        'roleId',
+        'name',
+        'address',
+        'updated_at',
+        'created_at'
+    ];
 }

@@ -63,14 +63,10 @@ function App() {
             <Route path="/login" element={<LoginForm />} />
           </Route>
           <Route exact path="/" element={<RequiredAuth />}>
-            <Route
-              path="/home/"
-              element={<User user={loginState.user} image={urlImage} />}
-            />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/changePass" element={<ChangePass />} />
-            <Route path="/product" element={<Product />} />
-            <Route path="/productDetail" element={<ProductDetail />} />
+
+            <Route path="/home/" element={<Profile />} />
+            <Route path="/home/product" element={<Product />} />
+            <Route path="/home/product/:id" element={<ProductDetail />} />
           </Route>
           <Route path="/*" element={<NotFound />} />
         </Routes>

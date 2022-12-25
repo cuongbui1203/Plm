@@ -8,6 +8,7 @@ use App\Models\Role;
 use App\Models\User;
 use Carbon\Carbon;
 use Exception;
+use app\Http\Controllers\Api\getTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -84,8 +85,8 @@ class create_user extends Controller
         DB::table('personal_access_tokens')
                 ->where('id', '=', $id)
                 ->update([
-                    'last_used_at'=>Carbon::now()->timezone('Asia/Phnom_Penh')->format('Y-m-d H:i:s'),
-                    'updated_at'=>Carbon::now()->timezone('Asia/Phnom_Penh')->format('Y-m-d H:i:s')
+                    'last_used_at'=>date('Y-m-d H:i:s'),
+                    'updated_at'=>date('Y-m-d H:i:s')
                 ]);
         return $this->sendResponse([$request->user()], "ok");
     }
@@ -100,19 +101,19 @@ class create_user extends Controller
             $success['user'] = $user;
             PersonalAccessToken::findToken($success['token'])
             ->update([
-                'created_at'=>Carbon::now()->timezone('Asia/Phnom_Penh')->format('Y-m-d H:i:s'),
-                'updated_at'=>Carbon::now()->timezone('Asia/Phnom_Penh')->format('Y-m-d H:i:s'),
-                'expires_at'=>Carbon::now()->timezone('Asia/Phnom_Penh')->addDay()->format('Y-m-d H:i:s')
+                'created_at'=>date('Y-m-d H:i:s'),
+                'updated_at'=>date('Y-m-d H:i:s'),
+                'expires_at'=>Carbon::now('Asia/Phnom_Penh')->addDay()->format('Y-m-d H:i:s')
             ]);
-            
-            
+
+
             return $this->sendResponse($success, 'User login successfully.');
         }
         else{
             return $this->sendError('Unauthorize.', ['error'=>'Unauthorize']);
         }
     }
-    
+
 
     public function logout(Request $request)
     {
@@ -121,8 +122,8 @@ class create_user extends Controller
         $accessToken = $request->bearerToken();
         // Get access token from database
         $token = PersonalAccessToken::findToken($accessToken);
-        
-        
+
+
         // Revoke token
         if($token == null){
             return $this->sendError("Invalid Token",[]);
@@ -179,10 +180,11 @@ class create_user extends Controller
         //         $user->name = $request->name;
         //         break;
         //     case '':
-        //         break;        
+        //         break;
         // }
         $user->name = $request->name;
-        $user->updated_at = Carbon::now()->format('Y-m-d H:i:s');
+        //$user->updated_at = Carbon::now()->format('Y-m-d H:i:s');
+        $user->updated_at = getTime::getTime();
         $user->save();
         return $this->sendResponse([], 'thanh cong');
     }
@@ -195,7 +197,7 @@ class create_user extends Controller
                 $user->name = $request->name;
                 break;
             case '':
-                break;        
+                break;
         }
         // $user->updated_at = Carbon::now()->format('Y-m-d H:i:s');
         $user->save();
@@ -221,5 +223,5 @@ class create_user extends Controller
     public function getRoleById($id) {
         return $this->sendResponse(Role::where('id','=',$id)->get(), "thanh cong");
     }
-    
+
 }

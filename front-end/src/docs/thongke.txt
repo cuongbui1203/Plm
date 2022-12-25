@@ -1,0 +1,6 @@
+thống kê:
+    thống kê theo trạng thái sản phẩm
+    thống kê theo dòng sản phẩm
+    thống kê theo ngày sản xuất
+    thống kê số lượng bán ra /chưa bán theo từng tháng, từng quý, từng năm 
+    

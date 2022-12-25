@@ -1,5 +1,5 @@
-các api cần làm 
-    + create Id 
+các api cần làm
+    + create Id
     + hàm lấy thời gian
     + thay đổi thông tin dòng sản phẩm (ProductLineController)
     + thay đổi thông tin người dùng (create_user)
@@ -7,11 +7,11 @@ các api cần làm
     + xử lý khi triệu hồi các sản phẩm cùng lô sản xuất
 
 getCurrentTime(){
-    Carbon::now('Asia/Phnom_Penh')->format('Y-m-d H:i:s')    
+    Carbon::now('Asia/Phnom_Penh')->format('Y-m-d H:i:s')
 }
 getCurrentTime(ngày){
 
-    Carbon::now('Asia/Phnom_Penh')->addDays(ngày)->format('Y-m-d H:i:s')    
+    Carbon::now('Asia/Phnom_Penh')->addDays(ngày)->format('Y-m-d H:i:s')
 }
 
 
@@ -21,13 +21,13 @@ thay đổi thông tin dòng sản phẩm
         info
         imgId
         updated_at
-    
+
 thay đổi thông tin người dùng
     đc thay đổi
-        name
-        password
-        wordPlateId
-        imageId
-        roleId
-        updated_at
-   
+    name
+    password
+    wordPlateId
+    imageId
+    roleId
+    updated_at
+

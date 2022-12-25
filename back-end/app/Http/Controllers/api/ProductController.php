@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\CreateID\create_id;
 use App\Models\Product\Product;
 use Carbon\Carbon;
 use Exception;
@@ -24,6 +25,7 @@ class ProductController extends Controller
                     'products.productId',
                     'products.name',
                     DB::raw('productLines.name as productLine'),
+                    DB::raw('productLines.info as info'),
                     'products.history',
                     'products.created_at',
                     'products.updated_at',
@@ -46,6 +48,7 @@ class ProductController extends Controller
                     'products.productId',
                     'products.name',
                     DB::raw('productLines.name as productLine'),
+                    DB::raw('productLines.info as info'),
                     'products.history',
                     'products.created_at',
                     'products.updated_at',
@@ -90,11 +93,12 @@ class ProductController extends Controller
         try{
             for($i = 0;$i < (int)$request->num;$i++){
                 $product = new Product();
-                $product->productId = Product::createId($request->idProductLine,$i);
+                $product->productId = create_id::createIdProduct();
                 $product->name = $name;
                 $product->idStatus = 1;
                 $product->idProductLine=$request->idProductLine;
                 $product->history = $request->idProductLine;
+              //  $product->created_at = date('Y-m-d H:i:s');
                 $product->save();
                 array_push($res,$product);
             }
@@ -120,4 +124,41 @@ class ProductController extends Controller
             'idShop' => 'required'
         ]);
     }
+    public function update($id, Request $request)
+    {
+        $validator =  Validator::make($request->all(),[
+            'idProductLine'=>'required',
+            'name'=>'required',
+            'num'=>'required|numeric',
+            //'batch'=>'required'
+        ]);
+        if($validator->fails()){
+            return $this->sendError('Validation Error.',$validator->errors());
+        }
+
+        try {
+            $product = Product::where('productId', '=', $id)
+            ->join('productLines', 'products.idProductLine', '=', 'productLines.productLineId')
+            ->join('images', 'productLines.imgId', '=', 'images.id')
+            ->join('statuses', 'products.idStatus', '=', 'statuses.id')
+            ->select(
+                'products.productId',
+                'products.name',
+                DB::raw('productLines.name as productLine'),
+                'products.history',
+                'products.created_at',
+                'products.updated_at',
+                DB::raw('statuses.title as status'),
+                DB::raw('images.id as imgId')
+            )
+            ->get();
+            $product->name = $request->name;
+            $product->idStatus = $request->idStatus;
+            $product->idProductLine=$request->idProductLine;
+            $product->history += $request->workPlateId;
+            $product->save();
+        } catch (Exception $e) {
+            return $this->sendError('Validation Error', $e);
+        }
+    } // update()
 }
