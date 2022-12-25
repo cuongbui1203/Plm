@@ -24,6 +24,7 @@ class ProductController extends Controller
                 ->select(
                     'products.productId',
                     'products.name',
+                    DB::raw('productLines.productLineId as productLineId'),
                     DB::raw('productLines.name as productLine'),
                     DB::raw('productLines.info as info'),
                     'products.history',
