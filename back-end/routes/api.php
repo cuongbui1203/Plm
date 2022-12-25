@@ -67,6 +67,7 @@ Route::patch('notifications/accept/', [NotificationController::class, 'acceptNot
 //workPlate
 Route::post('work-plate/create', [WorkPlateController::class, 'create']);
 Route::get('work-plate', [WorkPlateController::class, 'index']);
+Route::patch('work-plate/{id}/update', [WorkPlateController::class,'update']);
 // Route::group(['middleware'=>'auth:sanctum'],function(){
 //     //user
 //     Route::post('/logout',[create_user::class,'logout']);

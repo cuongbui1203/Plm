@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\CreateID\create_id;
 use App\Models\WorkPlates;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
@@ -50,4 +51,28 @@ class WorkPlateController extends Controller
             return $this->sendError("error",$e);
         }
     }
+
+    public function update($id, Request $request) {
+        $validator = Validator::make($request->all(),[
+            'name'=>'string',
+            'address'=>'string',
+            'roleId'=>'numeric',
+            'type' => 'required|string'
+        ]);
+        if($validator->fails()){
+            return $this->sendError('Validation Error.',$validator->errors(),500);
+        }
+        try {
+            switch($request -> type) {
+                case 'name': DB::table('work_plates')->where('id', '=', $id)->update(['name'=>$request->name]); break;
+                case 'address': DB::table('work_plates')->where('id', '=', $id)->update(['address'=>$request->address]); break;
+                case 'roleId': DB::table('work_plates')->where('id', '=', $id)->update(['roleId'=>$request->roleId]); break;
+                default: break;
+            }
+            DB::table('work_plates')->where('id', '=', $id)->update(['updated_at'=>Carbon::now('Asia/Phnom_Penh')->format('Y-m-d H:i:s')]);
+            return $this->sendResponse(DB::table('productLines')->where('productLineId','=',$id)->get(),"thanh cong");
+        } catch(Exception $e) {
+            return $this->sendError('error',$e);
+        }
+    } //update
 }
