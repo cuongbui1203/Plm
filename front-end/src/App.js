@@ -52,42 +52,21 @@ function App() {
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loginState]);
-
   return (
     <>
-      <HeaderBar role={roleTitle} />
-      {/* <SideBar /> */}
-      <Container className="content">
-        <Routes>
-          <Route exact path="/login" element={<Authenticator />}>
-            <Route path="/login" element={<LoginForm />} />
-          </Route>
-          <Route exact path="/" element={<RequiredAuth />}>
-            <Route path="/home/profile/:id" element={<Profile />} />
-            <Route path="/home/product" element={<Product />} />
-            <Route path="/home/product/:id" element={<ProductDetail />} />
-          </Route>
-          <Route path="/*" element={<NotFound />} />
-        </Routes>
-      </Container>
+      <Routes>
+        <Route exact path="/login" element={<Authenticator />}>
+          <Route path="/login" element={<LoginForm />} />
+        </Route>
+        <Route exact path="/" element={<RequiredAuth />}>
+          <Route path="/home/profile/:id" element={<Profile />} />
+          <Route path="/home/" element={<Product />} />
+          <Route path="/home/product/:id" element={<ProductDetail />} />
+        </Route>
+        <Route path="/*" element={<NotFound />} />
+      </Routes>
     </>
-    // <div>
-    // <div>
-    //     <HeaderBar />
-    //   </div>
-    // <div>
-    //   <div>
-    // <SideBar />
-    //   </div>
-    //   <div>
-    //     <Product />
-    //   </div>
-    // </div>
-    // <Admin />
-    // <Shop />
-    // <RegisterForm />
-    // <CR />
-    // <LoginForm />
+    // <img src={path} />
   );
 }
 

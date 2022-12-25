@@ -6,15 +6,15 @@ const Executive_Board = {
       link: "/home/productLine",
     },
     {
-      lable: "tài khoản",
+      label: "tài khoản",
       link: "/home/user",
     },
     {
-      lable: "Work plate",
+      label: "Work plate",
       link: "/home/work-plate",
     },
     {
-      lable: "Thống kê",
+      label: "Thống kê",
       link: "/home/statistical",
     },
   ],

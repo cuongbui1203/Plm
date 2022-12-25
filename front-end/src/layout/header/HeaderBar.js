@@ -41,7 +41,7 @@ function HeaderBar({ role }) {
     updateSettingState(setLoaded());
   };
   const navigateToHome = () => {
-    navig("/home/product");
+    navig("/home/");
   };
 
   const navigateProfile = () => {
@@ -52,7 +52,7 @@ function HeaderBar({ role }) {
   };
   useEffect(() => {
     getChucVu();
-    console.log("test");
+    console.log(loginState);
   }, [loginState]);
   return (
     <div>
@@ -81,7 +81,7 @@ function HeaderBar({ role }) {
                 id="navbarScrollingDropdown"
                 align="end"
               >
-                <NavDropdown.Item href="/info">thêm</NavDropdown.Item>
+                <NavDropdown.Item href="#info">thêm</NavDropdown.Item>
                 <NavDropdown.Item href="#setting">sửa</NavDropdown.Item>
                 {/* <NavDropdown.Divider /> */}
                 <NavDropdown.Item href="#lobby">xóa</NavDropdown.Item>

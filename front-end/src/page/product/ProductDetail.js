@@ -2,23 +2,22 @@
 import React, { useState } from "react";
 import Table from "react-bootstrap/Table";
 import { useParams } from "react-router-dom";
+import { useDataContext } from "../../state/hook/hooks";
 
 export const ProductDetail = () => {
   const { id } = useParams();
-  const [product, updateProduct] = useState({});
-  const getProduct = () => {
-    // let response =
-  };
+  const [product, updateProduct] = useDataContext();
+  console.log(product.data);
   return (
     <div className="product-detail">
       <img
         style={{
-          marginLeft: "30%",
-          maxHeight: "400px",
-          maxWidth: "300px",
+          marginLeft: "20%",
+          maxHeight: "40vh",
+          maxWidth: "50vw",
           paddingBottom: "10px",
         }}
-        src={"https://news-w.com/wp-content/uploads/2022/03/poku-no-pico.jpg"}
+        src={product.data.imgUrl}
       />
       <Table striped bordered hover variant="dark">
         <thead>
@@ -34,19 +33,19 @@ export const ProductDetail = () => {
           </tr>
           <tr>
             <td>Tên</td>
-            <td>Mark</td>
+            <td>{product.data.name}</td>
           </tr>
           <tr>
             <td>Dòng sản phẩm</td>
-            <td>Jacob</td>
+            <td>{product.data.productLine}</td>
           </tr>
           <tr>
             <td>Mô tả</td>
-            <td>Larry the Bird</td>
+            <td>{product.data.info}</td>
           </tr>
           <tr>
             <td>Trạng thái</td>
-            <td>Larry the Bird</td>
+            <td>{product.data.status}</td>
           </tr>
           <tr>
             <td>Thông tin khách hàng</td>

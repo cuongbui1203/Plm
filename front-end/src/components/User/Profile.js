@@ -10,6 +10,7 @@ import { useLoginContext } from "../../state/hook/hooks";
 export const Profile = () => {
   const [loginState, updateLoginState] = useLoginContext();
   const param = useParams();
+  console.log(loginState);
   return (
     <div className="profile">
       <h1 className="text-5xl clear-both">Hồ sơ: </h1>

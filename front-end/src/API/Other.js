@@ -22,6 +22,7 @@ const getImageApi = async (id) => {
         },
       }
     );
+    // console.log(response);
     return response;
   } catch (error) {
     return { success: false, error: error };

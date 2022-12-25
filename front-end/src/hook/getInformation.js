@@ -22,7 +22,8 @@ const handleGetImage = async (id) => {
 
 const handleGetUrlImage = async (id) => {
   const response = await getImageApi(id);
-  if (response.success) {
+  // console.log(response);
+  if (response.status === 200) {
     return URL.createObjectURL(response.data);
   } else {
     return null;

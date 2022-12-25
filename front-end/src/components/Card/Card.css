@@ -1,9 +1,19 @@
 .card{
     /* width: 30%; */
     margin: 5px;
-    
+    flex: 1;
+    width: 20vw;
+    height: 44vh;
 }
 
-.card img{
-    height: 40vh;    
+.card img{  
+}
+
+.card .card-title{
+    overflow: hidden;
+   text-overflow: ellipsis;
+   display: -webkit-box;
+   -webkit-line-clamp: 1; /* number of lines to show */
+           line-clamp: 1;
+   -webkit-box-orient: vertical;
 }

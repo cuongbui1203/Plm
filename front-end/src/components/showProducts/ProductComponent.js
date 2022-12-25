@@ -1,5 +1,5 @@
 import { Pagination } from "react-bootstrap";
-import CardComponent from "../Car/Card";
+import CardComponent from "../Card/Card";
 import "./productComponent.css";
 import PropTypes from "prop-types";
 const ProductComponent = ({ products }) => {
@@ -10,9 +10,7 @@ const ProductComponent = ({ products }) => {
           <CardComponent
             key={product.productId}
             id={product.productId}
-            name={product.name}
-            imageUrl=""
-            productLine={product.productLine}
+            product={product}
           />
         );
       })}
