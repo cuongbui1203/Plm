@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Product\ProductLine;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
@@ -60,8 +61,10 @@ class ProductLineController extends Controller
                 $productLine['imageId'] = $image->id;
             } else {
                 $productLine['imageId'] = null;
-    
+
             }
+            $productLine['updated_at'] = date('Y-m-d H:i:s');
+            $productLine['created_at'] = date('Y-m-d H:i:s');
             $productLine->save();
             return $this->sendResponse($productLine,"thanh cong",Response::HTTP_CREATED);
         } catch(Exception $e){
@@ -84,4 +87,28 @@ class ProductLineController extends Controller
             return $this->sendError('error',$e);
         }
     }
+
+    public function update($id, Request $request) {
+        $validator = Validator::make($request->all(),[
+            'name'=>'string',
+            'info'=>'string',
+            'imgId' => 'numeric',
+            'type' => 'required|string',
+        ]);
+        if($validator->fails()){
+            return $this->sendError('Validation Error.',$validator->errors(),500);
+        }
+        try {
+            switch($request -> type) {
+                case 'name': DB::table('productLines')->where('productLineId', '=', $id)->update(['name'=>$request->name]); break;
+                case 'info': DB::table('productLines')->where('productLineId', '=', $id)->update(['info'=>$request->info]); break;
+                case 'imgId': DB::table('productLines')->where('productLineId', '=', $id)->update(['imgId'=>$request->imgId]); break;
+                default: break;
+            }
+            DB::table('productLines')->where('productLineId', '=', $id)->update(['updated_at'=>Carbon::now('Asia/Phnom_Penh')->format('Y-m-d H:i:s')]);
+            return $this->sendResponse(DB::table('productLines')->where('productLineId','=',$id)->get(),"thanh cong");
+        } catch(Exception $e) {
+            return $this->sendError('error',$e);
+        }
+    } // update()
 }

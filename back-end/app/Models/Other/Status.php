@@ -9,6 +9,8 @@ class Status extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'title'
+        'title',
+        'updated_at',
+        'created_at'
     ];
 }

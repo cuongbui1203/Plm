@@ -12,8 +12,10 @@ class Notification extends Model
         'sender',
         'receiver',
         'data',
-        'accepted'
+        'accepted',
+        'updated_at',
+        'created_at'
     ];
 
-    
+
 }
