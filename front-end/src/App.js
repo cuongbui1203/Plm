@@ -22,6 +22,7 @@ import { ProductDetail } from "./page/product/ProductDetail";
 import { Profile } from "./components/User/Profile";
 import { ChangePass } from "./components/User/ChangePass";
 import { ThongKe } from "./page/Thongke/ThongKe";
+import  Admin  from "./components/Admin/Admin";
 
 function App() {
   const [loginState, loginHandle] = useLoginContext();
@@ -89,12 +90,12 @@ function App() {
     //     <Product />
     //   </div>
     // </div>
-    // <Admin />
+    <Admin />
     // <Shop />
     // <RegisterForm />
     // <CR />
     // <LoginForm />
-    <ThongKe />
+    // <ThongKe />
     // <>
     //   <Routes>
     //     <Route exact path="/login" element={<Authenticator />}>

@@ -52,49 +52,7 @@ export const ThongKe = () => {
               </Form.Select>
             </th>
             <th>Số lượng</th>
-            <th>
-              <Form.Select style={{ border: "none", fontWeight: "bold" }}>
-                <option>Năm</option>
-                <option>2020</option>
-                <option>2021</option>
-                <option>2022</option>
-              </Form.Select>
-            </th>
-            <th>
-              <Form.Select
-                style={{ border: "none", fontWeight: "bold" }}
-                onChange={quarterChange}
-              >
-                <option value="-1"></option>
-                {quarters?.map((quart) => {
-                  return (
-                    <option value={quart - 1} key={quart}>
-                      {" "}
-                      Quý {quart}
-                    </option>
-                  );
-                })}
-              </Form.Select>
-            </th>
-            <th>
-              <Form.Select
-                style={{ border: "none", fontWeight: "bold" }}
-                id="countries"
-                onChange={monthChange}
-                disabled={quarter == "-1" ? true : false}
-              >
-                <option value="0"></option>
-                {months &&
-                  months.map((mon) => {
-                    return (
-                      <option value={mon} key={mon}>
-                        {" "}
-                        Tháng {mon}
-                      </option>
-                    );
-                  })}
-              </Form.Select>
-            </th>
+            
           </tr>
         </thead>
         <tbody>
@@ -103,27 +61,21 @@ export const ThongKe = () => {
             <td>Mark</td>
             <td>Otto</td>
             <td>@mdo</td>
-            <td></td>
-            <td></td>
-            <td></td>
+            
           </tr>
           <tr>
             <td>2</td>
             <td>Jacob</td>
             <td>Thornton</td>
             <td>@fat</td>
-            <td></td>
-            <td></td>
-            <td></td>
+            
           </tr>
           <tr>
             <td>3</td>
             <td>Larry the Bird</td>
             <td>@twitter</td>
             <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            
           </tr>
         </tbody>
       </Table>
