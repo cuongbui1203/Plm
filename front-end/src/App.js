@@ -55,59 +55,19 @@ function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loginState]);
   return (
-    // <>
-    //   <HeaderBar role={roleTitle} />
-    //   {/* <SideBar /> */}
-    //   <Container className="content">
-    //     <Routes>
-    //       <Route exact path="/login" element={<Authenticator />}>
-    //         <Route path="/login" element={<LoginForm />} />
-    //     </Route>
-    //       <Route exact path="/" element={<RequiredAuth />}>
-    //         <Route
-    //           path="/home/"
-    //           element={<User user={loginState.user} image={urlImage} />}
-    //         />
-    //         <Route path="/profile" element={<Profile />} />
-    //         <Route path="/changePass" element={<ChangePass />} />
-    //         <Route path="/product" element={<Product />} />
-    //         <Route path="/productDetail" element={<ProductDetail />} />
-    //       </Route>
-    //     <Route path="/*" element={<NotFound />} />
-    //     </Routes>
-    //   </Container>
-    // </>
-    // <div>
-    // <div>
-    //     <HeaderBar />
-    //   </div>
-    // <div>
-    //   <div>
-    // <SideBar />
-    //   </div>
-    //   <div>
-    //     <Product />
-    //   </div>
-    // </div>
-    // <Admin />
-    // <Shop />
-    // <RegisterForm />
-    // <CR />
-    // <LoginForm />
-    <ThongKe />
-    // <>
-    //   <Routes>
-    //     <Route exact path="/login" element={<Authenticator />}>
-    //       <Route path="/login" element={<LoginForm />} />
-    //     </Route>
-    //     <Route exact path="/" element={<RequiredAuth />}>
-    //       <Route path="/home/profile/:id" element={<Profile />} />
-    //       <Route path="/home/" element={<Product />} />
-    //       <Route path="/home/product/:id" element={<ProductDetail />} />
-    //     </Route>
-    //     <Route path="/*" element={<NotFound />} />
-    //   </Routes>
-    // </>
+    <>
+      <Routes>
+        <Route exact path="/login" element={<Authenticator />}>
+          <Route path="/login" element={<LoginForm />} />
+        </Route>
+        <Route exact path="/" element={<RequiredAuth />}>
+          <Route path="/home/profile/:id" element={<Profile />} />
+          <Route path="/home/" element={<Product />} />
+          <Route path="/home/product/:id" element={<ProductDetail />} />
+        </Route>
+        <Route path="/*" element={<NotFound />} />
+      </Routes>
+    </>
     // <img src={path} />
   );
 }
