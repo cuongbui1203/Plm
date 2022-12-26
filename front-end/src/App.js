@@ -20,7 +20,7 @@ import { Container } from "react-bootstrap";
 import NotFound from "./page/error/404";
 import { ProductDetail } from "./page/product/ProductDetail";
 import { Profile } from "./components/User/Profile";
-import { ChangePass } from "./components/User/ChangePass";
+// import { ChangePass } from "./components/User/ChangePass";
 import { ThongKe } from "./page/Thongke/ThongKe";
 import { CSSX } from "./page/Thongke/CSSX";
 import  Admin  from "./components/Admin/Admin";
@@ -96,8 +96,8 @@ function App() {
     // <RegisterForm />
     // <CR />
     // <LoginForm />
-    <ThongKe />
-    // <CSSX />
+    // <ThongKe />
+    <CSSX />
     // <>
     //   <Routes>
     //     <Route exact path="/login" element={<Authenticator />}>
@@ -111,6 +111,21 @@ function App() {
     //     <Route path="/*" element={<NotFound />} />
     //   </Routes>
     // </>
+
+    // <>
+    //   <Routes>
+    //     <Route exact path="/login" element={<Authenticator />}>
+    //       <Route path="/login" element={<LoginForm />} />
+    //     </Route>
+    //     <Route exact path="/" element={<RequiredAuth />}>
+    //       <Route path="/home/profile/:id" element={<Profile />} />
+    //       <Route path="/home/" element={<Product />} />
+    //       <Route path="/home/product/:id" element={<ProductDetail />} />
+    //     </Route>
+    //     <Route path="/*" element={<NotFound />} />
+    //   </Routes>
+    // </>
+
     // <img src={path} />
   );
 }

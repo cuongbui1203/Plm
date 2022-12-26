@@ -3,21 +3,16 @@ import Table from "react-bootstrap/Table";
 import Form from "react-bootstrap/Form";
 import { useState } from "react";
 import { getAllProductApi, getAllProductLine } from "../../API/productApi";
+import { number } from "prop-types";
 
 export const ThongKe = () => {
   const [listPrd, setListPrd] = useState([]);
-
+  const [listPrdt, setListPrdt] = useState([]);
   const loadAllPrd = async () => {
-    const response1 = await getAllProductApi();
-    const response2 = await getAllProductLine();
-    console.log(response1.data);
-    console.log(response2.data);
-    for (let i = 0; i < response1.data.length; i++) {
-      for (let j = 0; j < response2.data.length; j++) {
-
-       }
-    }
-    // setListPrd(response.data);
+    const response = await getAllProductApi();
+    console.log(response.data);
+    setListPrdt(response.data);
+    setListPrd(response.data);
   };
   useEffect(() => {
     loadAllPrd();
@@ -27,8 +22,12 @@ export const ThongKe = () => {
   const statusChange = (e) => {
     setStatus(e.target.value);
     // console.log(e.target.value);
+    const prdData = listPrdt.filter((prd, index) => {
+      return prd.statusId === Number(e.target.value);
+    });
+    setListPrd(prdData);
   };
-  
+
   return (
     <div>
       <Table striped bordered hover>
@@ -66,7 +65,7 @@ export const ThongKe = () => {
                 <td>{index + 1}</td>
                 <td>{prd.name}</td>
                 <td>{prd.status}</td>
-                <td>{prd.quantity}</td>
+                <td>{prd.productLineQuantity}</td>
               </tr>
             );
           })}

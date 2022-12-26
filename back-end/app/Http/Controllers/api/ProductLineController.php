@@ -111,4 +111,39 @@ class ProductLineController extends Controller
             return $this->sendError('error',$e);
         }
     } // update()
+
+    public function search(Request $request){
+        $validator =  Validator::make($request->all(),[
+            'type'=>'required',
+            'name'=>'required',
+            // 'num'=>'required|numeric',
+            
+            //'batch'=>'required'
+        ]);
+        if($validator->fails()){
+            return $this->sendError('Validation Error.',$validator->errors());
+        }
+        try{
+            //search theo colum
+            $res = DB::table('productLines');
+            switch($request->type){
+                case 'name':
+                    $res = $res->where('name','like','%'.$request->name.'%');
+                    break;
+                default:
+                    return $this->sendError('Invalid type Search',[]);
+                }
+                if($request->orderBy!=null){
+                    if(!$request->direction) $request->direction = 'ASC';
+                    $res = $res->orderBy($request->orderBy,$request->direction);
+                }
+                $res = $res->select()->get();
+                return $this->sendResponse($res,'thanh cong');
+        }catch(Exception $e){
+            return $this->sendError('not Found', $e);
+        }
+    }
+    public function getOrderByColum() {
+        return $this->sendResponse(['productLineId','name','quantity','created_at','updated_at'],'thanh cong');
+    }
 }

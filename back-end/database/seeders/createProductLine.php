@@ -16,19 +16,19 @@ class createProductLine extends Seeder
     public function run()
     {
         //
-        for ($i = 0; $i < 10; $i++) {
+        // for ($i = 0; $i < 10; $i++) {
             //
             DB::table('productLines')->insert([
                 [
-                    'productLineId' => 'test' . (string) ($i),
-                    'name' => 'name' . (string) $i,
-                    'info' => (string) $i,
-                    'quantity' => $i,
+                    'productLineId' => 'test0',
+                    'name' => 'name0',
+                    'info' => '0',
+                    'quantity' => 10,
                     'batch' => '1222',
                     'imgId' => 1,
                 ]
             ]);
-        }
+        // }
     }
     
 }
