@@ -88,7 +88,9 @@ class create_user extends Controller
                     'last_used_at'=>date('Y-m-d H:i:s'),
                     'updated_at'=>date('Y-m-d H:i:s')
                 ]);
-        return $this->sendResponse([$request->user()], "ok");
+        $user = $request->user();
+        $user->role = Role::where('id', '=', $user->roleId)->select()->limit(1)->get();
+        return $this->sendResponse([$user], "ok");
     }
 
     public function login(Request $request){
@@ -217,11 +219,49 @@ class create_user extends Controller
             return $this->sendResponse([$res],'thanh cong');
     }
 
-    public function getAllRole(Request $request) {
+    public function getAllRole() {
         return $this->sendResponse(Role::get(), "thanh cong");
     }
     public function getRoleById($id) {
         return $this->sendResponse(Role::where('id','=',$id)->get(), "thanh cong");
     }
 
+    public function search(Request $request){
+        $validator = Validator::make($request->all(), [
+            'type' => 'require',
+        ]);
+        if($validator->fails()){
+            return $this->sendError('validator Error',$validator->errors());
+        }
+        try {
+            $res = DB::table('users');
+
+            switch ($request->type) {
+                case 'name':
+                    $res = $res->where('name', 'LIKE', '%' . $request->name . '%');
+                    break;
+                case 'role':
+                    $res = $res->where('roleId', '=' . $request->roleId);
+                    break;
+                case 'workPlate':
+                    $res = $res->where('workPlateId', '=', $request->workPlateId);
+                    break;
+                default:
+                    $this->sendError('Invalid search type', []);
+            }
+            if ($request->orderBy) {
+                if ($request->direction)
+                    $request->direction = 'asc';
+                $res = $res->orderBy($request->orderBy, $request->direction);
+            }
+            $res->select()->get();
+            return $this->sendResponse($res,'thanh cong');
+        }catch(Exception $e){
+            return $this->sendError('error',[$e]);
+        }
+    }
+
+    public function getOrderByColum() {
+        return $this->sendResponse(['id','name','email','workPlateId','roleId','created_at','updated_at'],'thanh cong');
+    }
 }

@@ -30,6 +30,7 @@ Route::post('/user/login',[create_user::class,'login']);
 
 //user
 Route::get('/user/logout',[create_user::class,'logout']);
+Route::get('/users/orderby', [create_user::class, 'getOrderByColum']);
 Route::delete('/users/{id}/delete',[create_user::class,'destroy']);
 Route::patch('/users/{id}/change', [create_user::class, 'update']);
 
@@ -43,19 +44,23 @@ Route::get('/statuses/{id}',[StatusController ::class,'show']);
 
 // product
 Route::get('/products',[ProductController::class,'index']);
-Route::get('/products/{id}',[ProductController::class,'getId']);
+Route::get('/products/get/{id}',[ProductController::class,'getId']);
+Route::get('/products/orderby', [ProductController::class, 'getOrderByColum']);
 Route::post('/products/create',[ProductController::class,'create']);
+Route::post('/products/search', [ProductController::class, 'search']);
 Route::patch('/products/{id}/change',[ProductController::class,'update']);
-
+Route::delete('/products/{id}/delete', [ProductController::class, 'deleteId']);
 //productLine
 Route::get('/product-lines',[ProductLineController::class,'index']);
-Route::get('/product-lines/{id}',[ProductLineController::class,'getId']);
+Route::get('/product-lines/get/{id}',[ProductLineController::class,'getId']);
+Route::get('/product-lines/orderby', [ProductLineController::class, 'getOrderByColum']);
+Route::post('product-lines/search', [ProductLineController::class, 'search']);
 Route::post('/product-lines/create',[ProductLineController::class,'create']);
 Route::patch('product-lines/{id}/update', [ProductLineController::class, 'update']);
 
 //img
-Route::post('/image', [ImageController::class, 'store']);
 Route::get('/image/get/{id}', [ImageController::class, 'getImage']);
+Route::post('/image', [ImageController::class, 'store']);
 
 //notification
 Route::get('/notifications/{id}', [NotificationController::class, 'show']);
@@ -65,8 +70,8 @@ Route::post('/notifications/create', [NotificationController::class, 'create']);
 Route::patch('notifications/accept/', [NotificationController::class, 'acceptNotification']);
 
 //workPlate
-Route::post('work-plate/create', [WorkPlateController::class, 'create']);
 Route::get('work-plate', [WorkPlateController::class, 'index']);
+Route::post('work-plate/create', [WorkPlateController::class, 'create']);
 Route::patch('work-plate/{id}/update', [WorkPlateController::class,'update']);
 // Route::group(['middleware'=>'auth:sanctum'],function(){
 //     //user

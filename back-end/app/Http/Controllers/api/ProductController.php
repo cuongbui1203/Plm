@@ -25,15 +25,20 @@ class ProductController extends Controller
                     'products.productId',
                     'products.name',
                     DB::raw('productLines.productLineId as productLineId'),
+                    DB::raw('productLines.quantity as productLineQuantity'),
                     DB::raw('productLines.name as productLine'),
                     DB::raw('productLines.info as info'),
                     'products.history',
                     'products.created_at',
                     'products.updated_at',
+                    DB::raw('statuses.id as statusId'),
                     DB::raw('statuses.title as status'),
                     DB::raw('images.id as imgId')
                 )
                 ->get();
+            foreach($res as $e){
+                $e->imgId = '/image/get/' . $e->imgId;
+            }
             return $this->sendResponse($res,"thanh cong lay het san pham");
         }catch(Exception $e){
             return $this->sendError("error",$e);
@@ -53,6 +58,7 @@ class ProductController extends Controller
                     'products.history',
                     'products.created_at',
                     'products.updated_at',
+                    DB::raw('statuses.id as statusId'),
                     DB::raw('statuses.title as status'),
                     DB::raw('images.id as imgId')
                 )
@@ -162,4 +168,55 @@ class ProductController extends Controller
             return $this->sendError('Validation Error', $e);
         }
     } // update()
+
+    public function search(Request $request) {
+        $validator =  Validator::make($request->all(),[
+            'type'=>'required',
+            // 'name'=>'',
+            // 'num'=>'required|numeric',
+            
+            //'batch'=>'required'
+        ]);
+        if($validator->fails()){
+            return $this->sendError('Validation Error.',$validator->errors());
+        }
+        try{
+            //search theo colum
+            $res = DB::table('products');
+            switch($request->type){
+                case 'name':
+                    $res = $res->where('name','like','%'.$request->name.'%');
+                    break;
+                case 'productLine':
+                    $res = $res->where('idProductLine','=',$request->productLineId);
+                    break;
+                case 'status':
+                    $res = $res->where('idStatus','=',$request->idStatus);
+                    break;
+                default:
+                    return $this->sendError('Invalid type Search',[]);
+                }
+                if($request->orderBy!=null){
+                    if(!$request->direction)$request->direction = 'ASC';
+                    $res = $res->orderBy($request->orderBy,$request->direction);
+                }
+                $res = $res->select()->get();
+                return $this->sendResponse($res,'thanh cong');
+        }catch(Exception $e){
+            return $this->sendError('not Found', $e);
+        }
+    }
+
+    public function getOrderByColum() {
+        return $this->sendResponse(['productId','name','idProductLine','idStatus','created_at','updated_at'],'thanh cong');
+    }
+
+    public function deleteId($id){
+        
+        
+
+        $res = DB::table('products')->where('productId', '=', $id)->get();
+        
+        return $res;
+    }
 }

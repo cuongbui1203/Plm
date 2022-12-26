@@ -32,7 +32,7 @@ class NotificationController extends Controller
                 'sender'    => $request->sender,
                 'receiver'  => $request->receiver,
                 'message'   => $request->message,
-                'accepted'  => false
+                'accepted'  => 'require'
             ]);
             return $this->sendResponse([$notification->id], 'Create Request Success');
         } catch(Exception $e){
@@ -71,7 +71,7 @@ class NotificationController extends Controller
     public function acceptNotification(Request $request) {
         try{
             DB::table('notifications')->where('id', '=', $request->id)->where('sender','=',$request->sender)->update([
-                'accepted' => true
+                'accepted' => 'accept'
             ]);
             $kg = DB::table('notifications')->select()->where('id','=',$request->id);
             $this->sendResponse([$kg], 'Success', Response::HTTP_ACCEPTED);
