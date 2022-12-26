@@ -23,6 +23,7 @@ import NotFound from "./page/error/404";
 import { ProductDetail } from "./page/product/ProductDetail";
 import { Profile } from "./components/User/Profile";
 import { ChangePass } from "./components/User/ChangePass";
+import { ThongKe } from "./page/Thongke/ThongKe";
 
 function App() {
   const [loginState, loginHandle] = useLoginContext();
@@ -54,28 +55,28 @@ function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loginState]);
   return (
-    <>
-      <HeaderBar role={roleTitle} />
-      {/* <SideBar /> */}
-      <Container className="content">
-        <Routes>
-          <Route exact path="/login" element={<Authenticator />}>
-            <Route path="/login" element={<LoginForm />} />
-          </Route>
-          <Route exact path="/" element={<RequiredAuth />}>
-            <Route
-              path="/home/"
-              element={<User user={loginState.user} image={urlImage} />}
-            />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/changePass" element={<ChangePass />} />
-            <Route path="/product" element={<Product />} />
-            <Route path="/productDetail" element={<ProductDetail />} />
-          </Route>
-          <Route path="/*" element={<NotFound />} />
-        </Routes>
-      </Container>
-    </>
+    // <>
+    //   <HeaderBar role={roleTitle} />
+    //   {/* <SideBar /> */}
+    //   <Container className="content">
+    //     <Routes>
+    //       <Route exact path="/login" element={<Authenticator />}>
+    //         <Route path="/login" element={<LoginForm />} />
+    //     </Route>
+    //       <Route exact path="/" element={<RequiredAuth />}>
+    //         <Route
+    //           path="/home/"
+    //           element={<User user={loginState.user} image={urlImage} />}
+    //         />
+    //         <Route path="/profile" element={<Profile />} />
+    //         <Route path="/changePass" element={<ChangePass />} />
+    //         <Route path="/product" element={<Product />} />
+    //         <Route path="/productDetail" element={<ProductDetail />} />
+    //       </Route>
+    //     <Route path="/*" element={<NotFound />} />
+    //     </Routes>
+    //   </Container>
+    // </>
     // <div>
     // <div>
     //     <HeaderBar />
@@ -93,6 +94,7 @@ function App() {
     // <RegisterForm />
     // <CR />
     // <LoginForm />
+    <ThongKe />
   );
 }
 
