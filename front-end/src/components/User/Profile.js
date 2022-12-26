@@ -6,6 +6,7 @@ import PropTypes from "prop-types";
 import "./Profile.css";
 import { useParams } from "react-router-dom";
 import { useLoginContext } from "../../state/hook/hooks";
+import { getChucVu } from "../../layout/header/HeaderBar";
 
 export const Profile = () => {
   const [loginState, updateLoginState] = useLoginContext();
@@ -29,7 +30,9 @@ export const Profile = () => {
             <Col lg={6} className="">
               <h4 className="float-left clear-both">{loginState.user.name}</h4>
               <h4 className="float-left clear-both">{loginState.user.email}</h4>
-              <h4 className="float-left clear-both">{loginState.user.role}</h4>
+              <h4 className="float-left clear-both">
+                {getChucVu(loginState.user.roleId)}
+              </h4>
             </Col>
           </Row>
         </div>

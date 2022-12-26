@@ -212,11 +212,13 @@ class ProductController extends Controller
     }
 
     public function deleteId($id){
-        
-        
 
-        $res = DB::table('products')->where('productId', '=', $id)->get();
-        
-        return $res;
+
+        try {
+            $res = DB::table('products')->where('productId', '=', $id)->delete();
+            return $this->sendResponse(["thanh cong"],"xoa thanh cong");
+        } catch(Exception $e){
+            return $this->sendError('error',$e);
+        }
     }
 }

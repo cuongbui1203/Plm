@@ -18,7 +18,20 @@ import {
   useSettingContext,
 } from "../../state/hook/hooks";
 import "./HeaderBar.css";
-
+const getChucVu = (roleId) => {
+  switch (roleId) {
+    case 1:
+      return "Ban điều hành";
+    case 2:
+      return "Nhà máy";
+    case 3:
+      return "Shop";
+    case 4:
+      return "Trung tâm bảo hành";
+    default:
+      return "";
+  }
+};
 function HeaderBar({ role }) {
   const navig = useNavigate();
   const [settingState, updateSettingState] = useSettingContext();
@@ -43,17 +56,17 @@ function HeaderBar({ role }) {
   const navigateToHome = () => {
     navig("/home/");
   };
-
+  const gotoThongke = () => {
+    navig("/home/thongke");
+  };
   const navigateProfile = () => {
     navig(`/home/profile/${loginState.user.id}`);
   };
-  const getChucVu = () => {
-    updateRoleTitle(loginState.isLogin ? loginState.user.role : "");
-  };
-  useEffect(() => {
-    getChucVu();
-    console.log(loginState);
-  }, [loginState]);
+
+  // useEffect(() => {
+  //   getChucVu();
+  //   console.log(loginState);
+  // }, [loginState]);
   return (
     <div>
       <Navbar
@@ -77,11 +90,11 @@ function HeaderBar({ role }) {
             </Nav>
             <Nav hidden={!loginState.isLogin}>
               <NavDropdown
-                title={roleTitle}
+                title={getChucVu(loginState.user.roleId)}
                 id="navbarScrollingDropdown"
                 align="end"
               >
-                <NavDropdown.Item href="#info">thêm</NavDropdown.Item>
+                <NavDropdown.Item onClick={gotoThongke}>thêm</NavDropdown.Item>
                 <NavDropdown.Item href="#setting">sửa</NavDropdown.Item>
                 {/* <NavDropdown.Divider /> */}
                 <NavDropdown.Item href="#lobby">xóa</NavDropdown.Item>
@@ -106,5 +119,5 @@ function HeaderBar({ role }) {
     </div>
   );
 }
-
+export { getChucVu };
 export default HeaderBar;

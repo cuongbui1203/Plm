@@ -15,7 +15,7 @@ import "./Product.css";
 function Product() {
   const [products, setProduct] = useState([]);
   const allProductCount = products.length;
-  const [ProductPerPage, setProductPerPage] = useState(10);
+  const [ProductPerPage, setProductPerPage] = useState(12);
   const [currentPage, setCurrentPage] = useState(1);
   // const scrollPosition = useScroll();
 
@@ -31,9 +31,8 @@ function Product() {
       Notification("success", "Get All Product Success");
       console.log(response.data);
 
-      response.data.forEach(async (e) => {
-        const response2 = await handleGetUrlImage(e.imgId);
-        e.imgUrl = response2;
+      response.data.forEach((e) => {
+        e.imgUrl = process.env.REACT_APP_API_ENDPOINT + e.imgId;
       });
       setProduct(response.data);
       // await handleGetPlImage(response.data);
@@ -51,12 +50,12 @@ function Product() {
   }, []);
   // useEffect(() => {}, [products]);
   return (
-    <div >
+    <div>
       <div>
         <Button onClick={getProduct}>btn</Button>
       </div>
       <Container className="product">
-        <ProductComponent products={limitedProduct} /> 
+        <ProductComponent products={limitedProduct} />
       </Container>
       <PaginationComponent
         itemsCount={allProductCount}
