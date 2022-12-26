@@ -1,8 +1,9 @@
 /* eslint-disable no-unused-vars */
 import { Container } from "react-bootstrap";
 import { Outlet, Navigate } from "react-router-dom";
-import { HeaderBar } from "../layout";
+import { HeaderBar, SideBar } from "../layout";
 import Loading from "../page/loading";
+import "../App.css";
 import { useLoginContext, useSettingContext } from "../state/hook/hooks";
 function RequiredAuth() {
   const [state, updateSettingState] = useSettingContext();
@@ -17,7 +18,8 @@ function RequiredAuth() {
       {loginState.isLogin ? (
         <>
           <HeaderBar />
-          <Container className="content">
+          <SideBar />
+          <Container className="content" style={{ marginLeft: "14vw" }}>
             <Outlet />
           </Container>
         </>

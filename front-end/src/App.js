@@ -22,7 +22,7 @@ import { ProductDetail } from "./page/product/ProductDetail";
 import { Profile } from "./components/User/Profile";
 import { ChangePass } from "./components/User/ChangePass";
 import { ThongKe } from "./page/Thongke/ThongKe";
-import  Admin  from "./components/Admin/Admin";
+import Admin from "./components/Admin/Admin";
 
 function App() {
   const [loginState, loginHandle] = useLoginContext();
@@ -65,6 +65,7 @@ function App() {
           <Route path="/home/profile/:id" element={<Profile />} />
           <Route path="/home/" element={<Product />} />
           <Route path="/home/product/:id" element={<ProductDetail />} />
+          <Route path="/home/thongke" element={<ThongKe />} />
         </Route>
         <Route path="/*" element={<NotFound />} />
       </Routes>

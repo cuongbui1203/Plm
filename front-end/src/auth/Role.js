@@ -6,8 +6,8 @@ const Executive_Board = {
       link: "/home/productLine",
     },
     {
-      label: "tài khoản",
-      link: "/home/user",
+      label: "quản lý tài khoản",
+      link: "/home/users",
     },
     {
       label: "Work plate",
@@ -32,4 +32,7 @@ const Factory = {
     },
   ],
 };
-export { Executive_Board, Factory };
+const Shop = {
+  title: "Trung tâm phân phối",
+};
+export { Executive_Board, Factory, Shop };
