@@ -22,6 +22,7 @@ import { ProductDetail } from "./page/product/ProductDetail";
 import { Profile } from "./components/User/Profile";
 import { ChangePass } from "./components/User/ChangePass";
 import { ThongKe } from "./page/Thongke/ThongKe";
+import { CSSX } from "./page/Thongke/CSSX";
 import  Admin  from "./components/Admin/Admin";
 
 function App() {
@@ -90,12 +91,13 @@ function App() {
     //     <Product />
     //   </div>
     // </div>
-    <Admin />
+    // <Admin />
     // <Shop />
     // <RegisterForm />
     // <CR />
     // <LoginForm />
-    // <ThongKe />
+    <ThongKe />
+    // <CSSX />
     // <>
     //   <Routes>
     //     <Route exact path="/login" element={<Authenticator />}>

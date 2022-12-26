@@ -1,41 +1,46 @@
-import React from 'react'
+import React, { useEffect } from "react";
 import Table from "react-bootstrap/Table";
 import Form from "react-bootstrap/Form";
-import { useState } from 'react';
+import { useState } from "react";
+import { getAllProductApi, getAllProductLine } from "../../API/productApi";
 
 export const ThongKe = () => {
-  const [quarter, setQuarter] = useState("-1");
-  const [month, setMonth] = useState("0");
+  const [listPrd, setListPrd] = useState([]);
+
+  const loadAllPrd = async () => {
+    const response1 = await getAllProductApi();
+    const response2 = await getAllProductLine();
+    console.log(response1.data);
+    console.log(response2.data);
+    for (let i = 0; i < response1.data.length; i++) {
+      for (let j = 0; j < response2.data.length; j++) {
+
+       }
+    }
+    // setListPrd(response.data);
+  };
+  useEffect(() => {
+    loadAllPrd();
+  }, []);
+
   const [status, setStatus] = useState("0");
-  const statusChange = e => {
+  const statusChange = (e) => {
     setStatus(e.target.value);
     // console.log(e.target.value);
-  }
-  let months, number, quarters;
-  quarters = [1, 2, 3, 4];
-  if (quarter !== "-1") {
-    number = [1, 2, 3];
-    months = number.map((i) => {
-      return quarter * 3 + i;
-    });
-  }
-  const quarterChange = (e) => {
-    setQuarter(e.target.value);
-    setMonth("0");
   };
-  const monthChange = (e) => {
-    setMonth(e.target.value);
-  };
+  
   return (
     <div>
       <Table striped bordered hover>
         <thead>
           <tr>
             <th>STT</th>
-            <th>Dòng sản phẩm</th>
+            <th>Sản phẩm</th>
             <th style={{ width: "300px" }}>
-              <Form.Select style={{ border: "none", fontWeight: "bold" }}
-              onChange={statusChange} >
+              <Form.Select
+                style={{ border: "none", fontWeight: "bold" }}
+                onChange={statusChange}
+              >
                 <option value={"0"}>Trạng thái</option>
                 <option value={"1"}>Mới sản xuất</option>
                 <option value={"2"}>Đưa về đại lý</option>
@@ -52,33 +57,27 @@ export const ThongKe = () => {
               </Form.Select>
             </th>
             <th>Số lượng</th>
-            
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>1</td>
-            <td>Mark</td>
-            <td>Otto</td>
+          {listPrd.map((prd, index) => {
+            return (
+              <tr>
+                <td>{index + 1}</td>
+                <td>{prd.name}</td>
+                <td>{prd.status}</td>
+                <td>{prd.quantity}</td>
+              </tr>
+            );
+          })}
+          {/* <tr>
+            <td>a</td>
+            <td>a</td>
+            <td>a</td>
             <td>@mdo</td>
-            
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-            
-          </tr>
-          <tr>
-            <td>3</td>
-            <td>Larry the Bird</td>
-            <td>@twitter</td>
-            <td></td>
-            
-          </tr>
+          </tr> */}
         </tbody>
       </Table>
     </div>
   );
-}
+};
