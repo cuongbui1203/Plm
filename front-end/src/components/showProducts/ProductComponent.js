@@ -1,17 +1,16 @@
 import { Pagination } from "react-bootstrap";
-import CardComponent from "../pagination/Card";
+import CardComponent from "../Card/Card";
 import "./productComponent.css";
 import PropTypes from "prop-types";
 const ProductComponent = ({ products }) => {
   return (
     <>
-      {products.map((card, index) => {
+      {products.map((product, index) => {
         return (
           <CardComponent
-            id={card.productId}
-            name={card.name}
-            imageUrl=""
-            productLine={card.productLine}
+            key={product.productId}
+            id={product.productId}
+            product={product}
           />
         );
       })}

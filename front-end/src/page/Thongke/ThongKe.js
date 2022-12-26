@@ -1,8 +1,31 @@
 import React from 'react'
 import Table from "react-bootstrap/Table";
 import Form from "react-bootstrap/Form";
+import { useState } from 'react';
 
 export const ThongKe = () => {
+  const [quarter, setQuarter] = useState("-1");
+  const [month, setMonth] = useState("0");
+  const [status, setStatus] = useState("0");
+  const statusChange = e => {
+    setStatus(e.target.value);
+    // console.log(e.target.value);
+  }
+  let months, number, quarters;
+  quarters = [1, 2, 3, 4];
+  if (quarter !== "-1") {
+    number = [1, 2, 3];
+    months = number.map((i) => {
+      return quarter * 3 + i;
+    });
+  }
+  const quarterChange = (e) => {
+    setQuarter(e.target.value);
+    setMonth("0");
+  };
+  const monthChange = (e) => {
+    setMonth(e.target.value);
+  };
   return (
     <div>
       <Table striped bordered hover>
@@ -11,20 +34,21 @@ export const ThongKe = () => {
             <th>STT</th>
             <th>Dòng sản phẩm</th>
             <th style={{ width: "300px" }}>
-              <Form.Select style={{ border: "none", fontWeight: "bold" }}>
-                <option>Trạng thái</option>
-                <option>Mới sản xuất</option>
-                <option>Đưa về đại lý</option>
-                <option>Đã bán</option>
-                <option>Lỗi, cần bảo hành</option>
-                <option>Đang sửa chữa bảo hành</option>
-                <option>Đã bảo hành xong</option>
-                <option>Đã trả lại bảo hành cho khách hàng</option>
-                <option>Lỗi, cần trả về nhà máy</option>
-                <option>Lỗi, đã đưa về cơ sở sản xuất</option>
-                <option>Lỗi cần triệu hồi</option>
-                <option>Hết thời gian bảo hành</option>
-                <option>Trả lại cơ sở sản xuất</option>
+              <Form.Select style={{ border: "none", fontWeight: "bold" }}
+              onChange={statusChange} >
+                <option value={"0"}>Trạng thái</option>
+                <option value={"1"}>Mới sản xuất</option>
+                <option value={"2"}>Đưa về đại lý</option>
+                <option value={"3"}>Đã bán</option>
+                <option value={"4"}>Lỗi, cần bảo hành</option>
+                <option value={"5"}>Đang sửa chữa bảo hành</option>
+                <option value={"6"}>Đã bảo hành xong</option>
+                <option value={"7"}>Đã trả lại bảo hành cho khách hàng</option>
+                <option value={"8"}>Lỗi, cần trả về nhà máy</option>
+                <option value={"9"}>Lỗi, đã đưa về cơ sở sản xuất</option>
+                <option value={"10"}>Lỗi cần triệu hồi</option>
+                <option value={"11"}>Hết thời gian bảo hành</option>
+                <option value={"12"}>Trả lại cơ sở sản xuất</option>
               </Form.Select>
             </th>
             <th>Số lượng</th>
@@ -37,29 +61,38 @@ export const ThongKe = () => {
               </Form.Select>
             </th>
             <th>
-              <Form.Select style={{ border: "none", fontWeight: "bold" }}>
-                <option>Quý</option>
-                <option>Quý 1</option>
-                <option>Quý 2</option>
-                <option>Quý 3</option>
-                <option>Quý 4</option>
+              <Form.Select
+                style={{ border: "none", fontWeight: "bold" }}
+                onChange={quarterChange}
+              >
+                <option value="-1"></option>
+                {quarters?.map((quart) => {
+                  return (
+                    <option value={quart - 1} key={quart}>
+                      {" "}
+                      Quý {quart}
+                    </option>
+                  );
+                })}
               </Form.Select>
             </th>
             <th>
-              <Form.Select style={{ border: "none", fontWeight: "bold" }}>
-                <option>Tháng</option>
-                <option>Tháng 1</option>
-                <option>Tháng 2</option>
-                <option>Tháng 3</option>
-                <option>Tháng 4</option>
-                <option>Tháng 5</option>
-                <option>Tháng 6</option>
-                <option>Tháng 7</option>
-                <option>Tháng 8</option>
-                <option>Tháng 9</option>
-                <option>Tháng 10</option>
-                <option>Tháng 11</option>
-                <option>Tháng 12</option>
+              <Form.Select
+                style={{ border: "none", fontWeight: "bold" }}
+                id="countries"
+                onChange={monthChange}
+                disabled={quarter == "-1" ? true : false}
+              >
+                <option value="0"></option>
+                {months &&
+                  months.map((mon) => {
+                    return (
+                      <option value={mon} key={mon}>
+                        {" "}
+                        Tháng {mon}
+                      </option>
+                    );
+                  })}
               </Form.Select>
             </th>
           </tr>
@@ -70,17 +103,27 @@ export const ThongKe = () => {
             <td>Mark</td>
             <td>Otto</td>
             <td>@mdo</td>
+            <td></td>
+            <td></td>
+            <td></td>
           </tr>
           <tr>
             <td>2</td>
             <td>Jacob</td>
             <td>Thornton</td>
             <td>@fat</td>
+            <td></td>
+            <td></td>
+            <td></td>
           </tr>
           <tr>
             <td>3</td>
-            <td colSpan={2}>Larry the Bird</td>
+            <td>Larry the Bird</td>
             <td>@twitter</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
           </tr>
         </tbody>
       </Table>

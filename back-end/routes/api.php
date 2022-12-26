@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\ProductLineController;
 use App\Http\Controllers\Api\StatusController;
 use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\Api\WorkPlateController;
 use App\Models\Role;
 use Illuminate\Support\Facades\DB;
 
@@ -26,8 +27,6 @@ Route::middleware('auth:sanctum')->get('/user',[create_user::class,'index']);
 
 Route::post('/user/register',[create_user::class,'register']);
 Route::post('/user/login',[create_user::class,'login']);
-Route::post('/user/login/token',[create_user::class,'login']);
-
 
 //user
 Route::get('/user/logout',[create_user::class,'logout']);
@@ -46,12 +45,13 @@ Route::get('/statuses/{id}',[StatusController ::class,'show']);
 Route::get('/products',[ProductController::class,'index']);
 Route::get('/products/{id}',[ProductController::class,'getId']);
 Route::post('/products/create',[ProductController::class,'create']);
-Route::patch('/products/{id}/change',[ProductController::class,'']); 
+Route::patch('/products/{id}/change',[ProductController::class,'update']);
 
 //productLine
 Route::get('/product-lines',[ProductLineController::class,'index']);
 Route::get('/product-lines/{id}',[ProductLineController::class,'getId']);
 Route::post('/product-lines/create',[ProductLineController::class,'create']);
+Route::patch('product-lines/{id}/update', [ProductLineController::class, 'update']);
 
 //img
 Route::post('/image', [ImageController::class, 'store']);
@@ -63,6 +63,11 @@ Route::get('/notifications/sended/{id}',[NotificationController::class,'showSend
 Route::get('/notifications/recv/{id}', [NotificationController::class, 'showRecvNotification']);
 Route::post('/notifications/create', [NotificationController::class, 'create']);
 Route::patch('notifications/accept/', [NotificationController::class, 'acceptNotification']);
+
+//workPlate
+Route::post('work-plate/create', [WorkPlateController::class, 'create']);
+Route::get('work-plate', [WorkPlateController::class, 'index']);
+Route::patch('work-plate/{id}/update', [WorkPlateController::class,'update']);
 // Route::group(['middleware'=>'auth:sanctum'],function(){
 //     //user
 //     Route::post('/logout',[create_user::class,'logout']);

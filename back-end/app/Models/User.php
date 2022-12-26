@@ -24,7 +24,9 @@ class User extends Authenticatable
         'password',
         'ruleId',
         'workPlateId',
-        'imageId'
+        'imageId',
+        'updated_at',
+        'created_at'
     ];
 
     /**

@@ -41,22 +41,19 @@ function HeaderBar({ role }) {
     updateSettingState(setLoaded());
   };
   const navigateToHome = () => {
-    navig("/product");
+    navig("/home/");
   };
 
   const navigateProfile = () => {
-    navig("/profile");
-  };
-  const navigateChangePass = () => {
-    navig("/changePass");
+    navig(`/home/profile/${loginState.user.id}`);
   };
   const getChucVu = () => {
     updateRoleTitle(loginState.isLogin ? loginState.user.role : "");
   };
   useEffect(() => {
     getChucVu();
-    console.log("test");
-  }, [settingState]);
+    console.log(loginState);
+  }, [loginState]);
   return (
     <div>
       <Navbar
@@ -80,11 +77,11 @@ function HeaderBar({ role }) {
             </Nav>
             <Nav hidden={!loginState.isLogin}>
               <NavDropdown
-                title={role}
+                title={roleTitle}
                 id="navbarScrollingDropdown"
                 align="end"
               >
-                <NavDropdown.Item href="/info">thêm</NavDropdown.Item>
+                <NavDropdown.Item href="#info">thêm</NavDropdown.Item>
                 <NavDropdown.Item href="#setting">sửa</NavDropdown.Item>
                 {/* <NavDropdown.Divider /> */}
                 <NavDropdown.Item href="#lobby">xóa</NavDropdown.Item>
@@ -97,11 +94,9 @@ function HeaderBar({ role }) {
                 <NavDropdown.Item onClick={navigateProfile}>
                   Hồ sơ
                 </NavDropdown.Item>
-                <NavDropdown.Item onClick={navigateChangePass}>
-                  Đổi mật khẩu
-                </NavDropdown.Item>
+                <NavDropdown.Item href="#setting">Cài đặt</NavDropdown.Item>
                 <NavDropdown.Divider />
-
+                <NavDropdown.Item href="#lobby">Đổi tài khoản</NavDropdown.Item>
                 <NavDropdown.Item onClick={logout}>Đăng xuất</NavDropdown.Item>
               </NavDropdown>
             </Nav>

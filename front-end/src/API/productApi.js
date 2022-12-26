@@ -10,7 +10,16 @@ const getAllProductApi = async () => {
     return { success: false, error: e };
   }
 };
-
+const getProductApi = async (id) => {
+  try {
+    const response = await axios.get(
+      process.env.REACT_APP_API_ENDPOINT + `/products/${id}`
+    );
+    return response.data;
+  } catch (e) {
+    return { success: false, error: e };
+  }
+};
 const getAllProductLine = async () => {
   try {
     const response = await axios.get(
@@ -35,4 +44,4 @@ const createProduct = async (data) => {
   }
 };
 
-export { getAllProductApi, getAllProductLine, createProduct };
+export { getAllProductApi, getAllProductLine, createProduct, getProductApi };
