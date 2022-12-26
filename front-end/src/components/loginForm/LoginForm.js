@@ -62,7 +62,7 @@ function LoginForm() {
 
   return (
     <>
-      <div className="login-container">
+      <div className="login-container bg-dark variant-dark">
         <MDBContainer fluid className="p-3 my-5 ">
           <MDBRow>
             <MDBCol col="10" md="6">

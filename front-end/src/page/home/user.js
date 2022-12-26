@@ -9,7 +9,10 @@ const User = (props) => {
   //   document.getElementById("image").appendChild(handleGetImage(user.imageId));
   // });
   return (
-    <div className="col-xl-3 col-lg-4 col-md-6 col-sm-12 product-item">
+    <div
+      className="col-xl-3 col-lg-4 col-md-6 col-sm-12 product-item"
+      
+    >
       <div className="m-2 card p-2" id="userCard">
         <img src={props.image} alt="none" />
         <div className="card-body">

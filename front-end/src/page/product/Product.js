@@ -51,12 +51,12 @@ function Product() {
   }, []);
   // useEffect(() => {}, [products]);
   return (
-    <div>
+    <div >
       <div>
         <Button onClick={getProduct}>btn</Button>
       </div>
       <Container className="product">
-        <ProductComponent products={limitedProduct} />
+        <ProductComponent products={limitedProduct} /> 
       </Container>
       <PaginationComponent
         itemsCount={allProductCount}

@@ -20,6 +20,8 @@ import { Container } from "react-bootstrap";
 import NotFound from "./page/error/404";
 import { ProductDetail } from "./page/product/ProductDetail";
 import { Profile } from "./components/User/Profile";
+import { ChangePass } from "./components/User/ChangePass";
+import { ThongKe } from "./page/Thongke/ThongKe";
 
 function App() {
   const [loginState, loginHandle] = useLoginContext();

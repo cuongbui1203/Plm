@@ -7,3 +7,9 @@
 .items {
     margin-bottom: 1rem;
 }
+
+.page-link {
+    width: 35px;
+    height: 35px;
+    align-items: center;
+}

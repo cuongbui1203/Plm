@@ -4,6 +4,7 @@ import React, {
   useState
 } from "https://cdn.skypack.dev/react@17.0.1";
 import ReactDOM from "https://cdn.skypack.dev/react-dom@17.0.1";
+import "./Paginate.css";
 
 const items = [...Array(33).keys()];
 
