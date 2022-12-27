@@ -89,7 +89,9 @@ class create_user extends Controller
                     'updated_at'=>date('Y-m-d H:i:s')
                 ]);
         $user = $request->user();
-        $user->role = Role::where('id', '=', $user->roleId)->select()->limit(1)->get();
+        // $path = `${$user->imageId}`;
+        // $user->imgPath = $path;
+        $user->imgPath = '/images/get/'.$user->imageId;
         return $this->sendResponse([$user], "ok");
     }
 

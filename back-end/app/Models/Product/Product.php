@@ -21,10 +21,12 @@ class Product extends Model
 
     protected $fillable = [
         'productId',
-        'productLineId',
+        'idProductLine',
         'name',
         'idStatus',
         'history',
+        'created_at',
+        'updated_at'
     ];
 
 

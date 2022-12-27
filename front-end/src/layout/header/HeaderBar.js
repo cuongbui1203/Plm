@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { NavLink } from "react-bootstrap";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
@@ -6,6 +7,7 @@ import NavDropdown from "react-bootstrap/NavDropdown";
 import { FaCannabis } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { logoutApi } from "../../API/auth";
+import { Executive_Board } from "../../auth/Role";
 import Notification from "../../components/notification/notification";
 import {
   setLogoutFail,
@@ -18,6 +20,7 @@ import {
   useSettingContext,
 } from "../../state/hook/hooks";
 import "./HeaderBar.css";
+
 const getChucVu = (roleId) => {
   switch (roleId) {
     case 1:
@@ -32,12 +35,20 @@ const getChucVu = (roleId) => {
       return "";
   }
 };
+const headerButton = (roleId) => {
+  switch (roleId) {
+    case 1:
+      return Executive_Board;
+    // break;
+    default:
+      return null;
+  }
+};
 function HeaderBar({ role }) {
   const navig = useNavigate();
   const [settingState, updateSettingState] = useSettingContext();
   const [loginState, updateLoginState] = useLoginContext();
-  const [dataState, updateDateState] = useDataContext();
-  const [roleTitle, updateRoleTitle] = useState("");
+  const [btns, setBtns] = useState(headerButton(loginState.user.roleId));
   const logout = async () => {
     // eslint-disable-next-line react-hooks/rules-of-hooks
     updateSettingState(setLoading());
@@ -56,26 +67,19 @@ function HeaderBar({ role }) {
   const navigateToHome = () => {
     navig("/home/");
   };
-  const gotoThongke = () => {
-    navig("/home/thongke");
+  const gotoPage = (e) => {
+    navig(e.target.name);
+    console.log(e.target.name);
   };
+  const handleClickNavLink = () => {};
   const navigateProfile = () => {
     navig(`/home/profile/${loginState.user.id}`);
   };
-
-  // useEffect(() => {
-  //   getChucVu();
-  //   console.log(loginState);
-  // }, [loginState]);
   return (
     <div>
-      <Navbar
-        id="hd"
-        className="navbar navbar-expand-lg navbar-dark bg-dark"
-        hidden={!loginState.isLogin}
-      >
+      <Navbar id="hd" className="navbar navbar-expand-lg navbar-dark bg-dark">
         <Container fluid>
-          <Navbar.Brand href="home">
+          <Navbar.Brand href="#home">
             {" "}
             <FaCannabis className="cannabis" />
           </Navbar.Brand>
@@ -88,28 +92,26 @@ function HeaderBar({ role }) {
             >
               <Nav.Link onClick={navigateToHome}>Home</Nav.Link>
             </Nav>
-            <Nav hidden={!loginState.isLogin}>
+            <Nav>
+              {btns.options.map((item, index) => {
+                return (
+                  <NavLink
+                    key={item.label + index}
+                    name={item.link}
+                    onClick={gotoPage}
+                  >
+                    {item.label}
+                  </NavLink>
+                );
+              })}
               <NavDropdown
-                title={getChucVu(loginState.user.roleId)}
-                id="navbarScrollingDropdown"
-                align="end"
-              >
-                <NavDropdown.Item onClick={gotoThongke}>thêm</NavDropdown.Item>
-                <NavDropdown.Item href="#setting">sửa</NavDropdown.Item>
-                {/* <NavDropdown.Divider /> */}
-                <NavDropdown.Item href="#lobby">xóa</NavDropdown.Item>
-              </NavDropdown>
-              <NavDropdown
-                title="User"
+                title={loginState.user.name}
                 id="navbarScrollingDropdown"
                 align="end"
               >
                 <NavDropdown.Item onClick={navigateProfile}>
                   Hồ sơ
                 </NavDropdown.Item>
-                <NavDropdown.Item href="#setting">Cài đặt</NavDropdown.Item>
-                <NavDropdown.Divider />
-                <NavDropdown.Item href="#lobby">Đổi tài khoản</NavDropdown.Item>
                 <NavDropdown.Item onClick={logout}>Đăng xuất</NavDropdown.Item>
               </NavDropdown>
             </Nav>

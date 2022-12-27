@@ -5,7 +5,7 @@ import { setProduct } from "../../state/actions/DataActions";
 import { useDataContext } from "../../state/hook/hooks";
 import "./Card.css";
 
-const CardComponent = ({ id, product }) => {
+const CardComponent = ({ id, product, handleClick }) => {
   const navig = useNavigate();
   const goto = () => {
     updateProduct(setProduct(product));
@@ -15,10 +15,11 @@ const CardComponent = ({ id, product }) => {
 
   const name = product.name;
   const productLine = product.productLine;
-  const imageUrl = product.imgUrl;
+  const imageUrl = process.env.REACT_APP_API_ENDPOINT + product.imgPath;
+  // console.log(product);
   return (
     <div>
-      <Card onClick={goto} className="card-container">
+      <Card onClick={handleClick} className="card-container">
         <Card.Img variant="top" src={imageUrl} alt={id} />
         <Card.Body>
           <Card.Title

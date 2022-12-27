@@ -37,7 +37,7 @@ class ProductController extends Controller
                 )
                 ->get();
             foreach($res as $e){
-                $e->imgId = '/image/get/' . $e->imgId;
+                $e->imgPath = '/image/get/' . $e->imgId;
             }
             return $this->sendResponse($res,"thanh cong lay het san pham");
         }catch(Exception $e){
@@ -131,8 +131,7 @@ class ProductController extends Controller
             'idShop' => 'required'
         ]);
     }
-    public function update($id, Request $request)
-    {
+    public function update($id, Request $request) {
         $validator =  Validator::make($request->all(),[
             'idProductLine'=>'required',
             'name'=>'required',

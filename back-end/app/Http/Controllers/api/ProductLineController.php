@@ -27,6 +27,9 @@ class ProductLineController extends Controller
                                 ->join('images','productLines.imgId','=','images.id')
                                 ->select('productLines.*',DB::raw('images.id as imgId'))
                                 ->get();
+            foreach($allProductLine as $e){
+                $e->imgPath = '/image/get/' . $e->imgId;
+            }
         return $this->sendResponse($allProductLine,/*"lay list{count($allProductLine)} cac dong san pham"*/count($allProductLine));
         }catch(Exception $e){
             return $this->sendError('Error',$e);

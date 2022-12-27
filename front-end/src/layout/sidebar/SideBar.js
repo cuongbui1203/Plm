@@ -194,7 +194,11 @@ const SideBar = () => {
               isSearchable={true}
             />
           </div>
-          <div></div>
+          <div>
+            <label>Tên sản phẩm</label>
+            <br />
+            <input type="text" id="nameOfProduct"></input>
+          </div>
           <div>
             <label>Số lượng Sản phẩm</label>
             <br />

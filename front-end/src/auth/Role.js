@@ -3,7 +3,7 @@ const Executive_Board = {
   options: [
     {
       label: "Dòng sản phẩm",
-      link: "/home/productLine",
+      link: "/home/product-lines",
     },
     {
       label: "quản lý tài khoản",
@@ -24,11 +24,11 @@ const Factory = {
   options: [
     {
       label: "Quản lý Sản phẩm",
-      link: "",
+      link: "/home/products",
     },
     {
       label: "Thống kê",
-      link: "",
+      link: "/factory",
     },
   ],
 };

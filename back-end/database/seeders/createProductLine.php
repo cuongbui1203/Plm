@@ -25,6 +25,8 @@ class createProductLine extends Seeder
                     'quantity' => 10,
                     'batch' => '1222',
                     'imgId' => 1,
+                    'created_at'=>date('Y-m-d H:i:i'),
+                    'updated_at'=>date('Y-m-d H:i:s'),
                 ]
             ]);
         // }
