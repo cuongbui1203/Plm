@@ -44,7 +44,15 @@ class WorkPlateController extends Controller
     public function index() {
         try{
             $res = DB::table('work_plates')
-            ->select()->orderBy('created_at', 'desc')
+            ->join('roles','work_plates.roleId','=','roles.id')
+            ->select(
+                'work_plates.id',
+                'work_plates.name',
+                'work_plates.address',
+                'work_plates.created_at',
+                'work_plates.updated_at',
+                DB::raw('roles.title as loai')
+            )->orderBy('work_plates.created_at', 'desc')
             ->get();
             return $this->sendResponse($res,"thanh cong lay het workPlates");
         }catch(Exception $e){
@@ -75,4 +83,14 @@ class WorkPlateController extends Controller
             return $this->sendError('error',$e);
         }
     } //update
+    
+    public function deleteId($id){
+        try {
+            DB::table('users')->where('workPlateId', '=', $id)->delete();
+            DB::table('work_plates')->where('id', '=', $id)->delete();
+            return $this->sendResponse([],'than cong');
+        }catch(Exception $e){
+            return $this->sendError('error',$e);
+        }
+    }
 }

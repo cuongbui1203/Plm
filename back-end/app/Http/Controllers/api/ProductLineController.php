@@ -149,4 +149,10 @@ class ProductLineController extends Controller
     public function getOrderByColum() {
         return $this->sendResponse(['productLineId','name','quantity','created_at','updated_at'],'thanh cong');
     }
+
+    public function deleteId($id){
+        DB::table('products')->where('idProductLine', '=', $id)->delete();
+        DB::table('productLines')->where('productLineId', '=', $id)->delete();
+        return $this->sendResponse([],'thanh cong');
+    }
 }

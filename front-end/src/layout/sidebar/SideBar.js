@@ -11,7 +11,7 @@ import Select from "react-select";
 import Notification from "../../components/notification/notification";
 const SideBar = () => {
   const [show, setShow] = useState(false);
-  const [visible, setVisible] = useState(false);
+  const [visible, setVisible] = useState(true);
   const [productLines, handle] = useState([]);
 
   const [selectId, setId] = useState(-1);
@@ -80,9 +80,6 @@ const SideBar = () => {
         activeKey="/home"
         onSelect={(selectedKey) => alert(`selected ${selectedKey}`)}
       >
-        <Button onClick={handleClick}>
-          <AiFillDelete />
-        </Button>
         <div style={{ display: visible ? "block" : "none" }}>
           <Button variant="outline-success" className="bt" onClick={handleShow}>
             {" "}

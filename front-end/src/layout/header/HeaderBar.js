@@ -7,7 +7,7 @@ import NavDropdown from "react-bootstrap/NavDropdown";
 import { FaCannabis } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { logoutApi } from "../../API/auth";
-import { Executive_Board } from "../../auth/Role";
+import { Executive_Board, Factory, Shop, TTBH } from "../../auth/Role";
 import Notification from "../../components/notification/notification";
 import {
   setLogoutFail,
@@ -40,6 +40,12 @@ const headerButton = (roleId) => {
     case 1:
       return Executive_Board;
     // break;
+    case 2:
+      return Factory;
+    case 3:
+      return Shop;
+    case 4:
+      return TTBH;
     default:
       return null;
   }
@@ -65,7 +71,7 @@ function HeaderBar({ role }) {
     updateSettingState(setLoaded());
   };
   const navigateToHome = () => {
-    navig("/home/");
+    navig(`/home/profile/${loginState.user.id}`);
   };
   const gotoPage = (e) => {
     navig(e.target.name);

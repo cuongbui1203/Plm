@@ -21,9 +21,10 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
         $this->call([
-            test::class,
+            image::class,
             status::class,
             createRule::class,
+            work_plate::class,
             account::class,
             createProductLine::class,
             createProduct::class,

@@ -27,6 +27,8 @@ import { CSSX } from "./page/Thongke/CSSX";
 import Admin from "./components/Admin/Admin";
 import Loading from "./page/loading";
 import ProductLine from "./page/productLine/ProductLine";
+import { ProductLineDetail } from "./page/productLine/ProductLineDetail";
+import Users from "./page/users/Users";
 
 function App() {
   const [loginState, loginHandle] = useLoginContext();
@@ -65,12 +67,17 @@ function App() {
         <Route exact path="/login" element={<Authenticator />}>
           <Route path="/login" element={<LoginForm />} />
         </Route>
-        <Route exact path="/home" element={<RequiredAuth />}>
+        <Route exact path="/" element={<RequiredAuth />}>
           <Route path="/home/profile/:id" element={<Profile />} />
-          <Route path="/home/" element={<Product />} />
+          <Route path="/home/products" element={<Product />} />
           <Route path="/home/product/:id" element={<ProductDetail />} />
           <Route path="/home/statistical" element={<ThongKe />} />
           <Route path="/home/product-lines" element={<ProductLine />} />
+          <Route
+            path="/home/product-lines/:id"
+            element={<ProductLineDetail />}
+          />
+          <Route path="/home/users" element={<Users />} />
         </Route>
         <Route path="/*" element={<NotFound />} />
       </Routes>

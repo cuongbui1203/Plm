@@ -32,7 +32,7 @@ function Product() {
       console.log(response.data);
 
       response.data.forEach((e) => {
-        e.imgUrl = process.env.REACT_APP_API_ENDPOINT + e.imgId;
+        e.imgUrl = process.env.REACT_APP_API_ENDPOINT + e.imgPath;
       });
       setProduct(response.data);
       // await handleGetPlImage(response.data);
@@ -52,7 +52,7 @@ function Product() {
   return (
     <div>
       <div>
-        <Button onClick={getProduct}>btn</Button>
+        <Button onClick={getProduct}>Lấy toàn bộ sản phẩm</Button>
       </div>
       <Container className="product">
         <ProductComponent products={limitedProduct} />

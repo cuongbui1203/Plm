@@ -9,6 +9,7 @@ use App\Models\User;
 use Carbon\Carbon;
 use Exception;
 use app\Http\Controllers\Api\getTime;
+use App\Http\Controllers\CreateID\create_id;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -29,9 +30,12 @@ class create_user extends Controller
     private function create(array $data)
     {
         return User::create([
+            'id'=>create_id::createIdUser($data['roleId']),
             'name'=>$data['name'],
             'email'=>$data['email'],
-            'password'=>$data['password']
+            'password'=>$data['password'],
+            'workPlateId'=>$data['workPlateId'],
+            'roleId'=>$data['roleId']
         ]);
         # code...
     }
@@ -48,7 +52,8 @@ class create_user extends Controller
             'name'=>'required',
             'email'=>'required|email',
             'password' => 'confirmed|min:6',
-            // 'wordPlateId' =>'required',
+            'workPlateId' =>'required',
+            'roleId'=> 'required|numeric',
             'image'=>'image|mimes:jpg,png,jpeg,gif,svg'
         ]);
         if($validator->fails()){
@@ -102,13 +107,15 @@ class create_user extends Controller
             $id = explode('|', $success['token'])[0];
             // $user->currentAccessToken();
             // $success['name'] =  $user->name;
+            $user->imgPath = '/images/get/'.$user->imageId;
             $success['user'] = $user;
-            PersonalAccessToken::findToken($success['token'])
+            DB::table('personal_access_tokens')->where('id','=',$id)
             ->update([
                 'created_at'=>date('Y-m-d H:i:s'),
                 'updated_at'=>date('Y-m-d H:i:s'),
                 'expires_at'=>Carbon::now('Asia/Phnom_Penh')->addDay()->format('Y-m-d H:i:s')
             ]);
+            
 
 
             return $this->sendResponse($success, 'User login successfully.');
@@ -260,6 +267,30 @@ class create_user extends Controller
             return $this->sendResponse($res,'thanh cong');
         }catch(Exception $e){
             return $this->sendError('error',[$e]);
+        }
+    }
+    
+    public function getAllUsers(){
+        try {
+            $res = DB::table('users')
+                ->join('roles', 'users.roleId', '=', 'roles.id')
+                ->join('work_plates', 'users.workPlateId', '=', 'work_plates.id')
+                ->select(
+                    'users.id',
+                    'users.name',
+                    'email',
+                    'imageId',
+                    DB::raw('work_plates.name as workPlate'),
+                    'users.created_at',
+                    'users.updated_at',
+                    'roles.title'
+                )->get();
+            foreach ($res as $e) {
+                $e->imgPath = '/image/get/' . $e->imageId;
+            }
+            return $this->sendResponse($res, 'thanh cong');
+        }catch (Exception $e){
+            return $this->sendError('error',$e);
         }
     }
 

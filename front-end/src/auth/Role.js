@@ -2,6 +2,10 @@ const Executive_Board = {
   title: "Ban Điều Hành",
   options: [
     {
+      label: "Sản phẩm",
+      link: "/home/products",
+    },
+    {
       label: "Dòng sản phẩm",
       link: "/home/product-lines",
     },
@@ -34,5 +38,28 @@ const Factory = {
 };
 const Shop = {
   title: "Trung tâm phân phối",
+  options: [
+    {
+      title: "Quản lý sản phẩm",
+      link: "/home/products",
+    },
+    {
+      title: "Quản lý sản phẩm",
+      link: "/home/products",
+    },
+  ],
 };
-export { Executive_Board, Factory, Shop };
+const TTBH = {
+  title: "Trung tâm bảo hành",
+  options: [
+    {
+      title: "quản lý sản phẩm",
+      link: "",
+    },
+    {
+      title: "Quản lý sản phẩm",
+      link: "",
+    },
+  ],
+};
+export { Executive_Board, Factory, Shop, TTBH };

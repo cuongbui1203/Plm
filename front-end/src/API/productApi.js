@@ -31,6 +31,16 @@ const getAllProductLine = async () => {
     return { success: false, error: e };
   }
 };
+const deleteProductLineById = async (id) => {
+  try {
+    const response = await net.delete(
+      process.env.REACT_APP_API_ENDPOINT + `/product-lines/${id}/delete`
+    );
+    return response.data;
+  } catch (e) {
+    return { success: false, error: e };
+  }
+};
 
 const createProduct = async (data) => {
   try {
@@ -57,10 +67,24 @@ const deleteProductApi = async (id) => {
   }
 };
 
+const getAllUsersApi = async () => {
+  try {
+    const response = await net.get(
+      process.env.REACT_APP_API_ENDPOINT + `/users`
+    );
+    console.log(response);
+    return response.data;
+  } catch (e) {
+    return { success: false, error: e };
+  }
+};
+
 export {
   getAllProductApi,
   getAllProductLine,
   createProduct,
   getProductApi,
   deleteProductApi,
+  deleteProductLineById,
+  getAllUsersApi,
 };

@@ -33,7 +33,7 @@ Route::get('/user/logout',[create_user::class,'logout']);
 Route::get('/users/orderby', [create_user::class, 'getOrderByColum']);
 Route::delete('/users/{id}/delete',[create_user::class,'destroy']);
 Route::patch('/users/{id}/change', [create_user::class, 'update']);
-
+Route::get('users', [create_user::class, 'getAllUsers']);
 // Role
 Route::get('/roles', [create_user::class,'getAllRole']);
 Route::get('/roles/{id}', [create_user::class, 'getRoleById']);
@@ -57,6 +57,7 @@ Route::get('/product-lines/orderby', [ProductLineController::class, 'getOrderByC
 Route::post('product-lines/search', [ProductLineController::class, 'search']);
 Route::post('/product-lines/create',[ProductLineController::class,'create']);
 Route::patch('product-lines/{id}/update', [ProductLineController::class, 'update']);
+Route::delete('product-lines/{id}/delete', [ProductLineController::class, 'deleteId']);
 
 //img
 Route::get('/image/get/{id}', [ImageController::class, 'getImage']);
@@ -73,6 +74,7 @@ Route::patch('notifications/accept/', [NotificationController::class, 'acceptNot
 Route::get('work-plate', [WorkPlateController::class, 'index']);
 Route::post('work-plate/create', [WorkPlateController::class, 'create']);
 Route::patch('work-plate/{id}/update', [WorkPlateController::class,'update']);
+Route::delete('work-plate/{id}/delete', [WorkPlateController::class,'deleteId']);
 // Route::group(['middleware'=>'auth:sanctum'],function(){
 //     //user
 //     Route::post('/logout',[create_user::class,'logout']);

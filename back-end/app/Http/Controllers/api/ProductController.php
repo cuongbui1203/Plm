@@ -13,8 +13,6 @@ use Illuminate\Support\Facades\Validator;
 
 class ProductController extends Controller
 {
-    //
-
     public function index(){
         try{
             $res = DB::table('products')
@@ -25,7 +23,6 @@ class ProductController extends Controller
                     'products.productId',
                     'products.name',
                     DB::raw('productLines.productLineId as productLineId'),
-                    DB::raw('productLines.quantity as productLineQuantity'),
                     DB::raw('productLines.name as productLine'),
                     DB::raw('productLines.info as info'),
                     'products.history',
@@ -105,7 +102,7 @@ class ProductController extends Controller
                 $product->idStatus = 1;
                 $product->idProductLine=$request->idProductLine;
                 $product->history = $request->idProductLine;
-              //  $product->created_at = date('Y-m-d H:i:s');
+                // $product->created_at = date('Y-m-d H:i:s');
                 $product->save();
                 array_push($res,$product);
             }

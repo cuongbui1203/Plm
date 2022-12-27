@@ -2,7 +2,7 @@
 namespace App\Http\Controllers\CreateID;
 
 class create_id {
-    public  function createIdUser(String $rule) {
+    public static function createIdUser(String $rule) {
         $id = $rule;
         for($i = 0 ; $i < 11; $i++) {
             $id = $id . dechex(rand(0, 15));

@@ -18,8 +18,8 @@ return new class extends Migration
             $table->string('idSender');
             $table->string('idReceiver');
             $table->string('data');
-            $table->enum('accepted', ['require', 'pending', 'reject', 'accept'])
-                    ->nullable(false)->default('require');
+            $table->enum('accepted', ['request', 'pending', 'reject', 'accept'])
+                    ->nullable(false)->default('request');
             $table->timestamps();
         });
     }
