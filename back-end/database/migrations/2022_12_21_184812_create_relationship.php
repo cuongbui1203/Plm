@@ -48,7 +48,7 @@ return new class extends Migration
                 ->on('users');
             $table->foreign('idReceiver')
                 ->references('id')
-                ->on('users');
+                ->on('work_plates');
         });
     }
 
@@ -62,7 +62,7 @@ return new class extends Migration
         Schema::dropIfExists('failed_jobs');
         Schema::dropIfExists('notifications');
         Schema::dropIfExists('password_resets');
-        
+
         Schema::dropIfExists('products');
         Schema::dropIfExists('productLines');
         Schema::dropIfExists('statuses');
