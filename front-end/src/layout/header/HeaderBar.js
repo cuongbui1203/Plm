@@ -13,7 +13,11 @@ import {
   setLogoutFail,
   setLogoutSuccess,
 } from "../../state/actions/loginActions";
-import { setLoaded, setLoading } from "../../state/actions/settingActions";
+import {
+  setCreate,
+  setLoaded,
+  setLoading,
+} from "../../state/actions/settingActions";
 import {
   useDataContext,
   useLoginContext,
@@ -74,8 +78,9 @@ function HeaderBar({ role }) {
     navig(`/home/profile/${loginState.user.id}`);
   };
   const gotoPage = (e) => {
+    updateSettingState(setCreate(e.target.title));
     navig(e.target.name);
-    console.log(e.target.name);
+    console.log(e.target.title);
   };
   const handleClickNavLink = () => {};
   const navigateProfile = () => {
@@ -104,6 +109,7 @@ function HeaderBar({ role }) {
                   <NavLink
                     key={item.label + index}
                     name={item.link}
+                    title={item.const}
                     onClick={gotoPage}
                   >
                     {item.label}

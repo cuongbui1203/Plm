@@ -1,3 +1,4 @@
+/* eslint-disable array-callback-return */
 import React, { useEffect, useState } from "react";
 import { Container, Modal, Nav, NavDropdown, NavItem } from "react-bootstrap";
 import "./SideBar.css";
@@ -9,13 +10,16 @@ import { AiFillDelete } from "react-icons/ai";
 import { getAllProductLine, createProduct } from "../../API/productApi";
 import Select from "react-select";
 import Notification from "../../components/notification/notification";
+import { MDBInput } from "mdb-react-ui-kit";
+import { useSettingContext } from "../../state/hook/hooks";
+import { DSP, SP } from "../../state/constants";
 const SideBar = () => {
   const [show, setShow] = useState(false);
   const [visible, setVisible] = useState(true);
   const [productLines, handle] = useState([]);
-
+  const [plShow, setPlShow] = useState(false);
   const [selectId, setId] = useState(-1);
-
+  const [settingState, updateSettingState] = useSettingContext();
   const handleGetProductLine = async () => {
     let response = await getAllProductLine();
     console.log(response.data);
@@ -36,14 +40,44 @@ const SideBar = () => {
   };
 
   const handleShow = () => {
-    handleGetProductLine();
-    setShow(true);
+    console.log(settingState);
+    switch (settingState.create) {
+      case SP:
+        handleGetProductLine();
+        setShow(true);
+        break;
+      case DSP:
+        handlePlShow();
+        break;
+      default:
+        return;
+    }
   };
-  const handleClose = () => setShow(false);
+
+  const handleClose = () => {
+    switch (settingState.create) {
+      case SP:
+        // handleGetProductLine();
+        setShow(false);
+        break;
+      case DSP:
+        handlePlClose();
+        break;
+      default:
+        return;
+    }
+  };
+  const handlePlClose = () => setPlShow(false);
+
+  const handlePlShow = () => {
+    setPlShow(true);
+  };
 
   const handleChange = (e) => {
     setId(e.value);
   };
+
+  const handleSendCreatePL = async () => {};
 
   const handleSend = async () => {
     console.log("id: " + selectId);
@@ -208,6 +242,68 @@ const SideBar = () => {
           </Button>
           <Button variant="primary" onClick={handleSend}>
             Xác nhận
+          </Button>
+        </Modal.Footer>
+      </Modal>
+      <Modal show={plShow} onHide={handleClose} className="modal-custom">
+        <Modal.Header closeButton>
+          <Modal.Title>Tạo dòng sản phẩm</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <MDBInput
+            wrapperClass="mb-4"
+            id="name"
+            type="text"
+            size="lg"
+            placeholder="Name"
+          />
+          <MDBInput
+            wrapperClass="mb-4"
+            id="color"
+            type="text"
+            size="lg"
+            placeholder="Màu"
+          />
+          <MDBInput
+            wrapperClass="mb-4"
+            id="khoiLuong"
+            type="text"
+            size="lg"
+            placeholder="Khối lượng"
+            // label="kg"
+          />
+          <MDBInput
+            wrapperClass="mb-4"
+            id="RAM/ROM"
+            type="text"
+            size="lg"
+            placeholder="RAM/ROM"
+          />
+          <MDBInput
+            wrapperClass="mb-4"
+            id="manHinh"
+            type="text"
+            size="lg"
+            placeholder="Màn hình"
+          />
+          <MDBInput
+            wrapperClass="mb-4"
+            id="mota"
+            type="textarea"
+            size="lg"
+            rows="5"
+            placeholder="Mô tả"
+          />
+          <Form.Group controlId="formFile" className="mb-3">
+            <Form.Control type="file" />
+          </Form.Group>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" className="mb-3 ">
+            cancel
+          </Button>
+          <Button variant="primary" className="mb-3 ">
+            Ok
           </Button>
         </Modal.Footer>
       </Modal>

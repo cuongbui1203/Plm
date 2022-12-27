@@ -1,11 +1,7 @@
-import React from "react";
-import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
 import { MDBInput } from "mdb-react-ui-kit";
-
-import "./Admin.css";
-
-function Admin() {
+import { Button, Form } from "react-bootstrap";
+import "../Admin/Admin.css";
+const CreateProductLine = () => {
   return (
     <div className="login-container">
       <div className="cr">
@@ -63,5 +59,6 @@ function Admin() {
       </div>
     </div>
   );
-}
-export default Admin;
+};
+
+export default CreateProductLine;

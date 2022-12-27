@@ -10,3 +10,10 @@ export const SET_LOGOUT_FAIL = "set-logout-fail";
 export const SET_PRODUCT_LINE_IMAGE = "set-product-line-image";
 
 export const SET = "set";
+
+export const SET_CREATE = "set-create";
+
+export const SP = "sp";
+export const DSP = "dsp";
+export const TK = "tk";
+export const WP = "wp";

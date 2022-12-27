@@ -1,7 +1,8 @@
-import { LOADED, LOADING } from "../constants";
+import { LOADED, LOADING, SET_CREATE } from "../constants";
 
 const initState = {
   isLoading: false,
+  create: "",
 };
 
 const updateSettingState = (state, action) => {
@@ -15,6 +16,11 @@ const updateSettingState = (state, action) => {
       return {
         ...state,
         isLoading: false,
+      };
+    case SET_CREATE:
+      return {
+        ...state,
+        create: action.data,
       };
     default:
       throw new Error("Invalid Update Setting Action");

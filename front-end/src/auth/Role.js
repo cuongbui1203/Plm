@@ -1,25 +1,38 @@
+import { DSP, SP, TK, WP } from "../state/constants";
+
+const ThongBao = {
+  label: "Thông Báo",
+  link: "/home/request",
+  const: "",
+};
+
 const Executive_Board = {
   title: "Ban Điều Hành",
   options: [
     {
       label: "Sản phẩm",
       link: "/home/products",
+      const: "",
     },
     {
       label: "Dòng sản phẩm",
       link: "/home/product-lines",
+      const: DSP,
     },
     {
       label: "quản lý tài khoản",
       link: "/home/users",
+      const: TK,
     },
     {
       label: "Work plate",
       link: "/home/work-plate",
+      const: WP,
     },
     {
       label: "Thống kê",
       link: "/home/statistical",
+      const: "",
     },
   ],
 };
@@ -29,10 +42,12 @@ const Factory = {
     {
       label: "Quản lý Sản phẩm",
       link: "/home/products",
+      const: SP,
     },
     {
       label: "Thống kê",
-      link: "/factory",
+      link: "/factory/statistical",
+      const: "",
     },
   ],
 };
@@ -42,10 +57,11 @@ const Shop = {
     {
       title: "Quản lý sản phẩm",
       link: "/home/products",
+      const: "",
     },
     {
-      title: "Quản lý sản phẩm",
-      link: "/home/products",
+      title: "Thống Kê",
+      link: "/shop/statistical",
     },
   ],
 };
@@ -57,8 +73,8 @@ const TTBH = {
       link: "",
     },
     {
-      title: "Quản lý sản phẩm",
-      link: "",
+      title: "Thống Kê",
+      link: "/bao-hanh/statistical",
     },
   ],
 };
