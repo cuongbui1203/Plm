@@ -18,7 +18,7 @@ const UsersComponent = ({ products }) => {
         };
         const tg = {
           name: user.name,
-          subName: "<pre>Nơi Làm việc:\n</pre>" + user.workPlate,
+          subName: "Nơi Làm việc:" + user.workPlate,
           imgPath: user.imgPath,
         };
         return (

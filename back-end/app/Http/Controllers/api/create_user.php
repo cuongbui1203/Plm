@@ -16,7 +16,6 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Laravel\Sanctum\PersonalAccessToken;
-use LogicException;
 
 class create_user extends Controller
 {
@@ -115,9 +114,12 @@ class create_user extends Controller
                 'updated_at'=>date('Y-m-d H:i:s'),
                 'expires_at'=>Carbon::now('Asia/Phnom_Penh')->addDay()->format('Y-m-d H:i:s')
             ]);
-            $user->accountId = DB::table('users')->where('email', '=', $request->email)->select('id')->get()[0]->id;
 
-
+            $user->workPlate = DB::table('work_plates')
+                                ->where('id', '=', $user->workPlateId)
+                                ->select()
+                                ->limit(1)
+                                ->get()[0]->name;
             return $this->sendResponse($success, 'User login successfully.');
         }
         else{
