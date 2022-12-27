@@ -16,7 +16,9 @@ return new class extends Migration
         Schema::create('notifications', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('idSender')->unsigned();
-            $table->bigInteger('idReceiver')->unsigned();
+            $table->string('idReceiver');
+            $table->string('sender');
+            $table->string('Receiver');
             $table->string('data');
             $table->enum('accepted', ['request', 'pending', 'reject', 'accept'])
                     ->nullable(false)->default('request');

@@ -7,7 +7,7 @@ use App\Http\Controllers\Api\ImageController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\ProductLineController;
 use App\Http\Controllers\Api\StatusController;
-use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\Api\NotificationController;
 use App\Http\Controllers\Api\WorkPlateController;
 use App\Models\Role;
 use Illuminate\Support\Facades\DB;
@@ -65,10 +65,10 @@ Route::post('/image', [ImageController::class, 'store']);
 
 //notification
 Route::get('/notifications/{id}', [NotificationController::class, 'show']);
-Route::get('/notifications/sended/{id}',[NotificationController::class,'showSendNotification']);
+Route::get('/notifications/sended/{id}',[NotificationController::class,'getAllNotification']);
 Route::get('/notifications/recv/{id}', [NotificationController::class, 'showRecvNotification']);
 Route::post('/notifications/create', [NotificationController::class, 'create']);
-Route::patch('notifications/accept/', [NotificationController::class, 'acceptNotification']);
+Route::patch('notifications/accept/{id}', [NotificationController::class, 'requestNotification']);
 
 //workPlate
 Route::get('work-plate', [WorkPlateController::class, 'index']);

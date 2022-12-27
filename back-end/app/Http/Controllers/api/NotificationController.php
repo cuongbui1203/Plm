@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Controller;
 use App\Models\Other\Notification;
 use Exception;
 use Illuminate\Http\Request;
@@ -19,20 +20,24 @@ class NotificationController extends Controller
      */
     public function create(Request $request){
         $validator = Validator::make($request->all(), [
-            'sender'=>'required',
-            'receiver'=>'required',
-            'message'=>'required'
+            'idSender'=>'required',
+            'idReceiver'=>'required',
+            'data'=>'required'
         ]);
 
         if($validator->fails()){
             return $this->sendError('Validator Error', $validator->errors());
         }
         try {
+            $sender = DB::table('users')->where('id', '=', $request->idSender)->select('name')->limit(1)->get()[0]->name;
+            $receiver = DB::table('work_plates')->where('id', '=', $request->idReceiver)->select('name')->limit(1)->get()[0]->name;
             $notification = Notification::create([
-                'sender'    => $request->sender,
-                'receiver'  => $request->receiver,
-                'message'   => $request->message,
-                'accepted'  => 'require'
+                'idSender'    => $request->idSender,
+                'idReceiver'  => $request->idReceiver,
+                'sender' => $sender,
+                'receiver' => $receiver,
+                'data'   => $request->data,
+                'accepted'  => 'request'
             ]);
             return $this->sendResponse([$notification->id], 'Create Request Success');
         } catch(Exception $e){
@@ -42,7 +47,7 @@ class NotificationController extends Controller
 
     public function showSendNotification($id){
         try {
-            $send = DB::table('notifications')->select()->where('sender', '=', $id);
+            $send = DB::table('notifications')->select()->where('idSender', '=', $id);
             return $this->sendResponse([
                 $send
             ],'get the notifications I sent successfully');
@@ -52,7 +57,7 @@ class NotificationController extends Controller
     }
     public function showRecvNotification($id){
         try {
-            $recv = DB::table('notifications')->select()->where('receiver', '=', $id);
+            $recv = DB::table('notifications')->select()->where('idReceiver', '=', $id);
             return $this->sendResponse([
                 $recv
             ],'get the notifications I recv successfully');
@@ -60,21 +65,59 @@ class NotificationController extends Controller
             return $this->sendError('get Notification fails', $e);
         }
     }
-    /**
-     * chấp nhận yêu cầu
-     * @param Request $request
-     * @param int $id 
-     * @return void
-     */
-    public function acceptNotification(Request $request) {
+
+    public function requestNotification($id, Request $request) {
+        $validator = Validator::make($request->all(), [
+            'data'=>'required|string'
+        ]);
+
+        if($validator->fails()){
+            return $this->sendError('Validator Error', $validator->errors());
+        }
+
         try{
-            DB::table('notifications')->where('id', '=', $request->id)->where('sender','=',$request->sender)->update([
-                'accepted' => 'accept'
-            ]);
-            $kg = DB::table('notifications')->select()->where('id','=',$request->id);
-            $this->sendResponse([$kg], 'Success', Response::HTTP_ACCEPTED);
+            $res = 'no success';
+            switch($request->data) {
+                case 'pending':
+                    if (DB::table('notifications')->where('id', '=', $id)->update(['accepted' => 'pending', 'updated_at' => getTime::getTime()])
+                    || count(DB::table('notifications')->where('id', '=', $id)->select()->get())
+                    ) $res = "success";
+                    break;
+                case 'reject':
+                    if (DB::table('notifications')->where('id', '=', $id)->update(['accepted' => 'reject', 'updated_at' => getTime::getTime()])
+                    || count(DB::table('notifications')->where('id', '=', $id)->select()->get())
+                    ) $res = "success";
+                    break;
+                case 'accept':
+                    if (DB::table('notifications')->where('id', '=', $id)->update(['accepted' => 'accept', 'updated_at' => getTime::getTime()])
+                    || count(DB::table('notifications')->where('id', '=', $id)->select()->get())
+                    ) $res = "success";
+                    break;
+                default:
+                    break;
+            }
+            return 'request ' . $res;
         } catch (Exception $e){
-            $this->sendError('update Error', [$e]);
+            return $this->sendError('update Error', [$e]);
+        }
+    }
+
+    public function getAllNotification($id) {
+        try {
+            $tb1 = DB::table('notifications') -> where('idSender', '=', $id)
+                ->get();
+            $tb2 = DB::table('notifications') ->
+            join('users', 'users.id', '=', $id)
+            ->where('users.workPlateId', '=', 'notifications.idReceiver')
+            ->select('notifications.*')
+            ->get();
+            $res = [$tb1, $tb2];
+
+            if (count($res) == 0)
+                return 'fails';
+            return $this->sendResponse($res, 'thanh cong');
+        }catch (Exception $e){
+            return $this->sendError('error',$e);
         }
     }
 }
