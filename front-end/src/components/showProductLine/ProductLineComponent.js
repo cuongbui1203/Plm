@@ -11,16 +11,21 @@ const ProductLineComponent = ({ products }) => {
 
   return (
     <>
-      {products.map((product, index) => {
+      {products.map((productLine, index) => {
         const handleClick = () => {
-          updateProduct(setProduct(product));
-          navig(`/home/product-line/${product.productLineId}`);
+          updateProduct(setProduct(productLine));
+          navig(`/home/product-line/${productLine.productLineId}`);
+        };
+        const product = {
+          name: productLine.productLineId,
+          subName: productLine.name,
+          imgPath: productLine.imgPath,
         };
         return (
           <CardComponent
-            key={product.productId}
-            id={product.productId}
-            product={product}
+            key={productLine.productId}
+            id={productLine.productId}
+            element={product}
             handleClick={handleClick}
           />
         );

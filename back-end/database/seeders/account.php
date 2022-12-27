@@ -20,7 +20,6 @@ class account extends Seeder
     {
         //
         DB::table('users')->insert([
-            'id'=>create_id::createIdUser(1),
             'name' => 'admin',
             'email' => 'admin@gmail.com',
             'workPlateId'=>'1',
@@ -30,7 +29,6 @@ class account extends Seeder
             'roleId' => 1
         ]);
         DB::table('users')->insert([
-            'id'=>create_id::createIdUser(2),
             'name' => 'Factory',
             'email' => 'factory@gmail.com',
             'workPlateId'=>'2',
@@ -40,7 +38,6 @@ class account extends Seeder
             'roleId' => 2
         ]);
         DB::table('users')->insert([
-            'id'=>create_id::createIdUser(3),
             'name' => 'Shop',
             'email' => 'shop@gmail.com',
             'workPlateId'=>'3',
@@ -50,7 +47,6 @@ class account extends Seeder
             'roleId' => 3
         ]);
         DB::table('users')->insert([
-            'id'=>create_id::createIdUser(4),
             'name' => 'TTBH',
             'email' => 'ttbh@gmail.com',
             'workPlateId'=>'4',

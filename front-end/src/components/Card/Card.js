@@ -5,17 +5,14 @@ import { setProduct } from "../../state/actions/DataActions";
 import { useDataContext } from "../../state/hook/hooks";
 import "./Card.css";
 
-const CardComponent = ({ id, product, handleClick }) => {
+const CardComponent = ({ id, element, handleClick }) => {
   const navig = useNavigate();
-  const goto = () => {
-    updateProduct(setProduct(product));
-    navig(`/home/product/${id}`);
-  };
+
   const [product2, updateProduct] = useDataContext();
 
-  const name = product.name;
-  const productLine = product.productLine;
-  const imageUrl = process.env.REACT_APP_API_ENDPOINT + product.imgPath;
+  const name = element.name;
+  const productLine = element.subName;
+  const imageUrl = process.env.REACT_APP_API_ENDPOINT + element.imgPath;
   // console.log(product);
   return (
     <div>

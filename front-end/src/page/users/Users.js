@@ -50,7 +50,7 @@ function Users() {
   return (
     <div>
       <div>
-        <Button onClick={getProduct}>Lấy toàn bộ dòng sản phẩm</Button>
+        <Button onClick={getProduct}>Lấy toàn bộ tài khoản</Button>
       </div>
       <Container className="product">
         <UsersComponent products={limitedUsers} />

@@ -115,7 +115,7 @@ class create_user extends Controller
                 'updated_at'=>date('Y-m-d H:i:s'),
                 'expires_at'=>Carbon::now('Asia/Phnom_Penh')->addDay()->format('Y-m-d H:i:s')
             ]);
-            
+            $user->accountId = DB::table('users')->where('email', '=', $request->email)->select('id')->get()[0]->id;
 
 
             return $this->sendResponse($success, 'User login successfully.');

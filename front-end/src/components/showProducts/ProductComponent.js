@@ -16,11 +16,16 @@ const ProductComponent = ({ products }) => {
           updateProduct(setProduct(product));
           navig(`/home/product/${product.productId}`);
         };
+        const tg = {
+          name: product.name,
+          subName: product.productLine,
+          imgPath: product.imgPath,
+        };
         return (
           <CardComponent
             key={product.productId}
             id={product.productId}
-            product={product}
+            element={tg}
             handleClick={handleClick}
           />
         );

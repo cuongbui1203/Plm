@@ -11,16 +11,21 @@ const UsersComponent = ({ products }) => {
 
   return (
     <>
-      {products.map((product, index) => {
+      {products.map((user, index) => {
         const handleClick = () => {
-          updateProduct(setProduct(product));
-          navig(`/home/product/${product.productId}`);
+          updateProduct(setProduct(user));
+          navig(`/home/profile/${user.id}`);
+        };
+        const tg = {
+          name: user.name,
+          subName: "<pre>Nơi Làm việc:\n</pre>" + user.workPlate,
+          imgPath: user.imgPath,
         };
         return (
           <CardComponent
-            key={product.productId}
-            id={product.productId}
-            product={product}
+            key={user.id}
+            id={user.id}
+            element={tg}
             handleClick={handleClick}
           />
         );

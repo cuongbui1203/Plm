@@ -60,8 +60,6 @@ class NotificationController extends Controller
             return $this->sendError('get Notification fails', $e);
         }
     }
-
-
     /**
      * chấp nhận yêu cầu
      * @param Request $request
