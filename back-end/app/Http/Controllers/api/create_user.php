@@ -192,14 +192,17 @@ class create_user extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function update(Request $request, $id) {
-        $user = User::find($id);
-        // switch($request->type){
-        //     case 'img':
-        //         $user->name = $request->name;
-        //         break;
-        //     case '':
-        //         break;
-        // }
+        $sender = DB::table('users')->where('id', '=', $request->idSender)
+        //$user = User::find($id);
+        $user = DB::table('users')->where('id', '=', $id)->get();
+        switch($request->type){
+            case 'name':
+                $user->name = $request->name;
+                break;
+            case 'password':
+                $user->password = $request->password;
+                break;
+        }
         $user->name = $request->name;
         //$user->updated_at = Carbon::now()->format('Y-m-d H:i:s');
         $user->updated_at = getTime::getTime();
@@ -208,19 +211,19 @@ class create_user extends Controller
     }
 
 
-    public function updateCurrentUser(Request $request,$id){
-        $user = User::find($id);
-        switch($request->type){
-            case 'name':
-                $user->name = $request->name;
-                break;
-            case '':
-                break;
-        }
-        // $user->updated_at = Carbon::now()->format('Y-m-d H:i:s');
-        $user->save();
-        return $this->sendResponse([], 'thanh cong');
-    }
+    // public function updateCurrentUser(Request $request,$id){
+    //     $user = User::find($id);
+    //     switch($request->type){
+    //         case 'name':
+    //             $user->name = $request->name;
+    //             break;
+    //         case '':
+    //             break;
+    //     }
+    //     // $user->updated_at = Carbon::now()->format('Y-m-d H:i:s');
+    //     $user->save();
+    //     return $this->sendResponse([], 'thanh cong');
+    // }
 
     /**
      * Remove the specified resource from storage.
@@ -276,7 +279,7 @@ class create_user extends Controller
             return $this->sendError('error',[$e]);
         }
     }
-    
+
     public function getAllUsers(){
         try {
             $res = DB::table('users')
