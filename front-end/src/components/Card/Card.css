@@ -4,9 +4,15 @@
     flex: 1;
     width: 20vw;
     height: 44vh;
+    background-color: darkgray;
 }
 
 .card img{  
+    width: 200px;
+    height: 200px;
+    margin: 4px 0px 4px 4px;
+    border-radius: inherit;
+    object-fit: cover;
 }
 
 .card .card-title{

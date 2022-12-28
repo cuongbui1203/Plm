@@ -22,7 +22,7 @@ export const ProductLineDetail = () => {
     }
   };
   console.log(product.data.info);
-  const info = JSON.parse(JSON.parse(product.data.info));
+  const info = JSON.parse(product.data.info);
 
   console.log(info);
   return (
@@ -59,33 +59,37 @@ export const ProductLineDetail = () => {
             <td>Mô tả</td>
             <td>
               <Table striped bordered hover variant="dark">
-                <tr>
-                  <td>Thuộc tính</td>
-                  <td>Giá trị</td>
-                </tr>
-                <tr>
-                  <td>Màu</td>
-                  <td>{info.color}</td>
-                </tr>
+                <thead>
+                  <tr>
+                    <td>Thuộc tính</td>
+                    <td>Giá trị</td>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Màu</td>
+                    <td>{info.color}</td>
+                  </tr>
 
-                <tr>
-                  <td>Khối Lượng</td>
-                  <td>{info.mass} Kg</td>
-                </tr>
+                  <tr>
+                    <td>Khối Lượng</td>
+                    <td>{info.mass} Kg</td>
+                  </tr>
 
-                <tr>
-                  <td>Màn hình</td>
-                  <td>{info.display} inch</td>
-                </tr>
+                  <tr>
+                    <td>Màn hình</td>
+                    <td>{info.display} inch</td>
+                  </tr>
 
-                <tr>
-                  <td>RAM/ROM</td>
-                  <td>{info.ramRom}</td>
-                </tr>
-                <tr>
-                  <td>Mô tả thêm</td>
-                  <td>{info.dec}</td>
-                </tr>
+                  <tr>
+                    <td>RAM/ROM</td>
+                    <td>{info.ramRom}</td>
+                  </tr>
+                  <tr>
+                    <td>Mô tả thêm</td>
+                    <td>{info.dec}</td>
+                  </tr>
+                </tbody>
               </Table>
             </td>
           </tr>

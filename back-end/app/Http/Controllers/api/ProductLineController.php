@@ -63,9 +63,10 @@ class ProductLineController extends Controller
                 ]);
                 $productLine['imgId'] = $image->id;
             }
-            $productLine['info'] = json_encode($request->info);
+            $productLine['info'] = $request->info;
             $productLine['updated_at'] = date('Y-m-d H:i:s');
             $productLine['created_at'] = date('Y-m-d H:i:s');
+            $productLine->name = $request->name;
             $productLine->save();
             return $this->sendResponse([$productLine],"thanh cong",Response::HTTP_CREATED);
         } catch(Exception $e){
