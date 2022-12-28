@@ -13,11 +13,16 @@ const CardComponent = ({ id, element, handleClick }) => {
   const name = element.name;
   const productLine = element.subName;
   const imageUrl = process.env.REACT_APP_API_ENDPOINT + element.imgPath;
-  // console.log(product);
+  console.log(element);
   return (
     <div>
       <Card onClick={handleClick} className="card-container">
-        <Card.Img variant="top" src={imageUrl} alt={id} />
+        <Card.Img
+          variant="top"
+          src={imageUrl}
+          alt={id}
+          hidden={imageUrl === process.env.REACT_APP_API_ENDPOINT}
+        />
         <Card.Body>
           <Card.Title
             className="card-title"

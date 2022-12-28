@@ -52,4 +52,22 @@ const getRoleId = async (id) => {
     return { success: false, error: error };
   }
 };
-export { getAllRoleApi, getImageApi, sendImageApi, getRoleId };
+
+const getAllWorkPlatesApi = async () => {
+  try {
+    const response = await axios.get(
+      process.env.REACT_APP_API_ENDPOINT + `/work-plates`
+    );
+    // console.log(response);
+    return response.data;
+  } catch (error) {
+    return { success: false, error: error };
+  }
+};
+export {
+  getAllRoleApi,
+  getImageApi,
+  sendImageApi,
+  getRoleId,
+  getAllWorkPlatesApi,
+};

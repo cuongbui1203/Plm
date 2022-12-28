@@ -10,17 +10,17 @@ const Executive_Board = {
   title: "Ban Điều Hành",
   options: [
     {
-      label: "Sản phẩm",
-      link: "/home/products",
-      const: "",
-    },
-    {
       label: "Dòng sản phẩm",
       link: "/home/product-lines",
       const: DSP,
     },
     {
-      label: "quản lý tài khoản",
+      label: "Sản phẩm",
+      link: "/home/products",
+      const: "",
+    },
+    {
+      label: "Quản lý tài khoản",
       link: "/home/users",
       const: TK,
     },
@@ -55,13 +55,14 @@ const Shop = {
   title: "Trung tâm phân phối",
   options: [
     {
-      title: "Quản lý sản phẩm",
+      label: "Quản lý sản phẩm",
       link: "/home/products",
       const: "",
     },
     {
-      title: "Thống Kê",
+      label: "Thống Kê",
       link: "/shop/statistical",
+      const: "",
     },
   ],
 };
@@ -69,12 +70,14 @@ const TTBH = {
   title: "Trung tâm bảo hành",
   options: [
     {
-      title: "quản lý sản phẩm",
-      link: "",
+      label: "quản lý sản phẩm",
+      link: "/home/products",
+      const: "",
     },
     {
-      title: "Thống Kê",
+      label: "Thống Kê",
       link: "/bao-hanh/statistical",
+      const: "",
     },
   ],
 };

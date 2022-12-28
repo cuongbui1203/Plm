@@ -5,27 +5,27 @@ import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
 import { useDataContext } from "../../state/hook/hooks";
 import { setProduct } from "../../state/actions/DataActions";
-const ProductLineComponent = ({ products }) => {
+const WorkPlatesComponent = ({ workPlates }) => {
   const navig = useNavigate();
   const [product2, updateProduct] = useDataContext();
 
   return (
     <>
-      {products.map((productLine, index) => {
+      {workPlates.map((workPlate, index) => {
         const handleClick = () => {
-          updateProduct(setProduct(productLine));
-          navig(`/home/product-lines/${productLine.productLineId}/`);
+          updateProduct(setProduct(workPlates));
+          navig(`/home/profile/${workPlates.id}`);
         };
-        const product = {
-          name: productLine.productLineId,
-          subName: productLine.name,
-          imgPath: productLine.imgPath,
+        const tg = {
+          name: workPlate.name,
+          subName: "loại " + workPlate.loai,
+          imgPath: "",
         };
         return (
           <CardComponent
-            key={productLine.productId}
-            id={productLine.productId}
-            element={product}
+            key={workPlate.id}
+            id={workPlate.id}
+            element={tg}
             handleClick={handleClick}
           />
         );
@@ -34,8 +34,8 @@ const ProductLineComponent = ({ products }) => {
   );
 };
 
-ProductLineComponent.propTypes = {
-  products: PropTypes.array.isRequired,
+WorkPlatesComponent.propTypes = {
+  workPlates: PropTypes.array.isRequired,
 };
 
-export default ProductLineComponent;
+export default WorkPlatesComponent;

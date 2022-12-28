@@ -79,10 +79,24 @@ const getAllUsersApi = async () => {
   }
 };
 
+const createProductLineApi = async (data) => {
+  try {
+    const response = await net.create(
+      process.env.REACT_APP_API_ENDPOINT + `/product-lines/create`,
+      data
+    );
+    console.log(response);
+    return response.data;
+  } catch (e) {
+    return { success: false, error: e };
+  }
+};
+
 export {
   getAllProductApi,
   getAllProductLine,
   createProduct,
+  createProductLineApi,
   getProductApi,
   deleteProductApi,
   deleteProductLineById,

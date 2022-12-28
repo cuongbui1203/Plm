@@ -1,51 +1,82 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Form from "react-bootstrap/Form";
 import Table from "react-bootstrap/Table";
 import { IoAdd } from "react-icons/io5";
 import Button from "react-bootstrap/Button";
 import { AiFillDelete } from "react-icons/ai";
 import "./CR.css";
-
+import { getAllWorkPlatesApi } from "../../API/Other";
+import Select from "react-select";
+const customStyles = {
+  control: (base, state) => ({
+    ...base,
+    background: "#28292d",
+    // match with the menu
+    borderRadius: state.isFocused ? "3px 3px 0 0" : 3,
+  }),
+  menu: (base) => ({
+    ...base,
+    // override border radius to match the box
+    borderRadius: 0,
+    // kill the gap
+    marginTop: 0,
+  }),
+  menuList: (base) => ({
+    ...base,
+    // kill the white space on first and last option
+    padding: 0,
+    backgroundColor: "#555555",
+    color: "red",
+  }),
+  singleValue: (style) => ({
+    ...style,
+    color: "red",
+  }),
+};
 function CR() {
-  const [senderState, updateSenderState] = useState([]);
+  const [workPlate, setWorkPlate] = useState([]);
+  const [dataSend, updateDataSend] = useState([]);
+  const [workPlateId, setWorkPlateId] = useState(-1);
+
+  const handleGetAllWorkPlate = async () => {
+    let response = await getAllWorkPlatesApi();
+    if (response.success) {
+      let tg = [];
+      response.data.forEach((e) => {
+        tg.push({
+          label: e.name,
+          value: e.id,
+        });
+      });
+      setWorkPlate(tg);
+    }
+  };
+  useEffect(() => {
+    handleGetAllWorkPlate();
+    console.log(workPlate);
+  }, []);
+  console.log(workPlate);
+
+  const handleChangeId = (e) => {
+    setWorkPlateId(e.value);
+  };
+
   return (
     <div id="wrapper">
       <div className="box">
         <div className="form">
           <h3>Gửi yêu cầu</h3>
           <div className="form-group">
-            <Form.Select className="rsF" size="sm">
-              <option selected disabled>
-                Loại
-              </option>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-            </Form.Select>
+            <Select
+              options={workPlate}
+              isSearchable={true}
+              // className="bg-dark"
+              id="tetete"
+              styles={customStyles}
+            />
             <i></i>
           </div>
-          <div className="form-group">
-            <Form.Select className="rsF" size="sm">
-              <option selected disabled>
-                Gửi đến
-              </option>
-              <option value="1">A</option>
-              <option value="2">B</option>
-              <option value="3">C</option>
-            </Form.Select>
-            <i></i>
-          </div>
-          <div className="form-group">
-            <Form.Select className="rsF" size="sm">
-              <option selected disabled>
-                Tên
-              </option>
-              <option value="1">X</option>
-              <option value="2">Y</option>
-              <option value="3">Z</option>
-            </Form.Select>
-            <i></i>
-          </div>
+
           <div className="form-group">
             <textarea
               type="password"

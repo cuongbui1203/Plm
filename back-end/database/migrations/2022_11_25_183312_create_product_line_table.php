@@ -19,9 +19,8 @@ return new class extends Migration
                         ->primary();
             $table->string('name')->nullable(false)->default('-1');
             $table->string('info');
-            $table->string('batch');
-            $table->integer('quantity');
-            $table->bigInteger('imgId')->unsigned();
+            $table->integer('quantity')->nullable(false)->default(0);
+            $table->bigInteger('imgId')->unsigned()->nullable(false)->default(1);
             $table->timestamps();
         });
     }

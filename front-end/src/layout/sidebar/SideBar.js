@@ -15,11 +15,13 @@ import { useSettingContext } from "../../state/hook/hooks";
 import { DSP, SP } from "../../state/constants";
 const SideBar = () => {
   const [show, setShow] = useState(false);
-  const [visible, setVisible] = useState(true);
   const [productLines, handle] = useState([]);
   const [plShow, setPlShow] = useState(false);
   const [selectId, setId] = useState(-1);
   const [settingState, updateSettingState] = useSettingContext();
+
+  const [validate, setValidate] = useState(false);
+
   const handleGetProductLine = async () => {
     let response = await getAllProductLine();
     console.log(response.data);
@@ -77,17 +79,46 @@ const SideBar = () => {
     setId(e.value);
   };
 
-  const handleSendCreatePL = async () => {};
+  const vald = (e) => {
+    const error = e.target.parentNode.parentNode.childNodes[1];
+    // console.log(e.target.parentNode.parentNode.childNodes[1]);
+    if (!e.target.value) {
+      error.innerHTML = "*Không được để trống " + e.target.placeholder;
+      setValidate(false);
+    } else {
+      error.innerHTML = "";
+      setValidate(true);
+    }
+  };
+
+  const handleSendCreatePL = async (e) => {
+    // Notification("error", "chuwa ddien ca truong can thiets");
+    const info = {
+      color: document.getElementById("color").value,
+      mass: document.getElementById("khoiLuong").value,
+      ramRom: document.getElementById("RAM/ROM").value,
+      display: document.getElementById("manHinh").value,
+    };
+    const data = {
+      name: document.getElementById("name").value,
+      info: info,
+    };
+
+    if (document.getElementById("PLImg").files[0]) {
+      data.img = document.getElementById("PLImg").files[0];
+    }
+    console.log(data.info);
+    console.log(data);
+    let response;
+  };
 
   const handleSend = async () => {
     console.log("id: " + selectId);
     console.log("sl: " + document.getElementById("numOfProduct").value);
     let data = {
       idProductLine: selectId,
-      name: "string",
+      name: document.getElementById("nameOfProduct").value,
       num: document.getElementById("numOfProduct").value,
-      isStatus: 0,
-      batch: "string",
     };
     let response = await createProduct(data);
     if (response.success) {
@@ -98,23 +129,16 @@ const SideBar = () => {
     handleClose();
   };
 
-  const handleClick = () => {
-    setVisible(!visible);
-  };
-  useEffect(() => {
-    console.log(visible);
-  }, [visible]);
-
   return (
     <div>
       <Nav
-        style={{ borderRight: visible ? "2px solid rgb(98, 69, 69)" : "" }}
+        style={{ borderRight: "2px solid rgb(98, 69, 69)" }}
         id="b"
         className="col-md-12 d-none d-md-block bg-dark sidebar"
         activeKey="/home"
         onSelect={(selectedKey) => alert(`selected ${selectedKey}`)}
       >
-        <div style={{ display: visible ? "block" : "none" }}>
+        <div style={{ display: "block" }}>
           <Button variant="outline-success" className="bt" onClick={handleShow}>
             {" "}
             <IoAdd />{" "}
@@ -129,7 +153,7 @@ const SideBar = () => {
         {/* )} */}
 
         {/* {visible && ( */}
-        <div style={{ display: visible ? "block" : "none" }}>
+        <div style={{ display: "block" }}>
           <ul className="list-group list-group-flush">
             {" "}
             &ensp;Search by:
@@ -224,6 +248,7 @@ const SideBar = () => {
               onChange={handleChange}
               isSearchable={true}
             />
+            <span style={{ color: "red" }}></span>
           </div>
           <div>
             <label>Tên sản phẩm</label>
@@ -250,59 +275,107 @@ const SideBar = () => {
           <Modal.Title>Tạo dòng sản phẩm</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <MDBInput
-            wrapperClass="mb-4"
-            id="name"
-            type="text"
-            size="lg"
-            placeholder="Name"
-          />
-          <MDBInput
-            wrapperClass="mb-4"
-            id="color"
-            type="text"
-            size="lg"
-            placeholder="Màu"
-          />
-          <MDBInput
-            wrapperClass="mb-4"
-            id="khoiLuong"
-            type="text"
-            size="lg"
-            placeholder="Khối lượng"
-            // label="kg"
-          />
-          <MDBInput
-            wrapperClass="mb-4"
-            id="RAM/ROM"
-            type="text"
-            size="lg"
-            placeholder="RAM/ROM"
-          />
-          <MDBInput
-            wrapperClass="mb-4"
-            id="manHinh"
-            type="text"
-            size="lg"
-            placeholder="Màn hình"
-          />
-          <MDBInput
-            wrapperClass="mb-4"
-            id="mota"
-            type="textarea"
-            size="lg"
-            rows="5"
-            placeholder="Mô tả"
-          />
+          <div>
+            <MDBInput
+              // wrapperClass="mb-2"
+              id="name"
+              type="text"
+              required
+              size="lg"
+              placeholder="Name"
+              name="name"
+              onBlur={vald}
+            />
+            <div
+              style={{ color: "red", height: "1.5rem", paddingLeft: "2rem" }}
+            ></div>
+          </div>
+          <div>
+            <MDBInput
+              // wrapperClass="mb-4"
+              id="color"
+              type="text"
+              required
+              size="lg"
+              onBlur={vald}
+              placeholder="Màu"
+            />
+            <div
+              style={{ color: "red", height: "1.5rem", paddingLeft: "2rem" }}
+            ></div>
+          </div>
+          <div>
+            <MDBInput
+              // wrapperClass="mb-4"
+              id="khoiLuong"
+              type="text"
+              required
+              size="lg"
+              onBlur={vald}
+              placeholder="Khối lượng"
+              // label="kg"
+            />
+            <div
+              style={{ color: "red", height: "1.5rem", paddingLeft: "2rem" }}
+            ></div>
+          </div>
+          <div>
+            <MDBInput
+              // wrapperClass="mb-4"
+              id="RAM/ROM"
+              type="text"
+              required
+              onBlur={vald}
+              size="lg"
+              placeholder="RAM/ROM"
+            />
+            <div
+              style={{ color: "red", height: "1.5rem", paddingLeft: "2rem" }}
+            ></div>
+          </div>
+          <div>
+            <MDBInput
+              // wrapperClass="mb-4"
+              id="manHinh"
+              type="text"
+              onBlur={vald}
+              required
+              size="lg"
+              placeholder="Màn hình"
+            />
+            <div
+              style={{ color: "red", height: "1.5rem", paddingLeft: "2rem" }}
+            ></div>
+          </div>
+          <div>
+            <MDBInput
+              // wrapperClass="mb-4"
+              id="mota"
+              type="textarea"
+              size="lg"
+              rows="5"
+              onBlur={vald}
+              placeholder="Mô tả"
+              // formNoValidate={}
+            />
+            <div
+              style={{ color: "red", height: "1.5rem", paddingLeft: "2rem" }}
+            ></div>
+          </div>
           <Form.Group controlId="formFile" className="mb-3">
-            <Form.Control type="file" />
+            <Form.Control type="file" id="PLImg" accept=".jpg, .jpeg, .png" />
           </Form.Group>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" className="mb-3 ">
             cancel
           </Button>
-          <Button variant="primary" className="mb-3 ">
+          <Button
+            variant="primary"
+            className="mb-3 "
+            onClick={handleSendCreatePL}
+            // disabled={!validate}
+          >
             Ok
           </Button>
         </Modal.Footer>

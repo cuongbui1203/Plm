@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\CreateID\create_id;
 use App\Models\Product\ProductLine;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -46,8 +47,6 @@ class ProductLineController extends Controller
         $validator = Validator::make($request->all(),[
             'name'=>'required',
             'info'=>'required',
-            'bath'=>'required',
-            'idFactory'=>'required',
             'img'=>'image|mimes:jpg,png,jpeg,gif,svg'
         ]);
         if($validator->fails()){
@@ -55,21 +54,19 @@ class ProductLineController extends Controller
         }
         try{
             $productLine = new ProductLine();
-            $productLine->productLineId = ProductLine::createId($request->idFactory,"123");
+            $productLine->productLineId = create_id::createIdProduct();
             if($request->file('image') != null){
                 $image_path = $request->file('image')->store('public');
                 $image = Image::create([
                     'img' => $image_path
                 ]);
-                $productLine['imageId'] = $image->id;
-            } else {
-                $productLine['imageId'] = null;
-
+                $productLine['imgId'] = $image->id;
             }
+            $productLine['info'] = json_encode($request->info);
             $productLine['updated_at'] = date('Y-m-d H:i:s');
             $productLine['created_at'] = date('Y-m-d H:i:s');
             $productLine->save();
-            return $this->sendResponse($productLine,"thanh cong",Response::HTTP_CREATED);
+            return $this->sendResponse([$productLine],"thanh cong",Response::HTTP_CREATED);
         } catch(Exception $e){
             return $this->sendError('error',$e);
         }

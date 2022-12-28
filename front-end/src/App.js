@@ -29,6 +29,11 @@ import Loading from "./page/loading";
 import ProductLine from "./page/productLine/ProductLine";
 import { ProductLineDetail } from "./page/productLine/ProductLineDetail";
 import Users from "./page/users/Users";
+import { DLPP } from "./page/Thongke/DLPP";
+import { TTBH } from "./auth/Role";
+import { TTBHPage } from "./page/Thongke/TTBH";
+import WorkPlates from "./page/workPlate/WorkPlates";
+import CR from "./components/createRequest/CR";
 
 function App() {
   const [loginState, loginHandle] = useLoginContext();
@@ -72,9 +77,13 @@ function App() {
           <Route path="/home/products" element={<Product />} />
           <Route path="/home/product/:id" element={<ProductDetail />} />
           <Route path="/home/statistical" element={<ThongKe />} />
+          <Route path="/shop/statistical" element={<DLPP />} />
+          <Route path="/bao-hanh/statistical" element={<TTBHPage />} />
+          <Route path="/factory/statistical" element={<CSSX />} />
           <Route path="/home/product-lines" element={<ProductLine />} />
+          <Route path="/home/work-plate" element={<WorkPlates />} />
           <Route
-            path="/home/product-lines/:id"
+            path="/home/product-lines/:id/"
             element={<ProductLineDetail />}
           />
           <Route path="/home/users" element={<Users />} />
@@ -84,6 +93,7 @@ function App() {
     </>
     // <Loading />
     // <img src={path} />
+    // <CR />
   );
 }
 

@@ -16,8 +16,10 @@ export const Profile = () => {
   useEffect(() => {
     if (id != loginState.user.id) {
       setUser(data.data);
+    } else {
+      setUser(loginState.user);
     }
-  }, []);
+  }, [id]);
   console.log(user);
   return (
     <div className="profile">

@@ -12,6 +12,7 @@ export const ProductLineDetail = () => {
   const { id } = useParams();
   const [product, updateProduct] = useDataContext();
   console.log(product.data);
+  console.log(id);
 
   const handleDelete = async () => {
     const response = await deleteProductApi(id);

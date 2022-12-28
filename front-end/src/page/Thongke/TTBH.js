@@ -3,7 +3,7 @@ import Table from "react-bootstrap/Table";
 import Form from "react-bootstrap/Form";
 import { useState } from "react";
 
-export const TTBH = () => {
+export const TTBHPage = () => {
   const [quarter, setQuarter] = useState("-1");
   const [month, setMonth] = useState("0");
   const [status, setStatus] = useState("0");

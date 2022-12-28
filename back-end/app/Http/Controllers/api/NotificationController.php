@@ -106,11 +106,11 @@ class NotificationController extends Controller
         try {
             $tb1 = DB::table('notifications') -> where('idSender', '=', $id)
                 ->get();
-            $tb2 = DB::table('notifications') ->
-            join('users', 'users.id', '=', $id)
-            ->where('users.workPlateId', '=', 'notifications.idReceiver')
-            ->select('notifications.*')
-            ->get();
+        $workPlateId = DB::table('users')->where('id', '=', $id)->limit(1)->get('workPlateId')[0]->workPlateId;
+            $tb2 = DB::table('notifications') 
+                ->where('IdReceiver', '=', $workPlateId)
+                ->select('notifications.*')
+                ->get();
             $res = [$tb1, $tb2];
 
             if (count($res) == 0)

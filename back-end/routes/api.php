@@ -65,13 +65,13 @@ Route::post('/image', [ImageController::class, 'store']);
 
 //notification
 Route::get('/notifications/{id}', [NotificationController::class, 'show']);
-Route::get('/notifications/sended/{id}',[NotificationController::class,'getAllNotification']);
+Route::get('/notifications/user/{id}',[NotificationController::class,'getAllNotification']);
 Route::get('/notifications/recv/{id}', [NotificationController::class, 'showRecvNotification']);
 Route::post('/notifications/create', [NotificationController::class, 'create']);
-Route::patch('notifications/accept/{id}', [NotificationController::class, 'requestNotification']);
+Route::patch('notifications/{id}/update', [NotificationController::class, 'requestNotification']);
 
 //workPlate
-Route::get('work-plate', [WorkPlateController::class, 'index']);
+Route::get('work-plates', [WorkPlateController::class, 'index']);
 Route::post('work-plate/create', [WorkPlateController::class, 'create']);
 Route::patch('work-plate/{id}/update', [WorkPlateController::class,'update']);
 Route::delete('work-plate/{id}/delete', [WorkPlateController::class,'deleteId']);

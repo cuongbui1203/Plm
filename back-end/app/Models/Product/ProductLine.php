@@ -9,24 +9,12 @@ class ProductLine extends Model
 {
     use HasFactory;
 
-    /**
-     * Create Id for ProductLine
-     *
-     * @param string $idFactory
-     * @param string $batch
-     * @return string
-     */
-    public static function createId($idFactory,$batch){
-        // if()
-        return $idFactory.$batch;
-    }
-
+    protected $table = 'productlines';
     protected $fillable = [
         'productLineId',
         'name',
         'info',
         'quantity',
-        'batch',
         'imgId'
     ];
 }

@@ -82,7 +82,7 @@ class ProductController extends Controller
             'idProductLine'=>'required',
             'name'=>'required',
             'num'=>'required|numeric',
-            // 'batch'=>'required'
+            // 'batch'=>'required'  
         ]);
         if($validator->fails()){
             return $this->sendError('Validation Error.',$validator->errors());

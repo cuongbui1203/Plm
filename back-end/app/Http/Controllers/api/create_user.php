@@ -93,6 +93,11 @@ class create_user extends Controller
                     'updated_at'=>date('Y-m-d H:i:s')
                 ]);
         $user = $request->user();
+        $user->workPlate = DB::table('work_plates')
+                                ->where('id', '=', $user->workPlateId)
+                                ->select()
+                                ->limit(1)
+                                ->get()[0]->name;
         // $path = `${$user->imageId}`;
         // $user->imgPath = $path;
         $user->imgPath = '/images/get/'.$user->imageId;
