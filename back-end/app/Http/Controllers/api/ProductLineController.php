@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\CreateID\create_id;
+use App\Models\Other\Image as OtherImage;
 use App\Models\Product\ProductLine;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -57,7 +58,7 @@ class ProductLineController extends Controller
             $productLine->productLineId = create_id::createIdProduct();
             if($request->file('image') != null){
                 $image_path = $request->file('image')->store('public');
-                $image = Image::create([
+                $image = OtherImage::create([
                     'img' => $image_path
                 ]);
                 $productLine['imgId'] = $image->id;

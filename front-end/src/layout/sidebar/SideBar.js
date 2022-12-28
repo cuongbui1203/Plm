@@ -8,12 +8,17 @@ import { IoRefresh } from "react-icons/io5";
 import { IoAdd } from "react-icons/io5";
 import { BiMenu } from "react-icons/bi";
 import { AiFillDelete } from "react-icons/ai";
-import { getAllProductLine, createProduct } from "../../API/productApi";
+import {
+  getAllProductLine,
+  createProduct,
+  createProductLineApi,
+} from "../../API/productApi";
 import Select from "react-select";
 import Notification from "../../components/notification/notification";
 import { MDBInput } from "mdb-react-ui-kit";
 import { useSettingContext } from "../../state/hook/hooks";
 import { DSP, SP } from "../../state/constants";
+import { infoDecode, infoEncode } from "../../hook/handleInfo";
 const SideBar = () => {
   const [show, setShow] = useState(false);
   const [productLines, handle] = useState([]);
@@ -94,23 +99,37 @@ const SideBar = () => {
 
   const handleSendCreatePL = async (e) => {
     // Notification("error", "chuwa ddien ca truong can thiets");
+    let utf8Encode = new TextEncoder();
+    let decode = new TextDecoder();
     const info = {
       color: document.getElementById("color").value,
       mass: document.getElementById("khoiLuong").value,
       ramRom: document.getElementById("RAM/ROM").value,
       display: document.getElementById("manHinh").value,
+      dec: document.getElementById("mota").value,
     };
     const data = {
       name: document.getElementById("name").value,
-      info: info,
+      info: infoEncode(JSON.stringify(info)),
     };
+
+    const formData = new FormData();
+    formData.append("name", document.getElementById("name").value);
+    formData.append("info", JSON.stringify(info));
+    const file = document.getElementById("PLImg").files[0];
+    formData.append("image", file, file.name);
 
     if (document.getElementById("PLImg").files[0]) {
       data.img = document.getElementById("PLImg").files[0];
     }
-    console.log(data.info);
-    console.log(data);
-    let response;
+    console.log(document.getElementById("PLImg").files[0]);
+    const response = await createProductLineApi(formData);
+    if (response.success) {
+      Notification("success", "tạo dòng sản phẩm thành công");
+    } else {
+      console.log(response.data);
+      Notification("error", "tạo dòng sản phẩm thất bại");
+    }
   };
 
   const handleSend = async () => {
