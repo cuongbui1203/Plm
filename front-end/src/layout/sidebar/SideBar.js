@@ -6,6 +6,7 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { IoRefresh } from "react-icons/io5";
 import { IoAdd } from "react-icons/io5";
+import { BiMenu } from "react-icons/bi";
 import { AiFillDelete } from "react-icons/ai";
 import {
   getAllProductLine,
@@ -162,12 +163,7 @@ const SideBar = () => {
             {" "}
             <IoAdd />{" "}
           </Button>
-          <Button variant="outline-danger" className="bt">
-            <AiFillDelete />
-          </Button>
-          <Button variant="outline-primary" className="bt">
-            <IoRefresh />
-          </Button>
+          
         </div>
         {/* )} */}
 

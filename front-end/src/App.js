@@ -34,6 +34,7 @@ import { TTBH } from "./auth/Role";
 import { TTBHPage } from "./page/Thongke/TTBH";
 import WorkPlates from "./page/workPlate/WorkPlates";
 import CR from "./components/createRequest/CR";
+import TabE from "./page/Thongke/Tab";
 
 function App() {
   const [loginState, loginHandle] = useLoginContext();
@@ -76,7 +77,7 @@ function App() {
           <Route path="/home/profile/:id" element={<Profile />} />
           <Route path="/home/products" element={<Product />} />
           <Route path="/home/product/:id" element={<ProductDetail />} />
-          <Route path="/home/statistical" element={<ThongKe />} />
+          <Route path="/home/statistical" element={<TabE />} />
           <Route path="/shop/statistical" element={<DLPP />} />
           <Route path="/bao-hanh/statistical" element={<TTBHPage />} />
           <Route path="/factory/statistical" element={<CSSX />} />
