@@ -192,6 +192,8 @@ class create_user extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function update(Request $request, $id) {
+        
+
         $user = DB::table('users')->where('id', '=', $id)->get();
         switch($request->type){
             case 'name':
