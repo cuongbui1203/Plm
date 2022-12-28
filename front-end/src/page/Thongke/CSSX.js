@@ -1,16 +1,57 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Table from "react-bootstrap/Table";
 import Form from "react-bootstrap/Form";
 import { useState } from "react";
+import { getAllProductApi, getAllProductLine } from "../../API/productApi";
+import { FaRandom } from "react-icons/fa";
 
 export const CSSX = () => {
+  const [listPrd, setListPrd] = useState([]);
+  const [listPrdt, setListPrdt] = useState([]);
+  const [listPrd2, setListPrd2] = useState([]);
+  const [listPrdt2, setListPrdt2] = useState([]);
+  const loadAllPrd = async () => {
+    const response = await getAllProductLine();
+    const response2 = await getAllProductApi();
+    console.log(response.data);
+    setListPrdt(response.data);
+    setListPrd(response.data);
+    console.log(response2.data);
+    setListPrdt2(response2.data);
+    setListPrd2(response2.data);
+  };
+  useEffect(() => {
+    loadAllPrd();
+  }, []);
+
   const [quarter, setQuarter] = useState("-1");
   const [month, setMonth] = useState("0");
   const [status, setStatus] = useState("0");
   const statusChange = (e) => {
     setStatus(e.target.value);
     // console.log(e.target.value);
+    const prdData = listPrdt.filter((prd, index) => {
+      return prd.statusId === Number(e.target.value);
+    });
+    setListPrd(prdData);
   };
+  const QuyChange = (e) => {
+    setStatus(e.target.value);
+    // console.log(e.target.value);
+    const prdData = listPrdt.filter((prd, index) => {
+      return prd.statusId === Number(e.target.value);
+    });
+    setListPrd(prdData);
+  };
+  const MonthsChange = (e) => {
+    setMonth(e);
+    console.log(e);
+    const prdData = listPrdt2.filter((prd, index) => {
+      return new Date(prd.created_at).getMonth()+1 === Number(e.target.value);
+    });
+    setListPrd2(prdData);
+  };
+  
   let months, number, quarters;
   quarters = [1, 2, 3, 4];
   if (quarter !== "-1") {
@@ -38,12 +79,11 @@ export const CSSX = () => {
                 style={{ border: "none", fontWeight: "bold" }}
                 onChange={statusChange}
               >
-                <option value={"0"}>Trạng thái</option>
-                <option value={"1"}>Mới sản xuất</option>
-                <option value={"2"}>Đưa về đại lý</option>
-                <option value={"3"}>Đã bán</option>
-                <option value={"4"}>Lỗi</option>
-                
+                <option value={0}>Trạng thái</option>
+                <option value={1}>Mới sản xuất</option>
+                <option value={2}>Đưa về đại lý</option>
+                <option value={3}>Đã bán</option>
+                <option value={10}>Lỗi cần triệu hồi</option>
               </Form.Select>
             </th>
             <th>Số lượng</th>
@@ -75,7 +115,7 @@ export const CSSX = () => {
               <Form.Select
                 style={{ border: "none", fontWeight: "bold" }}
                 id="countries"
-                onChange={monthChange}
+                onChange={MonthsChange}
                 disabled={quarter == "-1" ? true : false}
               >
                 <option value="0"></option>
@@ -85,6 +125,7 @@ export const CSSX = () => {
                       <option value={mon} key={mon}>
                         {" "}
                         Tháng {mon}
+                        
                       </option>
                     );
                   })}
@@ -93,33 +134,23 @@ export const CSSX = () => {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>1</td>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>3</td>
-            <td>Larry the Bird</td>
-            <td>@twitter</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
+          {listPrd2.map((prd, index) => {
+            return (
+              <tr>
+                <td>{index + 1}</td>
+                <td>{prd.productLine}</td>
+                <td>{prd.status}</td>
+                <td>{Math.floor(Math.random() * 10)}</td>
+                <td>{new Date(prd.created_at).getFullYear()}</td>
+                <td>
+                  {Math.floor(new Date(prd.created_at).getMonth() / 3 + 1)}
+                </td>
+                <td>
+                  {new Date(prd.created_at).getMonth()+1}
+                </td>
+              </tr>
+            );
+          })}
         </tbody>
       </Table>
     </div>
