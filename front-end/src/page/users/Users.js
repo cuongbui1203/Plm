@@ -3,8 +3,6 @@ import { Button, Container } from "react-bootstrap";
 import { getAllUsersApi } from "../../API/productApi";
 import Notification from "../../components/notification/notification";
 import PaginationComponent from "../../components/pagination/Pagination";
-import ProductLineComponent from "../../components/showProductLine/ProductLineComponent";
-import ProductComponent from "../../components/showProducts/ProductComponent";
 import UsersComponent from "../../components/User/UserComponent";
 import { useDataContext } from "../../state/hook/hooks";
 import "../product/Product.css";

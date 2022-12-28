@@ -1,6 +1,13 @@
 /* eslint-disable array-callback-return */
 import React, { useEffect, useState } from "react";
-import { Container, Modal, Nav, NavDropdown, NavItem } from "react-bootstrap";
+import {
+  Container,
+  Modal,
+  ModalHeader,
+  Nav,
+  NavDropdown,
+  NavItem,
+} from "react-bootstrap";
 import "./SideBar.css";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
@@ -17,17 +24,21 @@ import Select from "react-select";
 import Notification from "../../components/notification/notification";
 import { MDBInput } from "mdb-react-ui-kit";
 import { useSettingContext } from "../../state/hook/hooks";
-import { DSP, SP } from "../../state/constants";
+import { DSP, SP, TK, WP } from "../../state/constants";
 import { infoDecode, infoEncode } from "../../hook/handleInfo";
+import RegisterForm from "../../components/registerForm/registerForm";
+import CreateWorkPlate from "../../components/workPlates/createWorkPlate";
 const SideBar = () => {
   const [show, setShow] = useState(false);
   const [productLines, handle] = useState([]);
   const [plShow, setPlShow] = useState(false);
   const [selectId, setId] = useState(-1);
   const [settingState, updateSettingState] = useSettingContext();
-
+  const [btnLabel, setBtnLabel] = useState("");
   const [validate, setValidate] = useState(false);
-
+  const [show2, setVisible] = useState("none");
+  const [registerShow, setRegisterShow] = useState(false);
+  const [showCreateWp, setShowCreateWp] = useState(false);
   const handleGetProductLine = async () => {
     let response = await getAllProductLine();
     console.log(response.data);
@@ -46,6 +57,31 @@ const SideBar = () => {
       handle(res);
     }
   };
+  const handleCloseCreateWp = () => setShowCreateWp(false);
+  // const handleOpenCreateWp = () => setShowCreateWp(true);
+  const handleCloseRegister = () => {
+    setRegisterShow(false);
+  };
+  useEffect(() => {
+    setVisible("block");
+    switch (settingState.create) {
+      case SP:
+        setBtnLabel("Tạo sản phẩm mới");
+        break;
+      case DSP:
+        setBtnLabel("Tạo dòng sản phẩm mới");
+        break;
+      case TK:
+        setBtnLabel("Tạo tài khoản mới");
+        break;
+      case WP:
+        setBtnLabel("Tạo Work Plate Mới");
+        break;
+      default:
+        setBtnLabel("");
+        setVisible("none");
+    }
+  }, [settingState.create]);
 
   const handleShow = () => {
     console.log(settingState);
@@ -57,7 +93,14 @@ const SideBar = () => {
       case DSP:
         handlePlShow();
         break;
+      case TK:
+        setRegisterShow(true);
+        break;
+      case WP:
+        setShowCreateWp(true);
+        break;
       default:
+        setBtnLabel("");
         return;
     }
   };
@@ -70,6 +113,9 @@ const SideBar = () => {
         break;
       case DSP:
         handlePlClose();
+        break;
+      case TK:
+        handleCloseRegister();
         break;
       default:
         return;
@@ -99,8 +145,7 @@ const SideBar = () => {
 
   const handleSendCreatePL = async (e) => {
     // Notification("error", "chuwa ddien ca truong can thiets");
-    let utf8Encode = new TextEncoder();
-    let decode = new TextDecoder();
+    const formData = new FormData();
     const info = {
       color: document.getElementById("color").value,
       mass: document.getElementById("khoiLuong").value,
@@ -108,21 +153,14 @@ const SideBar = () => {
       display: document.getElementById("manHinh").value,
       dec: document.getElementById("mota").value,
     };
-    const data = {
-      name: document.getElementById("name").value,
-      info: infoEncode(JSON.stringify(info)),
-    };
 
-    const formData = new FormData();
     formData.append("name", document.getElementById("name").value);
     formData.append("info", JSON.stringify(info));
-    const file = document.getElementById("PLImg").files[0];
-    formData.append("image", file, file.name);
-
     if (document.getElementById("PLImg").files[0]) {
-      data.img = document.getElementById("PLImg").files[0];
+      const file = document.getElementById("PLImg").files[0];
+      formData.append("image", file, file.name);
     }
-    console.log(document.getElementById("PLImg").files[0]);
+    console.log(formData);
     const response = await createProductLineApi(formData);
     if (response.success) {
       Notification("success", "tạo dòng sản phẩm thành công");
@@ -158,13 +196,14 @@ const SideBar = () => {
         activeKey="/home"
         onSelect={(selectedKey) => alert(`selected ${selectedKey}`)}
       >
-        <div style={{ display: "block" }}>
+        <div style={{ display: show2 }}>
           <Button variant="outline-success" className="bt" onClick={handleShow}>
             {" "}
             <IoAdd />{" "}
           </Button>
-          
+          <div>{btnLabel}</div>
         </div>
+        <i></i>
         {/* )} */}
 
         {/* {visible && ( */}
@@ -394,6 +433,24 @@ const SideBar = () => {
             Ok
           </Button>
         </Modal.Footer>
+      </Modal>
+
+      <Modal
+        show={registerShow}
+        onHide={handleCloseRegister}
+        className="modal-custom"
+      >
+        {/* <Modal.Header closeButton>Tạo tài khoản</Modal.Header> */}
+        <Modal.Body>
+          <RegisterForm handleClose={handleCloseRegister} />
+        </Modal.Body>
+      </Modal>
+
+      <Modal show={showCreateWp} onHide={handleCloseCreateWp}>
+        <Modal.Header>Tạo Work Plate</Modal.Header>
+        <Modal.Body>
+          <CreateWorkPlate handleClose={handleCloseCreateWp} />
+        </Modal.Body>
       </Modal>
     </div>
   );

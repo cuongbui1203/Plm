@@ -3,7 +3,6 @@ import Table from "react-bootstrap/Table";
 import Form from "react-bootstrap/Form";
 import { useState } from "react";
 import { getAllProductApi, getAllProductLine } from "../../API/productApi";
-import { FaRandom } from "react-icons/fa";
 
 export const CSSX = () => {
   const [listPrd, setListPrd] = useState([]);
@@ -47,11 +46,11 @@ export const CSSX = () => {
     setMonth(e);
     console.log(e);
     const prdData = listPrdt2.filter((prd, index) => {
-      return new Date(prd.created_at).getMonth()+1 === Number(e.target.value);
+      return new Date(prd.created_at).getMonth() + 1 === Number(e.target.value);
     });
     setListPrd2(prdData);
   };
-  
+
   let months, number, quarters;
   quarters = [1, 2, 3, 4];
   if (quarter !== "-1") {
@@ -125,7 +124,6 @@ export const CSSX = () => {
                       <option value={mon} key={mon}>
                         {" "}
                         Tháng {mon}
-                        
                       </option>
                     );
                   })}
@@ -145,9 +143,7 @@ export const CSSX = () => {
                 <td>
                   {Math.floor(new Date(prd.created_at).getMonth() / 3 + 1)}
                 </td>
-                <td>
-                  {new Date(prd.created_at).getMonth()+1}
-                </td>
+                <td>{new Date(prd.created_at).getMonth() + 1}</td>
               </tr>
             );
           })}

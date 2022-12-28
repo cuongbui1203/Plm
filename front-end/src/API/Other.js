@@ -1,4 +1,5 @@
 import axios from "axios";
+import { net } from "./axiosConfig";
 
 const getAllRoleApi = async () => {
   try {
@@ -64,10 +65,45 @@ const getAllWorkPlatesApi = async () => {
     return { success: false, error: error };
   }
 };
+const getWorkPlatesApi = async (idRole) => {
+  try {
+    const response = await axios.get(
+      process.env.REACT_APP_API_ENDPOINT + `/work-plates/role/${idRole}`
+    );
+    // console.log(response);
+    return response.data;
+  } catch (error) {
+    return { success: false, error: error };
+  }
+};
+
+const createWorkPlateApi = async (data) => {
+  try {
+    const response = await net.post(
+      process.env.REACT_APP_API_ENDPOINT + "/work-plate/create",
+      data,
+      {
+        headers: {
+          accept: "application/json",
+          "Accept-Language": "en-US,en;q=0.8",
+          "Content-Type": `multipart/form-data; boundary=${data._boundary}`,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    return {
+      success: false,
+      error: error,
+    };
+  }
+};
 export {
   getAllRoleApi,
   getImageApi,
   sendImageApi,
   getRoleId,
   getAllWorkPlatesApi,
+  getWorkPlatesApi,
+  createWorkPlateApi,
 };

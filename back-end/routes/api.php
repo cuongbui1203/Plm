@@ -74,6 +74,7 @@ Route::patch('notifications/{id}/update', [NotificationController::class, 'reque
 //workPlate
 Route::get('work-plates', [WorkPlateController::class, 'index']);
 Route::post('work-plate/create', [WorkPlateController::class, 'create']);
+Route::get('work-plates/role/{id}', [WorkPlateController::class,'getByIdRole']);
 Route::patch('work-plate/{id}/update', [WorkPlateController::class,'update']);
 Route::delete('work-plate/{id}/delete', [WorkPlateController::class,'deleteId']);
 // Route::group(['middleware'=>'auth:sanctum'],function(){

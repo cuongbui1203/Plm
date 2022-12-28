@@ -175,5 +175,5 @@ function CR() {
     </div>
   );
 }
-
+export { customStyles };
 export default CR;

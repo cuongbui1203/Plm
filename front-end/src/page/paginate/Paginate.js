@@ -1,9 +1,8 @@
 import ReactPaginate from "https://cdn.skypack.dev/react-paginate@7.1.3";
 import React, {
   useEffect,
-  useState
+  useState,
 } from "https://cdn.skypack.dev/react@17.0.1";
-import ReactDOM from "https://cdn.skypack.dev/react-dom@17.0.1";
 import "./Paginate.css";
 
 const items = [...Array(33).keys()];
@@ -11,12 +10,13 @@ const items = [...Array(33).keys()];
 function Items({ currentItems }) {
   return (
     <div className="items">
-    {currentItems && currentItems.map((item) => (
-      <div>
-        <h3>Item #{item}</h3>
-      </div>
-    ))}
-      </div>
+      {currentItems &&
+        currentItems.map((item) => (
+          <div>
+            <h3>Item #{item}</h3>
+          </div>
+        ))}
+    </div>
   );
 }
 
@@ -38,8 +38,10 @@ function PaginatedItems({ itemsPerPage }) {
 
   // Invoke when user click to request another page.
   const handlePageClick = (event) => {
-    const newOffset = event.selected * itemsPerPage % items.length;
-    console.log(`User requested page number ${event.selected}, which is offset ${newOffset}`);
+    const newOffset = (event.selected * itemsPerPage) % items.length;
+    console.log(
+      `User requested page number ${event.selected}, which is offset ${newOffset}`
+    );
     setItemOffset(newOffset);
   };
 
