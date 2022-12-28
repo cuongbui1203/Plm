@@ -18,7 +18,7 @@ return new class extends Migration
                         ->unique()
                         ->primary();
             $table->string('name')->nullable(false)->default('-1');
-            $table->string('info');
+            $table->longText('info');
             $table->integer('quantity')->nullable(false)->default(0);
             $table->bigInteger('imgId')->unsigned()->nullable(false)->default(1);
             $table->timestamps();

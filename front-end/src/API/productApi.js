@@ -81,9 +81,16 @@ const getAllUsersApi = async () => {
 
 const createProductLineApi = async (data) => {
   try {
-    const response = await net.create(
+    const response = await net.post(
       process.env.REACT_APP_API_ENDPOINT + `/product-lines/create`,
-      data
+      data,
+      {
+        headers: {
+          accept: "application/json",
+          "Accept-Language": "en-US,en;q=0.8",
+          "Content-Type": `multipart/form-data; boundary=${data._boundary}`,
+        },
+      }
     );
     console.log(response);
     return response.data;
