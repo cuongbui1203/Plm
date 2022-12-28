@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/alt-text */
-import React, { useState } from "react";
+import React from "react";
 import { Button } from "react-bootstrap";
 import Table from "react-bootstrap/Table";
 import { AiFillDelete } from "react-icons/ai";

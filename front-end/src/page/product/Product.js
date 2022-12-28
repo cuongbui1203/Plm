@@ -4,11 +4,6 @@ import { getAllProductApi } from "../../API/productApi";
 import Notification from "../../components/notification/notification";
 import PaginationComponent from "../../components/pagination/Pagination";
 import ProductComponent from "../../components/showProducts/ProductComponent";
-import { data, testProduct } from "../../data";
-import { handleGetUrlImage } from "../../hook/getInformation";
-import { handleGetAllProduct } from "../../hook/productHook";
-import { HeaderBar, SideBar } from "../../layout";
-import { setImageUrlPL } from "../../state/actions/DataActions";
 import { useDataContext } from "../../state/hook/hooks";
 import "./Product.css";
 
@@ -23,7 +18,6 @@ function Product() {
   const firstSessionIndex = lastSessionNumber - ProductPerPage;
   const limitedProduct = products.slice(firstSessionIndex, lastSessionNumber);
   // const [state,dispatch] = useStore()
-  const [product, updateProduct] = useDataContext();
   async function getProduct() {
     let response = await getAllProductApi();
     // dispatch(actions.setLoading(''))

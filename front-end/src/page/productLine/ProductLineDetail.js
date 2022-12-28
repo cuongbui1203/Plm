@@ -1,12 +1,11 @@
 /* eslint-disable jsx-a11y/alt-text */
-import React, { useState } from "react";
+import React from "react";
 import { Button } from "react-bootstrap";
 import Table from "react-bootstrap/Table";
 import { AiFillDelete } from "react-icons/ai";
 import { useParams } from "react-router-dom";
 import { deleteProductApi } from "../../API/productApi";
 import Notification from "../../components/notification/notification";
-import { infoDecode } from "../../hook/handleInfo";
 import { useDataContext } from "../../state/hook/hooks";
 
 export const ProductLineDetail = () => {

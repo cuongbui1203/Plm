@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\CreateID\create_id;
+use App\Models\Other\Image;
 use App\Models\WorkPlates;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -21,7 +22,7 @@ class WorkPlateController extends Controller
         $validator = Validator::make($request->all(),[
             'name'=>'required',
             'address'=>'required',
-            'roleId'=>'required|numeric'
+            'roleId'=>'required|numeric',
         ]);
         if($validator->fails()){
             return $this->sendError('Not validate',$validator->errors());
@@ -45,6 +46,26 @@ class WorkPlateController extends Controller
         try{
             $res = DB::table('work_plates')
             ->join('roles','work_plates.roleId','=','roles.id')
+            ->select(
+                'work_plates.id',
+                'work_plates.name',
+                'work_plates.address',
+                'work_plates.created_at',
+                'work_plates.updated_at',
+                DB::raw('roles.title as loai')
+            )->orderBy('work_plates.created_at', 'desc')
+            ->get();
+            return $this->sendResponse($res,"thanh cong lay het workPlates");
+        }catch(Exception $e){
+            return $this->sendError("error",$e);
+        }
+    }
+
+    public function getByIdRole($id){
+        try{
+            $res = DB::table('work_plates')
+            ->join('roles','work_plates.roleId','=','roles.id')
+            ->where('roleId','=',$id)
             ->select(
                 'work_plates.id',
                 'work_plates.name',

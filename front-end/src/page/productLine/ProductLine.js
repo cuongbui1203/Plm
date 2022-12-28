@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Button, Container } from "react-bootstrap";
-import { getAllProductApi, getAllProductLine } from "../../API/productApi";
+import { getAllProductLine } from "../../API/productApi";
 import Notification from "../../components/notification/notification";
 import PaginationComponent from "../../components/pagination/Pagination";
 import ProductLineComponent from "../../components/showProductLine/ProductLineComponent";
-import ProductComponent from "../../components/showProducts/ProductComponent";
-import { useDataContext } from "../../state/hook/hooks";
 import "../product/Product.css";
 
 function ProductLine() {
@@ -19,7 +17,6 @@ function ProductLine() {
   const firstSessionIndex = lastSessionNumber - ProductPerPage;
   const limitedProduct = products.slice(firstSessionIndex, lastSessionNumber);
   // const [state,dispatch] = useStore()
-  const [product, updateProduct] = useDataContext();
 
   async function getProduct() {
     let response = await getAllProductLine();

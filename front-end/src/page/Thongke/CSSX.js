@@ -3,7 +3,6 @@ import Table from "react-bootstrap/Table";
 import Form from "react-bootstrap/Form";
 import { useState } from "react";
 import { getAllProductApi, getAllProductLine } from "../../API/productApi";
-import { FaRandom } from "react-icons/fa";
 
 export const CSSX = () => {
   const [listPrd, setListPrd] = useState([]);

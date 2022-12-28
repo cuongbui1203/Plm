@@ -2,8 +2,7 @@ import React, { useEffect } from "react";
 import Table from "react-bootstrap/Table";
 import Form from "react-bootstrap/Form";
 import { useState } from "react";
-import { getAllProductApi, getAllProductLine } from "../../API/productApi";
-import { number } from "prop-types";
+import { getAllProductApi } from "../../API/productApi";
 
 export const TK = () => {
   const [listPrd, setListPrd] = useState([]);
