@@ -8,9 +8,18 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\Response;
 
-class ImageController extends Controller
-{
-    //
+class ImageController extends Controller {
+
+    public static function storeImage(Request $request){
+        
+        $image_path = $request->file('image')->store('public');
+
+        $data = Image::create([
+            'img' => $image_path,
+        ]);
+        return $data->id;
+    }
+
     public function store(Request $request){
             
         $validator =  Validator::make($request->all(),[

@@ -107,7 +107,7 @@ class create_user extends Controller
     public function login(Request $request){
         if(Auth::attempt(['email' => $request->email, 'password' => $request->password])){
             $user = Auth::user();
-            $success['token'] =  $user->createToken('MyApp')->plainTextToken;
+            $success['token'] =  $user->createToken('MyApp',Carbon::now('Asia/Phnom_Penh')->addDay())->plainTextToken;
             $id = explode('|', $success['token'])[0];
             // $user->currentAccessToken();
             // $success['name'] =  $user->name;
