@@ -12,6 +12,8 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Nette\Utils\Image;
+use Nette\Utils\Strings;
+use PhpParser\Node\Expr\Cast\String_;
 use TheSeer\Tokenizer\Exception;
 
 class ProductLineController extends Controller
@@ -153,5 +155,20 @@ class ProductLineController extends Controller
         DB::table('products')->where('idProductLine', '=', $id)->delete();
         DB::table('productLines')->where('productLineId', '=', $id)->delete();
         return $this->sendResponse([],'thanh cong');
+    }
+
+    public function getProductByStatus($idProductLine,$idStatus){
+        try{
+            $res = ProductLine::where('productLines.productLineId', '=', strval($idProductLine))
+                ->join('products', 'products.idProductLine', '=', 'productLineId')
+                ->where('products.idStatus', '=', $idStatus)
+                ->select(
+                    'productlines.*',
+                    DB::raw('count(products.productId) as quantityOfProduct')
+                )->get();
+            return $this->sendResponse($res,'thanh cong');
+        } catch(Exception $e){
+            return $this->sendError('error',$e);
+        } 
     }
 }

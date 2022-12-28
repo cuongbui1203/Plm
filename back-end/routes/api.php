@@ -56,6 +56,7 @@ Route::get('/product-lines/get/{id}',[ProductLineController::class,'getId']);
 Route::get('/product-lines/orderby', [ProductLineController::class, 'getOrderByColum']);
 Route::post('product-lines/search', [ProductLineController::class, 'search']);
 Route::post('/product-lines/create',[ProductLineController::class,'create']);
+Route::get('/product-lines/{idProductLine}/status/{idStatus}', [ProductLineController::class, 'getProductByStatus']);
 Route::patch('product-lines/{id}/update', [ProductLineController::class, 'update']);
 Route::delete('product-lines/{id}/delete', [ProductLineController::class, 'deleteId']);
 
