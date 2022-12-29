@@ -37,11 +37,21 @@ class NotificationController extends Controller
                 'sender' => $sender,
                 'receiver' => $receiver,
                 'data'   => $request->data,
-                'accepted'  => 'request'
+                'accepted'  => 'pending'
             ]);
             return $this->sendResponse([$notification->id], 'Create Request Success');
         } catch(Exception $e){
             return $this->sendError('create Request Fails',$e);
+        }
+    }
+
+
+    public function show($id){
+        try{
+            $res = Notification::where('id', '=', $id)->select()->get();
+            return $this->sendResponse($res,'Get request Success');
+        } catch(Exception $e){
+            return $this->sendError('get Request Fails',$e);
         }
     }
 

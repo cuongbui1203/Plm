@@ -1,4 +1,5 @@
 import axios from "axios";
+import { useLoginContext } from "../state/hook/hooks";
 import { net } from "./axiosConfig";
 
 const getAllRoleApi = async () => {
@@ -162,7 +163,48 @@ const createRequestApi = async (data) => {
     };
   }
 };
+const getRequest = async (id) => {
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  try {
+    const response = await net.get(
+      process.env.REACT_APP_API_ENDPOINT + `/request/user/${id}`,
+      {
+        headers: {
+          accept: "application/json",
+          "Accept-Language": "en-US,en;q=0.8",
+          // "Content-Type": `multipart/form-data; boundary=${data._boundary}`,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    return {
+      success: false,
+      error: error,
+    };
+  }
+};
 
+const getRequestId = async (id) => {
+  try {
+    const response = await net.get(
+      process.env.REACT_APP_API_ENDPOINT + `/request/${id}`,
+      {
+        headers: {
+          accept: "application/json",
+          "Accept-Language": "en-US,en;q=0.8",
+          // "Content-Type": `multipart/form-data; boundary=${data._boundary}`,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    return {
+      success: false,
+      error: error,
+    };
+  }
+};
 export {
   getAllRoleApi,
   getImageApi,
@@ -174,4 +216,6 @@ export {
   getWorkPlatesByIdApi,
   delWpApi,
   createRequestApi,
+  getRequest,
+  getRequestId,
 };
