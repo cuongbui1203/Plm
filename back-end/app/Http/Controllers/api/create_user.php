@@ -192,21 +192,33 @@ class create_user extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function update(Request $request, $id) {
-        
-
-        $user = DB::table('users')->where('id', '=', $id)->get();
-        switch($request->type){
+        $validator = Validator::make($request->all(),[
+            'name'=>'required|string',
+            'password' => 'confirmed|min:6',
+            'image'=>'image|mimes:jpg,png,jpeg,gif,svg'
+        ]);
+        if($validator->fails()){
+            return $this->sendError('Validation Error.',$validator->errors(),500);
+        }
+        switch($request->type) {
             case 'name':
-                $user->name = $request->name;
+                DB::table('users')->where('id', '=', $id)->update(['name' => $request->name, 'updated_at' => getTime::getTime()]);
                 break;
             case 'password':
-                $user->password = $request->password;
+                DB::table('users')->where('id', '=', $id)->update(['password' => Hash::make(bcrypt($request->password)), 'updated_at' => getTime::getTime()]);
+                break;
+            case 'image':
+                if ($request->file('image') != null) {
+                    DB::table('users')->where('id', '=', $id)
+                        ->update([
+                            'imageId' => Image::create(['img' => $request->file('image')->store('public')]),
+                            'updated_at' => getTime::getTime()
+                        ]);
+                }
+                break;
+            default:
                 break;
         }
-        $user->name = $request->name;
-        //$user->updated_at = Carbon::now()->format('Y-m-d H:i:s');
-        $user->updated_at = getTime::getTime();
-        $user->save();
         return $this->sendResponse([], 'thanh cong');
     }
 
