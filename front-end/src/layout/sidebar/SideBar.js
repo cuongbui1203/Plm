@@ -29,7 +29,7 @@ const SideBar = () => {
   const [show2, setVisible] = useState("none");
   const [registerShow, setRegisterShow] = useState(false);
   const [showCreateWp, setShowCreateWp] = useState(false);
-  // const []
+  const [showRq, setShowRq] = useState(false);
   const handleGetProductLine = async () => {
     let response = await getAllProductLine();
     console.log(response.data);
@@ -92,6 +92,9 @@ const SideBar = () => {
         break;
       case WP:
         setShowCreateWp(true);
+        break;
+      case RQ:
+        setShowRq(true);
         break;
       default:
         setBtnLabel("");
@@ -366,7 +369,7 @@ const SideBar = () => {
         </Modal.Body>
       </Modal>
 
-      <Modal show>
+      <Modal show={showRq} onHide={() => setShowRq(false)}>
         <Modal.Body>
           <CR />
         </Modal.Body>
