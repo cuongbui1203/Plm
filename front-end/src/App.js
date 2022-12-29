@@ -35,6 +35,7 @@ import WorkPlates from "./page/workPlate/WorkPlates";
 import CR from "./components/createRequest/CR";
 import TabE from "./page/Thongke/Tab";
 import { WorkPlatesDetail } from "./page/workPlate/WorkPlateDetail";
+import TabRQ from "./page/RQ/tab";
 
 function App() {
   const [loginState, loginHandle] = useLoginContext();
@@ -88,7 +89,7 @@ function App() {
             element={<ProductLineDetail />}
           />
           <Route path="/home/users" element={<Users />} />
-          <Route path="/home/request" element={<TabE />} />
+          <Route path="/home/request" element={<TabRQ />} />
           <Route path="/home/work-plate/:id" element={<WorkPlatesDetail />} />
         </Route>
         <Route path="/*" element={<NotFound />} />

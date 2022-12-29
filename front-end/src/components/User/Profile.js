@@ -7,6 +7,7 @@ import "./Profile.css";
 import { useParams } from "react-router-dom";
 import { useDataContext, useLoginContext } from "../../state/hook/hooks";
 import { getChucVu } from "../../layout/header/HeaderBar";
+import Button from "react-bootstrap/Button";
 
 export const Profile = () => {
   const [loginState, updateLoginState] = useLoginContext();
@@ -42,6 +43,52 @@ export const Profile = () => {
               <h4 className="float-left clear-both">{user.workPlate}</h4>
             </Col>
           </Row>
+        </div>
+      </Row>
+      <Row>
+        <div
+          style={{
+            maxWidth: "400px",
+            maxHeight: "600px",
+            border: "2px solid black",
+            borderRadius: "10px",
+          }}
+        >
+          <div style={{ margin: "20px" }}>
+            <div className="form-group">
+              <input
+                type="password"
+                name="password"
+                className="register"
+                required
+              />
+              <span>Mật khẩu cũ</span>
+              <i></i>
+            </div>
+            <div className="form-group">
+              <input
+                type="password"
+                name="password"
+                className="register"
+                required
+              />
+              <span>Mật khẩu mới</span>
+              <i></i>
+            </div>
+            <div className="form-group">
+              <input
+                type="password"
+                name="password"
+                className="register"
+                required
+              />
+              <span>Nhập lại mật khẩu</span>
+              <i></i>
+            </div>
+            <Button variant="primary" size="sm">
+              Đổi
+            </Button>
+          </div>
         </div>
       </Row>
     </div>
