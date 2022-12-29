@@ -1,20 +1,10 @@
 /* eslint-disable array-callback-return */
 import React, { useEffect, useState } from "react";
-import {
-  Container,
-  Modal,
-  ModalHeader,
-  Nav,
-  NavDropdown,
-  NavItem,
-} from "react-bootstrap";
+import { Modal, Nav } from "react-bootstrap";
 import "./SideBar.css";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import { IoRefresh } from "react-icons/io5";
 import { IoAdd } from "react-icons/io5";
-import { BiMenu } from "react-icons/bi";
-import { AiFillDelete } from "react-icons/ai";
 import {
   getAllProductLine,
   createProduct,
@@ -24,10 +14,10 @@ import Select from "react-select";
 import Notification from "../../components/notification/notification";
 import { MDBInput } from "mdb-react-ui-kit";
 import { useSettingContext } from "../../state/hook/hooks";
-import { DSP, SP, TK, WP } from "../../state/constants";
-import { infoDecode, infoEncode } from "../../hook/handleInfo";
+import { DSP, RQ, SP, TK, WP } from "../../state/constants";
 import RegisterForm from "../../components/registerForm/registerForm";
 import CreateWorkPlate from "../../components/workPlates/createWorkPlate";
+import CR from "../../components/createRequest/CR";
 const SideBar = () => {
   const [show, setShow] = useState(false);
   const [productLines, handle] = useState([]);
@@ -39,6 +29,7 @@ const SideBar = () => {
   const [show2, setVisible] = useState("none");
   const [registerShow, setRegisterShow] = useState(false);
   const [showCreateWp, setShowCreateWp] = useState(false);
+  // const []
   const handleGetProductLine = async () => {
     let response = await getAllProductLine();
     console.log(response.data);
@@ -76,6 +67,9 @@ const SideBar = () => {
         break;
       case WP:
         setBtnLabel("Tạo Work Plate Mới");
+        break;
+      case RQ:
+        setBtnLabel("Tạo yêu cầu mới");
         break;
       default:
         setBtnLabel("");
@@ -117,6 +111,7 @@ const SideBar = () => {
       case TK:
         handleCloseRegister();
         break;
+
       default:
         return;
     }
@@ -173,6 +168,7 @@ const SideBar = () => {
   const handleSend = async () => {
     console.log("id: " + selectId);
     console.log("sl: " + document.getElementById("numOfProduct").value);
+    console.log("name: " + document.getElementById("nameOfProduct").value);
     let data = {
       idProductLine: selectId,
       name: document.getElementById("nameOfProduct").value,
@@ -204,89 +200,6 @@ const SideBar = () => {
           <div>{btnLabel}</div>
         </div>
         <i></i>
-        {/* )} */}
-
-        {/* {visible && ( */}
-        <div style={{ display: "block" }}>
-          <ul className="list-group list-group-flush">
-            {" "}
-            &ensp;Search by:
-            <li className="list-group-item">
-              {" "}
-              {/* ID: */}
-              <Form className="d-flex">
-                <Form.Control
-                  type="search"
-                  placeholder="ID"
-                  className="me-2"
-                  aria-label="Search"
-                />
-                <Button variant="outline-success" className="btns">
-                  <IoAdd />
-                </Button>
-              </Form>
-            </li>
-            <li className="list-group-item">
-              {/* Date: */}
-              <Form className="d-flex">
-                <Form.Control
-                  type="search"
-                  placeholder="Date"
-                  className="me-2"
-                  aria-label="Search"
-                />
-                <Button variant="outline-success" className="btns">
-                  <IoAdd />
-                </Button>
-              </Form>
-            </li>
-            <li className="list-group-item">
-              {/* Kho: */}
-              <Form className="d-flex">
-                <Form.Control
-                  type="search"
-                  placeholder="Kho"
-                  className="me-2"
-                  aria-label="Search"
-                />
-                <Button variant="outline-success" className="btns">
-                  <IoAdd />
-                </Button>
-              </Form>
-            </li>
-            <li className="list-group-item">
-              {/* Time: */}
-              <Form className="d-flex">
-                <Form.Control
-                  type="search"
-                  placeholder="Time"
-                  className="me-2"
-                  aria-label="Search"
-                />
-                <Button variant="outline-success" className="btns">
-                  <IoAdd />
-                </Button>
-              </Form>
-            </li>
-          </ul>
-
-          <ul className="list-group list-group-flush sort" id="sortList">
-            {" "}
-            &ensp;Sort by:
-            <li className="list-group-item sortBy" id="SortA-Z">
-              A-Z
-              <span className="arrow"></span>
-            </li>
-            <li className="list-group-item sortBy" id="SortDate">
-              Date
-              <span class="arrow"></span>
-            </li>
-            <li className="list-group-item sortBy" id="SortQ">
-              Quantity
-              <span class="arrow"></span>
-            </li>
-          </ul>
-        </div>
       </Nav>
 
       <Modal show={show} onHide={handleClose} className="modal-custom">
@@ -450,6 +363,12 @@ const SideBar = () => {
         <Modal.Header>Tạo Work Plate</Modal.Header>
         <Modal.Body>
           <CreateWorkPlate handleClose={handleCloseCreateWp} />
+        </Modal.Body>
+      </Modal>
+
+      <Modal show>
+        <Modal.Body>
+          <CR />
         </Modal.Body>
       </Modal>
     </div>

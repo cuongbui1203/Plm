@@ -17,3 +17,4 @@ export const SP = "sp";
 export const DSP = "dsp";
 export const TK = "tk";
 export const WP = "wp";
+export const RQ = "rq";

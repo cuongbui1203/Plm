@@ -3,7 +3,7 @@ import React from "react";
 import { Button } from "react-bootstrap";
 import Table from "react-bootstrap/Table";
 import { AiFillDelete } from "react-icons/ai";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { deleteProductApi } from "../../API/productApi";
 import Notification from "../../components/notification/notification";
 import { useDataContext } from "../../state/hook/hooks";
@@ -11,12 +11,15 @@ import { useDataContext } from "../../state/hook/hooks";
 export const ProductDetail = () => {
   const { id } = useParams();
   const [product, updateProduct] = useDataContext();
+  const navi = useNavigate();
+  const info = JSON.parse(product.data.info);
   console.log(product.data);
 
   const handleDelete = async () => {
     const response = await deleteProductApi(id);
     if (response.success) {
       Notification("success", `xoa san pham cos id ${id} thanh cong`);
+      navi("/home/products");
     }
   };
 
@@ -56,7 +59,41 @@ export const ProductDetail = () => {
           </tr>
           <tr>
             <td>Mô tả</td>
-            <td>{product.data.info}</td>
+            <td>
+              <Table striped bordered hover variant="dark">
+                <thead>
+                  <tr>
+                    <td>Thuộc tính</td>
+                    <td>Giá trị</td>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Màu</td>
+                    <td>{info.color}</td>
+                  </tr>
+
+                  <tr>
+                    <td>Khối Lượng</td>
+                    <td>{info.mass} Kg</td>
+                  </tr>
+
+                  <tr>
+                    <td>Màn hình</td>
+                    <td>{info.display} inch</td>
+                  </tr>
+
+                  <tr>
+                    <td>RAM/ROM</td>
+                    <td>{info.ramRom}</td>
+                  </tr>
+                  <tr>
+                    <td>Mô tả thêm</td>
+                    <td>{info.dec}</td>
+                  </tr>
+                </tbody>
+              </Table>
+            </td>
           </tr>
           <tr>
             <td>Trạng thái</td>

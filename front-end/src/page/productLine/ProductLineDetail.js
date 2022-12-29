@@ -3,8 +3,8 @@ import React from "react";
 import { Button } from "react-bootstrap";
 import Table from "react-bootstrap/Table";
 import { AiFillDelete } from "react-icons/ai";
-import { useParams } from "react-router-dom";
-import { deleteProductApi } from "../../API/productApi";
+import { useNavigate, useParams } from "react-router-dom";
+import { delPlApi } from "../../API/productApi";
 import Notification from "../../components/notification/notification";
 import { useDataContext } from "../../state/hook/hooks";
 
@@ -12,12 +12,12 @@ export const ProductLineDetail = () => {
   const { id } = useParams();
   const [product, updateProduct] = useDataContext();
   console.log(product.data);
-  console.log(id);
-
+  const navig = useNavigate();
   const handleDelete = async () => {
-    const response = await deleteProductApi(id);
+    const response = await delPlApi(id);
     if (response.success) {
-      Notification("success", `xoa san pham cos id ${id} thanh cong`);
+      Notification("success", `Xoá dòng sản phẩm có ID: ${id} thanh cong`);
+      navig("/home/product-lines");
     }
   };
   console.log(product.data.info);

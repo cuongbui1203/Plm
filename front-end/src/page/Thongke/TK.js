@@ -21,7 +21,8 @@ export const TK = () => {
   const statusChange = (e) => {
     setStatus(e.target.value);
     // console.log(e.target.value);
-    const prdData = listPrdt.filter((prd, index) => {
+    console.log(listPrdt);
+    const prdData = listPrdt.filter((prd) => {
       return prd.statusId === Number(e.target.value);
     });
     setListPrd(prdData);

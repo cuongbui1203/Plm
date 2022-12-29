@@ -3,10 +3,19 @@ import { net } from "./axiosConfig";
 async function loginApi(data) {
   // axios.post('http://127.0.0.1:8000/api/user/login"')
   console.log(net);
+  net.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
+
   try {
     const response = await net.post(
       process.env.REACT_APP_API_ENDPOINT + "/user/login",
-      data
+      data,
+      {
+        headers: {
+          "X-CSRF-TOKEN": document
+            .querySelector('meta[name="csrf-token"]')
+            .getAttribute("content"),
+        },
+      }
     );
     console.log(response);
     return response.data;
@@ -21,7 +30,15 @@ async function logoutApi() {
       "Bearer " + localStorage.getItem("token");
 
     const response = await net.get(
-      process.env.REACT_APP_API_ENDPOINT + "/user/logout"
+      process.env.REACT_APP_API_ENDPOINT + "/user/logout",
+
+      {
+        headers: {
+          "X-CSRF-TOKEN": document
+            .querySelector('meta[name="csrf-token"]')
+            .getAttribute("content"),
+        },
+      }
     );
 
     console.log(response);
@@ -44,6 +61,9 @@ const registerApi = async (data) => {
           accept: "application/json",
           "Accept-Language": "en-US,en;q=0.8",
           "Content-Type": `multipart/form-data; boundary=${data._boundary}`,
+          "X-CSRF-TOKEN": document
+            .querySelector('meta[name="csrf-token"]')
+            .getAttribute("content"),
         },
       }
     );
@@ -63,6 +83,9 @@ const getUserApi = async () => {
       {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "X-CSRF-TOKEN": document
+            .querySelector('meta[name="csrf-token"]')
+            .getAttribute("content"),
         },
       }
     );

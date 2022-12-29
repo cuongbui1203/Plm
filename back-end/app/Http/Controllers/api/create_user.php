@@ -29,7 +29,7 @@ class create_user extends Controller
     private function create(array $data)
     {
         return User::create([
-            'id'=>create_id::createIdUser($data['roleId']),
+            // 'id'=>create_id::createIdUser($data['roleId']),
             'name'=>$data['name'],
             'email'=>$data['email'],
             'password'=>$data['password'],

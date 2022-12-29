@@ -24,7 +24,6 @@ import { ChangePass } from "./components/User/ChangePass";
 import { ThongKe } from "./page/Thongke/ThongKe";
 
 import { CSSX } from "./page/Thongke/CSSX";
-import Admin from "./components/Admin/Admin";
 import Loading from "./page/loading";
 import ProductLine from "./page/productLine/ProductLine";
 import { ProductLineDetail } from "./page/productLine/ProductLineDetail";
@@ -35,6 +34,7 @@ import { TTBHPage } from "./page/Thongke/TTBH";
 import WorkPlates from "./page/workPlate/WorkPlates";
 import CR from "./components/createRequest/CR";
 import TabE from "./page/Thongke/Tab";
+import { WorkPlatesDetail } from "./page/workPlate/WorkPlateDetail";
 
 function App() {
   const [loginState, loginHandle] = useLoginContext();
@@ -88,6 +88,8 @@ function App() {
             element={<ProductLineDetail />}
           />
           <Route path="/home/users" element={<Users />} />
+          <Route path="/home/request" element={<TabE />} />
+          <Route path="/home/work-plate/:id" element={<WorkPlatesDetail />} />
         </Route>
         <Route path="/*" element={<NotFound />} />
       </Routes>

@@ -73,6 +73,7 @@ Route::patch('notifications/{id}/update', [NotificationController::class, 'reque
 
 //workPlate
 Route::get('work-plates', [WorkPlateController::class, 'index']);
+Route::get('work-plate/{id}', [WorkPlateController::class, 'getWorkPlateById']);
 Route::post('work-plate/create', [WorkPlateController::class, 'create']);
 Route::get('work-plates/role/{id}', [WorkPlateController::class,'getByIdRole']);
 Route::patch('work-plate/{id}/update', [WorkPlateController::class,'update']);

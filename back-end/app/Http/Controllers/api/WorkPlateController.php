@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\CreateID\create_id;
 use App\Models\Other\Image;
+use App\Models\User;
 use App\Models\WorkPlates;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -46,21 +47,52 @@ class WorkPlateController extends Controller
         try{
             $res = DB::table('work_plates')
             ->join('roles','work_plates.roleId','=','roles.id')
+            // ->join('users','users.workPlateId','=','work_plates.id')
             ->select(
                 'work_plates.id',
                 'work_plates.name',
                 'work_plates.address',
                 'work_plates.created_at',
                 'work_plates.updated_at',
-                DB::raw('roles.title as loai')
+                DB::raw('roles.title as loai'),
+                'roleId'
+                // DB::raw('count(users.id) as employees')
             )->orderBy('work_plates.created_at', 'desc')
             ->get();
+            foreach($res as $e){
+                $e->employees = User::where('workPlateId', '=', $e->id)->select(DB::raw('count(id) as employees'))->get()[0]->employees;
+            }
             return $this->sendResponse($res,"thanh cong lay het workPlates");
         }catch(Exception $e){
             return $this->sendError("error",$e);
         }
     }
+    public function getWorkPlateById($id){
+        try{
+            $res = DB::table('work_plates')
+            ->join('roles','work_plates.roleId','=','roles.id')
+            ->where('work_plates.id','=',$id)
+            // ->join('users','users.workPlateId','=','work_plates.id')
+            ->select(
+                'work_plates.id',
+                'work_plates.name',
+                'work_plates.address',
+                'work_plates.created_at',
+                'work_plates.updated_at',
+                DB::raw('roles.title as loai'),
+                // DB::raw('count(users.id) as employees')
+                'roleId'
 
+            )->orderBy('work_plates.created_at', 'desc')
+            ->get();
+            foreach($res as $e){
+                $e->employees = User::where('workPlateId', '=', $e->id)->select(DB::raw('count(id) as employees'))->get()[0]->employees;
+            }
+            return $this->sendResponse($res,"thanh cong lay het workPlates");
+        }catch(Exception $e){
+            return $this->sendError('error',$e);
+        }
+    }
     public function getByIdRole($id){
         try{
             $res = DB::table('work_plates')

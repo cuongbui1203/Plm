@@ -100,10 +100,10 @@ const createProductLineApi = async (data) => {
 };
 const QuatityOnStatus = async (idProductLine, idStatus) => {
   try {
-    const response = await net.post(
+    const response = await net.get(
       process.env.REACT_APP_API_ENDPOINT +
         `/product-lines/${idProductLine}/status/${idStatus}`,
-      
+
       {
         headers: {
           accept: "application/json",
@@ -118,7 +118,24 @@ const QuatityOnStatus = async (idProductLine, idStatus) => {
     return { success: false, error: e };
   }
 };
-
+const delPlApi = async (id) => {
+  try {
+    const response = await net.delete(
+      process.env.REACT_APP_API_ENDPOINT + `/product-lines/${id}/delete`,
+      {
+        headers: {
+          accept: "application/json",
+          "Accept-Language": "en-US,en;q=0.8",
+          // "Content-Type": `multipart/form-data; boundary=${data._boundary}`,
+        },
+      }
+    );
+    console.log(response);
+    return response.data;
+  } catch (e) {
+    return { success: false, error: e };
+  }
+};
 export {
   getAllProductApi,
   getAllProductLine,
@@ -129,4 +146,5 @@ export {
   deleteProductLineById,
   getAllUsersApi,
   QuatityOnStatus,
+  delPlApi,
 };

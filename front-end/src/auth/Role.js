@@ -1,9 +1,9 @@
-import { DSP, SP, TK, WP } from "../state/constants";
+import { DSP, RQ, SP, TK, WP } from "../state/constants";
 
 const ThongBao = {
-  label: "Thông Báo",
+  label: "Yêu cầu",
   link: "/home/request",
-  const: "",
+  const: RQ,
 };
 
 const Executive_Board = {
@@ -34,6 +34,7 @@ const Executive_Board = {
       link: "/home/statistical",
       const: "",
     },
+    ThongBao,
   ],
 };
 const Factory = {
@@ -49,6 +50,7 @@ const Factory = {
       link: "/factory/statistical",
       const: "",
     },
+    ThongBao,
   ],
 };
 const Shop = {
@@ -64,6 +66,7 @@ const Shop = {
       link: "/shop/statistical",
       const: "",
     },
+    ThongBao,
   ],
 };
 const TTBH = {
@@ -79,6 +82,7 @@ const TTBH = {
       link: "/bao-hanh/statistical",
       const: "",
     },
+    ThongBao,
   ],
 };
 export { Executive_Board, Factory, Shop, TTBH };

@@ -24,13 +24,14 @@ const WorkPlates = () => {
     if (response.success) {
       Notification("success", "Get all Work Plate successful");
       setProduct(response.data);
+      // console.log(response.data);
     } else {
       Notification("error", "Get all work plate fails");
     }
   }
 
   useEffect(() => {
-    getProduct().then((res) => {
+    getProduct().then(() => {
       console.log(products);
       setCurrentPage(1);
     });

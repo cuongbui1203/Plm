@@ -12,9 +12,10 @@ const WorkPlatesComponent = ({ workPlates }) => {
   return (
     <>
       {workPlates.map((workPlate, index) => {
+        console.log(workPlates);
+        console.log(workPlate);
         const handleClick = () => {
-          updateProduct(setProduct(workPlates));
-          navig(`/home/profile/${workPlates.id}`);
+          navig(`/home/work-plate/${workPlate.id}`);
         };
         const tg = {
           name: workPlate.name,
