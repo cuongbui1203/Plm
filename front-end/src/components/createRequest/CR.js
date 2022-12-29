@@ -215,8 +215,8 @@ function CR({ handleClose }) {
   };
 
   return (
-    <div id="wrapper">
-      <div className="box">
+    <div id="wrapper" style={{ width: "auto", height: "auto" }}>
+      <div className="box" style={{ minWidth: "400px", minHeight: "600px" }}>
         <div className="form">
           <h3>Gửi yêu cầu</h3>
           <div className="form-group">
