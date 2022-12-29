@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import { Modal } from "react-bootstrap";
 import Container from "react-bootstrap/Container";
 import PropTypes from "prop-types";
 import "./Profile.css";
@@ -10,6 +11,11 @@ import { getChucVu } from "../../layout/header/HeaderBar";
 import Button from "react-bootstrap/Button";
 
 export const Profile = () => {
+  const [show, setShow] = useState(false);
+  const handleClose = () => {
+    setShow(false);
+  };
+  const handleSend = () => {};
   const [loginState, updateLoginState] = useLoginContext();
   const [user, setUser] = useState(loginState.user);
   const [data, updateData] = useDataContext();
@@ -45,52 +51,67 @@ export const Profile = () => {
           </Row>
         </div>
       </Row>
-      <Row>
-        <div
-          style={{
-            maxWidth: "400px",
-            maxHeight: "600px",
-            border: "2px solid black",
-            borderRadius: "10px",
-          }}
-        >
-          <div style={{ margin: "20px" }}>
-            <div className="form-group">
-              <input
-                type="password"
-                name="password"
-                className="register"
-                required
-              />
-              <span>Mật khẩu cũ</span>
-              <i></i>
+      <Modal show={show} onHide={handleClose} className="modal-custom bg-dark">
+        <Modal.Header closeButton>
+          <Modal.Title>Đổi mật khẩu</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <div id="wrapper" style={{ width: "auto", height: "auto" }}>
+            <div className="box" style={{ width: "400px", height: "300px" }}>
+              <div className="form">
+                <div style={{ margin: "20px" }}>
+                  <div className="form-group">
+                    <input
+                      type="password"
+                      name="password"
+                      className="register"
+                      required
+                    />
+                    <span>Mật khẩu cũ</span>
+                    <i></i>
+                  </div>
+                  <div className="form-group">
+                    <input
+                      type="password"
+                      name="password"
+                      className="register"
+                      required
+                    />
+                    <span>Mật khẩu mới</span>
+                    <i></i>
+                  </div>
+                  <div className="form-group">
+                    <input
+                      type="password"
+                      name="password"
+                      className="register"
+                      required
+                    />
+                    <span>Nhập lại mật khẩu</span>
+                    <i></i>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div className="form-group">
-              <input
-                type="password"
-                name="password"
-                className="register"
-                required
-              />
-              <span>Mật khẩu mới</span>
-              <i></i>
-            </div>
-            <div className="form-group">
-              <input
-                type="password"
-                name="password"
-                className="register"
-                required
-              />
-              <span>Nhập lại mật khẩu</span>
-              <i></i>
-            </div>
-            <Button variant="primary" size="sm">
-              Đổi
-            </Button>
           </div>
-        </div>
-      </Row>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Huỷ
+          </Button>
+          <Button variant="primary" onClick={handleSend}>
+            Xác nhận
+          </Button>
+        </Modal.Footer>
+      </Modal>
+      <Button
+        onClick={() => {
+          setShow(true);
+        }}
+        style={{margin: "10px"}}
+      >
+        Đổi mật khẩu
+      </Button>
     </div>
   );
 };
