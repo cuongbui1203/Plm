@@ -47,14 +47,12 @@ export const CSSX = () => {
     setStatus(e.target.value);
     // console.log(e.target.value);
     let prdData;
-    if (e.target.value == 0) {
-      prdData = listPrdt2;
-    } else {
+    
       prdData = listPrdt2
         .filter((prd, index) => {
           return prd.statusId === Number(e.target.value);
         });
-    }
+    
     setListPrd2(prdData);
   };
 
