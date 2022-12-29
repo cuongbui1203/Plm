@@ -24,13 +24,13 @@ class NotificationController extends Controller
             'idReceiver'=>'required',
             'data'=>'required'
         ]);
-
+        
         if($validator->fails()){
             return $this->sendError('Validator Error', $validator->errors());
         }
         try {
-            $sender = DB::table('users')->where('id', '=', $request->idSender)->select('name')->limit(1)->get()[0]->name;
-            $receiver = DB::table('work_plates')->where('id', '=', $request->idReceiver)->select('name')->limit(1)->get()[0]->name;
+            $sender = $request->nameSender;
+            $receiver = $request->nameReceiver;
             $notification = Notification::create([
                 'idSender'    => $request->idSender,
                 'idReceiver'  => $request->idReceiver,
