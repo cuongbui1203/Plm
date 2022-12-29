@@ -5,10 +5,13 @@ import { IoAdd } from "react-icons/io5";
 import Button from "react-bootstrap/Button";
 import { AiFillDelete } from "react-icons/ai";
 import "./CR.css";
-import { getAllWorkPlatesApi } from "../../API/Other";
+import { createRequestApi, getAllWorkPlatesApi } from "../../API/Other";
 import Select from "react-select";
 import { Modal } from "react-bootstrap";
 import AddProduct from "./AddProduct";
+import { getAllProductApi, getAllProductLine } from "../../API/productApi";
+import { useLoginContext } from "../../state/hook/hooks";
+import Notification from "../notification/notification";
 const customStyles = {
   control: (base, state) => ({
     ...base,
@@ -55,18 +58,17 @@ const roles = [
   },
 ];
 
-function CR() {
+function CR({ handleClose }) {
   const [workPlate, setWorkPlate] = useState([]);
-  const [dataSend, setDataSend] = useState([
-    {
-      id: "123-123-1234",
-    },
-  ]);
+  const [loginState, updateLoginState] = useLoginContext();
+  const [dataSend, setDataSend] = useState([]);
   const [checkAllValue, setCheckAllValue] = useState(false);
-  const [workPlateId, setWorkPlateId] = useState(-1);
+  const [workPlateId, setWorkPlateId] = useState();
   const [showAdd, setShowAdd] = useState(false);
   const [checkAll, setCheckAll] = useState(false);
-  const [idDel, setIdDel] = useState([]);
+  const [title, setTtitle] = useState("");
+  const [para, setPara] = useState("");
+  // const [idDel, setIdDel] = useState(-1);
   let role = 1;
   const handleGetAllWorkPlate = async () => {
     let response = await getAllWorkPlatesApi();
@@ -85,25 +87,133 @@ function CR() {
   };
 
   console.log(workPlate);
+  console.log(dataSend);
 
   const handleChangeRole = (e) => {
     role = e.value;
     handleGetAllWorkPlate();
   };
 
+  const handleDelete = () => {
+    setDataSend(
+      dataSend.filter((e) => e.id != sessionStorage.getItem("idDel"))
+    );
+  };
+
   const handleCheck = (e) => {
     console.log(e.target.value);
-    const tg = dataSend.filter((e) => e.id !== e.target.value);
-    setDataSend(tg);
+    sessionStorage.setItem("idDel", e.target.value);
+    handleDelete();
   };
 
   const handleChangeId = (e) => {
-    setWorkPlateId(e.value);
+    setWorkPlateId(e);
   };
 
-  const handleClose = () => setShowAdd(false);
+  const handleCloseAdd = () => setShowAdd(false);
   const handleShow = () => setShowAdd(true);
-  const handleAddArr = (value) => {};
+  const handleAddArr = (value) => {
+    console.log(value);
+    dataSend.push(value);
+    setDataSend(dataSend);
+  };
+  console.log(dataSend);
+  const handleSendRQ = async () => {
+    const dataForm = new FormData();
+    const metaData = {
+      title: title,
+      para: para,
+      data: dataSend,
+    };
+    dataForm.append("idSender", loginState.user.id);
+    dataForm.append("nameSender", loginState.user.name);
+    dataForm.append("idReceiver", workPlateId.value);
+    dataForm.append("nameReceiver", workPlateId.label);
+    dataForm.append("data", JSON.stringify(metaData));
+    const response = await createRequestApi(dataForm);
+    if (response.success) {
+      Notification("success", "Tạo Request thành công");
+    } else {
+      Notification("error", "Tạo Request thất bại");
+    }
+    handleClose();
+  };
+
+  //----------------------------------
+  const [data, setData] = useState([]);
+  const [type, setType] = useState(0);
+  const [sl, setSl] = useState(1);
+  const [choose, setChoose] = useState({});
+  const types = [
+    {
+      label: "Dòng sản phẩm",
+      value: 1,
+    },
+    {
+      label: "Sản phẩm",
+      value: 2,
+    },
+  ];
+
+  const onChangeType = (e) => {
+    console.log(e.value);
+    setData([]);
+    setType(e.value);
+    if (e.value === 1) {
+      handleGetProductLine();
+    } else {
+      handleGetProduct();
+    }
+  };
+  const handleChangeChoose = (e) => {
+    setChoose(e.value);
+  };
+  const onChangeSL = (e) => {
+    console.log(e.target.value);
+    setSl(e.target.value);
+  };
+  const handleGetProduct = async () => {
+    const response = await getAllProductApi();
+    if (response.success) {
+      const tg = [];
+      response.data.map((e, index) => {
+        tg.push({
+          label: `Tên: ${e.name} | Dòng: ${e.productLine} | Status ${e.status}`,
+          value: e.productId,
+        });
+      });
+      setData(tg);
+    }
+  };
+  const handleClose3 = () => {
+    setData([]);
+    setType(0);
+    setSl(1);
+    handleCloseAdd();
+  };
+  const handleAdd2 = () => {
+    const dataAdd = {
+      id: choose,
+      sl: sl,
+    };
+    handleAddArr(dataAdd);
+    handleClose3();
+  };
+
+  const handleGetProductLine = async () => {
+    const response = await getAllProductLine();
+    if (response.success) {
+      const tg = [];
+      response.data.map((e, i) => {
+        tg.push({
+          label: `Tên: ${e.name}`,
+          value: e.productLineId,
+        });
+      });
+      setData(tg);
+    }
+  };
+
   return (
     <div id="wrapper">
       <div className="box">
@@ -135,8 +245,10 @@ function CR() {
             <input
               className="register"
               size="sm"
-              // rows={5}
               required
+              onChange={(e) => {
+                setTtitle(e.target.value);
+              }}
             />
             <span>Tiêu đề</span>
             <i></i>
@@ -149,6 +261,7 @@ function CR() {
               className="register"
               size="sm"
               required
+              onChange={(e) => setPara(e.target.value)}
             />
             <span>Nội dung</span>
             <i></i>
@@ -168,7 +281,7 @@ function CR() {
                   <th>STT</th>
                   <th>ID</th>
                   <th>Sl</th>
-                  <th>Xoá</th>
+                  <th>Xoa</th>
                 </tr>
               </thead>
               <tbody>
@@ -217,10 +330,11 @@ function CR() {
               variant="outline-danger"
               size="sm"
               style={{ marginRight: "5px" }}
+              onClick={handleClose}
             >
               Hủy
             </Button>
-            <Button variant="outline-success" size="sm">
+            <Button variant="outline-success" size="sm" onClick={handleSendRQ}>
               Gửi
             </Button>
           </div>
@@ -231,22 +345,62 @@ function CR() {
         aria-labelledby="contained-modal-title-vcenter"
         centered
         backdrop="static"
-        onHide={handleClose}
+        onHide={handleClose3}
       >
         <Modal.Header closeButton>Thêm</Modal.Header>
         <Modal.Body>
-          <AddProduct handle={handleAddArr} />
+          <div>
+            <label>Loại</label>
+            <Select
+              options={types}
+              defaultValue={types[0].label}
+              // className="bg-dark"
+              // id="tetete"
+              // styles={customStyles}
+              onChange={onChangeType}
+            />
+            <div style={{ color: "red", height: "30px" }}>&#160;</div>
+          </div>
+          <div>
+            <label>Chọn</label>
+            <Select
+              options={data}
+              defaultValue={data[0]}
+              isSearchable
+              onChange={handleChangeChoose}
+              // className="bg-dark"
+              // id="tetete"
+              // styles={customStyles}
+            />
+            <div style={{ color: "red", height: "30px" }}>&#160;</div>
+          </div>
+          {type === 1 && (
+            <div>
+              <label>Số Lượng</label>
+              <br />
+              <input
+                type={"number"}
+                hidden={false}
+                style={{ width: "100%" }}
+                // value={1}
+                onChange={onChangeSL}
+              />
+              <div style={{ color: "red", height: "30px" }}>&#160;</div>
+            </div>
+          )}
         </Modal.Body>
         <Modal.Footer>
           <Button
             variant="outline-danger"
             size="sm"
             style={{ marginRight: "5px" }}
-            onClick={handleClose}
+            onClick={() => {
+              handleClose3();
+            }}
           >
             Hủy
           </Button>
-          <Button variant="outline-success" size="sm">
+          <Button variant="outline-success" size="sm" onClick={handleAdd2}>
             OK
           </Button>
         </Modal.Footer>

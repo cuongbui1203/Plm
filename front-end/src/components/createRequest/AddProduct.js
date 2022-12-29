@@ -1,10 +1,13 @@
 import { useState } from "react";
+import { Button, Modal } from "react-bootstrap";
 import Select from "react-select";
 import { getAllProductApi, getAllProductLine } from "../../API/productApi";
 
-const AddProduct = (handle) => {
+const AddProduct = (handle, handleClose) => {
   const [data, setData] = useState([]);
   const [type, setType] = useState(0);
+  const [sl, setSl] = useState(1);
+  const [choose, setChoose] = useState({});
   const types = [
     {
       label: "Dòng sản phẩm",
@@ -26,7 +29,12 @@ const AddProduct = (handle) => {
       handleGetProduct();
     }
   };
-
+  const handleChangeChoose = (e) => {
+    setChoose(e.value);
+  };
+  const onChangeSL = (e) => {
+    console.log(e.target.value);
+  };
   const handleGetProduct = async () => {
     const response = await getAllProductApi();
     if (response.success) {
@@ -39,6 +47,15 @@ const AddProduct = (handle) => {
       });
       setData(tg);
     }
+  };
+
+  const handleAdd = () => {
+    const dataAdd = {
+      id: choose,
+      sl: sl,
+    };
+    // handle(dataAdd);
+    handleClose();
   };
 
   const handleGetProductLine = async () => {
@@ -57,43 +74,63 @@ const AddProduct = (handle) => {
 
   return (
     <>
-      <div>
-        <label>Loại</label>
-        <Select
-          options={types}
-          defaultValue={types[0].label}
-          // className="bg-dark"
-          // id="tetete"
-          // styles={customStyles}
-          onChange={onChangeType}
-        />
-        <div style={{ color: "red", height: "30px" }}>&#160;</div>
-      </div>
-      <div>
-        <label>Loại</label>
-        <Select
-          options={data}
-          defaultValue={data[0]}
-          isSearchable
-          // className="bg-dark"
-          // id="tetete"
-          // styles={customStyles}
-        />
-        <div style={{ color: "red", height: "30px" }}>&#160;</div>
-      </div>
-      {type === 2 && (
+      <Modal.Header closeButton>Thêm</Modal.Header>
+      <Modal.Body>
         <div>
           <label>Loại</label>
-          <br />
-          <input
-            type={"number"}
-            hidden={false}
-            style={{ width: "100%" }}
-            value={1}
+          <Select
+            options={types}
+            defaultValue={types[0].label}
+            // className="bg-dark"
+            // id="tetete"
+            // styles={customStyles}
+            onChange={onChangeType}
           />
           <div style={{ color: "red", height: "30px" }}>&#160;</div>
         </div>
-      )}
+        <div>
+          <label>Chọn</label>
+          <Select
+            options={data}
+            defaultValue={data[0]}
+            isSearchable
+            onChange={handleChangeChoose}
+            // className="bg-dark"
+            // id="tetete"
+            // styles={customStyles}
+          />
+          <div style={{ color: "red", height: "30px" }}>&#160;</div>
+        </div>
+        {type === 1 && (
+          <div>
+            <label>Số Lượng</label>
+            <br />
+            <input
+              type={"number"}
+              hidden={false}
+              style={{ width: "100%" }}
+              // value={1}
+              onChange={onChangeSL}
+            />
+            <div style={{ color: "red", height: "30px" }}>&#160;</div>
+          </div>
+        )}
+      </Modal.Body>
+      <Modal.Footer>
+        <Button
+          variant="outline-danger"
+          size="sm"
+          style={{ marginRight: "5px" }}
+          onClick={() => {
+            handleClose();
+          }}
+        >
+          Hủy
+        </Button>
+        <Button variant="outline-success" size="sm" onClick={handleAdd}>
+          OK
+        </Button>
+      </Modal.Footer>
     </>
   );
 };

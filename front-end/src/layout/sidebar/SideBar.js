@@ -371,7 +371,7 @@ const SideBar = () => {
 
       <Modal show={showRq} onHide={() => setShowRq(false)}>
         <Modal.Body>
-          <CR />
+          <CR handleClose={() => setShowRq(false)} />
         </Modal.Body>
       </Modal>
     </div>
