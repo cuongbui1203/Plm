@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use GuzzleHttp\Psr7\Response;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
@@ -49,5 +50,9 @@ class Controller
 
 
         return response()->json($response, $code);
+    }
+
+    protected function getTime(){
+        return Carbon::now()->timezone('Asia/Phnom_Penh')->format('Y-m-d H:i:s');
     }
 }

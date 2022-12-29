@@ -11,9 +11,6 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
-use Nette\Utils\Image;
-use Nette\Utils\Strings;
-use PhpParser\Node\Expr\Cast\String_;
 use TheSeer\Tokenizer\Exception;
 
 class ProductLineController extends Controller
@@ -66,8 +63,8 @@ class ProductLineController extends Controller
                 $productLine['imgId'] = $image->id;
             }
             $productLine['info'] = $request->info;
-            $productLine['updated_at'] = date('Y-m-d H:i:s');
-            $productLine['created_at'] = date('Y-m-d H:i:s');
+            $productLine['updated_at'] = $this->getTime();
+            $productLine['created_at'] =$this->getTime();
             $productLine->name = $request->name;
             $productLine->save();
             return $this->sendResponse([$productLine],"thanh cong",Response::HTTP_CREATED);

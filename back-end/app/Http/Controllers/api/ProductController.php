@@ -103,6 +103,8 @@ class ProductController extends Controller
                 $product->idProductLine=$request->idProductLine;
                 $product->history = $request->idProductLine;
                 // $product->created_at = date('Y-m-d H:i:s');
+                $product->created_at = $this->getTime();
+                $product->updated_at = $this->getTime();
                 $product->save();
                 array_push($res,$product);
             }
@@ -123,11 +125,7 @@ class ProductController extends Controller
         }
     }
 
-    public function sendToShop(Request $request){
-        $validate = Validator::make($request->all(), [
-            'idShop' => 'required'
-        ]);
-    }
+
     public function update($id, Request $request) {
         $validator =  Validator::make($request->all(),[
             'idProductLine'=>'required',
@@ -208,13 +206,10 @@ class ProductController extends Controller
     }
 
     public function deleteId($id){
-
-
-        try {
-            $res = DB::table('products')->where('productId', '=', $id)->delete();
-            return $this->sendResponse(["thanh cong"],"xoa thanh cong");
-        } catch(Exception $e){
-            return $this->sendError('error',$e);
-        }
+        $res = DB::table('products')->where('productId', '=', $id)->delete();
+        if($res!= 0)
+        return $this->sendResponse(["thanh cong"],"xoa thanh cong");
+        else
+            return $this->sendError('that bai',[]);
     }
 }

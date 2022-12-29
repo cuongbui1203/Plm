@@ -67,6 +67,7 @@ export const CrRQ = ({ data }) => {
                     onClick={() => {
                       getRequestId(prd.id).then((res) => {
                         console.log(res.data);
+                        const date = new Date(res.data[0].created_at);
                         const metaData = JSON.parse(res.data[0].data);
                         setRq({
                           sender: res.data[0].sender,
@@ -75,6 +76,7 @@ export const CrRQ = ({ data }) => {
                           para: metaData.para,
                           data: metaData.data,
                           status: prd.status,
+                          createTime: `${date.getDay()}/${date.getMonth()}/${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`,
                         });
                         setShowModal(true);
                         // console.log(rq);
@@ -94,7 +96,11 @@ export const CrRQ = ({ data }) => {
           <div id="wrapper">
             <div className="box">
               <div className="form">
-                <h3>Gửi yêu cầu</h3>
+                <h3>Yêu cầu</h3>
+                <div className="form-group">
+                  <label style={{ color: "#45f3ff" }}>Thời gian:</label>
+                  <p style={{ color: "#45f3ff" }}>{rq?.createTime}</p>
+                </div>
                 <div className="form-group">
                   <label style={{ color: "#45f3ff" }}>Người Gửi:</label>
                   <p style={{ color: "#45f3ff" }}>{rq?.sender}</p>
@@ -158,13 +164,6 @@ export const CrRQ = ({ data }) => {
                     onClick={() => setShowModal(false)}
                   >
                     Đóng
-                  </Button>
-                  <Button
-                    variant="outline-success"
-                    size="sm"
-                    // onClick={handleSendRQ}
-                  >
-                    Gửi
                   </Button>
                 </div>
               </div>

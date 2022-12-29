@@ -16,6 +16,8 @@ class ImageController extends Controller {
 
         $data = Image::create([
             'img' => $image_path,
+            'created_at'=>$this->getTime(),
+            'updated_at'=>$this->getTime()
         ]);
         return $data->id;
     }
@@ -34,6 +36,8 @@ class ImageController extends Controller {
 
         $data = Image::create([
             'img' => $image_path,
+            'created_at'=>$this->getTime(),
+            'updated_at'=>$this->getTime()
         ]);
 
         return $this->sendResponse([$data], 'thanh cong',Response::HTTP_CREATED);

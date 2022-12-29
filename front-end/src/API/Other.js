@@ -205,6 +205,27 @@ const getRequestId = async (id) => {
     };
   }
 };
+
+const handleRequestApi = async () => {
+  try {
+    const response = await net.get(
+      process.env.REACT_APP_API_ENDPOINT + `/request/`,
+      {
+        headers: {
+          accept: "application/json",
+          "Accept-Language": "en-US,en;q=0.8",
+          // "Content-Type": `multipart/form-data; boundary=${data._boundary}`,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    return {
+      success: false,
+      error: error,
+    };
+  }
+};
 export {
   getAllRoleApi,
   getImageApi,
@@ -218,4 +239,5 @@ export {
   createRequestApi,
   getRequest,
   getRequestId,
+  handleRequestApi,
 };

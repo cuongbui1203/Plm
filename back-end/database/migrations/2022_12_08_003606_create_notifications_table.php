@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('data');
             $table->enum('accepted', ['request', 'pending', 'reject', 'accept'])
                     ->nullable(false)->default('request');
+            $table->string('addId')->nullable(false);
             $table->timestamps();
         });
     }

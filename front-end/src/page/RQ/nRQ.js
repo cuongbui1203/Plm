@@ -27,6 +27,50 @@ export const NRQ = ({ data }) => {
     setListRQ(tg);
   }, [data]);
 
+  const showBtn = (status) => {
+    if (status === "pending") {
+      return (
+        <>
+          <Button
+            variant="outline-danger"
+            size="sm"
+            style={{ marginRight: "5px" }}
+            onClick={() => setShowModal(false)}
+          >
+            Reject
+          </Button>
+          <Button
+            variant="outline-success"
+            size="sm"
+            // onClick={handleSendRQ}
+          >
+            Accept
+          </Button>
+        </>
+      );
+    } else {
+      return (
+        <>
+          <Button
+            variant="outline-danger"
+            size="sm"
+            style={{ marginRight: "5px" }}
+          >
+            Xoá
+          </Button>
+          <Button
+            variant="outline-success"
+            size="sm"
+            onClick={() => setShowModal(false)}
+            // onClick={handleSendRQ}
+          >
+            Đóng
+          </Button>
+        </>
+      );
+    }
+  };
+
   const showStatus = (v) => {
     switch (v) {
       case "request":
@@ -39,6 +83,7 @@ export const NRQ = ({ data }) => {
         return <span class="badge badge-danger">REJECT</span>;
     }
   };
+
   return (
     <div>
       <Table striped bordered hover>
@@ -64,6 +109,7 @@ export const NRQ = ({ data }) => {
                     onClick={() => {
                       getRequestId(prd.id).then((res) => {
                         console.log(res.data);
+                        const date = new Date(res.data[0].created_at);
                         const metaData = JSON.parse(res.data[0].data);
                         setRq({
                           sender: res.data[0].sender,
@@ -71,8 +117,8 @@ export const NRQ = ({ data }) => {
                           title: metaData.title,
                           para: metaData.para,
                           data: metaData.data,
-                          status: res.data[0].status,
-                          createTime: res.data[0].created_at,
+                          status: prd.status,
+                          createTime: `${date.getDay()}/${date.getMonth()}/${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`,
                         });
                         console.log({
                           sender: res.data[0].sender,
@@ -80,10 +126,8 @@ export const NRQ = ({ data }) => {
                           title: metaData.title,
                           para: metaData.para,
                           data: metaData.data,
-                          status: res.data[0].status,
-                          createTime: Date.parse(
-                            res.data[0].created_at
-                          ).toDateString(),
+                          status: prd.status,
+                          createTime: `${date.getDay()}/${date.getMonth()}/${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`,
                         });
                         setShowModal(true);
                         // console.log(rq);
@@ -103,10 +147,10 @@ export const NRQ = ({ data }) => {
           <div id="wrapper">
             <div className="box">
               <div className="form">
-                <h3>Gửi yêu cầu</h3>
+                <h3>Yêu cầu</h3>
 
                 <div className="form-group">
-                  <label style={{ color: "#45f3ff" }}>Người Gửi:</label>
+                  <label style={{ color: "#45f3ff" }}>Thời gian:</label>
                   <p style={{ color: "#45f3ff" }}>{rq?.createTime}</p>
                 </div>
 
@@ -165,23 +209,7 @@ export const NRQ = ({ data }) => {
                   <p style={{ color: "#45f3ff" }}>{rq?.status}</p>
                 </div>
 
-                <div align="end">
-                  <Button
-                    variant="outline-danger"
-                    size="sm"
-                    style={{ marginRight: "5px" }}
-                    onClick={() => setShowModal(false)}
-                  >
-                    Đóng
-                  </Button>
-                  <Button
-                    variant="outline-success"
-                    size="sm"
-                    // onClick={handleSendRQ}
-                  >
-                    Gửi
-                  </Button>
-                </div>
+                <div align="end">{showBtn(rq?.status)}</div>
               </div>
             </div>
           </div>

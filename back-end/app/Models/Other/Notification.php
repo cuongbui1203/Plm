@@ -16,7 +16,8 @@ class Notification extends Model
         'data',
         'accepted',
         'updated_at',
-        'created_at'
+        'created_at',
+        'addId'
     ];
 
 

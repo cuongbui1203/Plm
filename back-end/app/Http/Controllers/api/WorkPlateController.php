@@ -31,8 +31,8 @@ class WorkPlateController extends Controller
         try{
             $workPlate = new WorkPlates();
             $workPlate->id = create_id::workPlateId();
-            $workPlate['updated_at'] = date('Y-m-d H:i:s');
-            $workPlate['created_at'] = date('Y-m-d H:i:s');
+            $workPlate['updated_at'] = $this->getTime();
+            $workPlate['created_at'] = $this->getTime();
             $workPlate['name'] = $request->name;
             $workPlate['address'] = $request->address;
             $workPlate['roleId'] = $request->roleId;
@@ -127,7 +127,7 @@ class WorkPlateController extends Controller
             switch($request -> type) {
                 case 'name': DB::table('work_plates')->where('id', '=', $id)->update(['name'=>$request->name]); break;
                 case 'address': DB::table('work_plates')->where('id', '=', $id)->update(['address'=>$request->address]); break;
-                case 'roleId': DB::table('work_plates')->where('id', '=', $id)->update(['roleId'=>$request->roleId]); break;
+                // case 'roleId': DB::table('work_plates')->where('id', '=', $id)->update(['roleId'=>$request->roleId]); break;
                 default: break;
             }
             DB::table('work_plates')->where('id', '=', $id)->update(['updated_at'=>Carbon::now('Asia/Phnom_Penh')->format('Y-m-d H:i:s')]);
@@ -138,12 +138,12 @@ class WorkPlateController extends Controller
     } //update
     
     public function deleteId($id){
-        try {
+        // try {
             DB::table('users')->where('workPlateId', '=', $id)->delete();
             DB::table('work_plates')->where('id', '=', $id)->delete();
             return $this->sendResponse([],'than cong');
-        }catch(Exception $e){
-            return $this->sendError('error',$e);
-        }
+        // }catch(Exception $e){
+        //     return $this->sendError('error',$e);
+        // }
     }
 }

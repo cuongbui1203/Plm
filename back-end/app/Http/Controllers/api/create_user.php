@@ -34,7 +34,9 @@ class create_user extends Controller
             'email'=>$data['email'],
             'password'=>$data['password'],
             'workPlateId'=>$data['workPlateId'],
-            'roleId'=>$data['roleId']
+            'roleId'=>$data['roleId'],
+            'created_at'=>$this->getTime(),
+            'updated_at'=>$this->getTime()
         ]);
         # code...
     }
@@ -89,8 +91,8 @@ class create_user extends Controller
         DB::table('personal_access_tokens')
                 ->where('id', '=', $id)
                 ->update([
-                    'last_used_at'=>date('Y-m-d H:i:s'),
-                    'updated_at'=>date('Y-m-d H:i:s')
+                    'last_used_at'=>$this->getTime(),
+                    'updated_at'=>$this->getTime()
                 ]);
         $user = $request->user();
         $user->workPlate = DB::table('work_plates')
@@ -115,9 +117,9 @@ class create_user extends Controller
             $success['user'] = $user;
             DB::table('personal_access_tokens')->where('id','=',$id)
             ->update([
-                'created_at'=>date('Y-m-d H:i:s'),
-                'updated_at'=>date('Y-m-d H:i:s'),
-                'expires_at'=>Carbon::now('Asia/Phnom_Penh')->addDay()->format('Y-m-d H:i:s')
+                'created_at'=>$this->getTime(),
+                'updated_at'=>$this->getTime(),
+                // 'expires_at'=>Carbon::now('Asia/Phnom_Penh')->addDay()->format('Y-m-d H:i:s')
             ]);
 
             $user->workPlate = DB::table('work_plates')
@@ -150,42 +152,10 @@ class create_user extends Controller
         Auth::logout();
         return $this->sendResponse(['ok'], 'Logout success');
     }
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function store(Request $request)
-    {
-        //
-        $user = new User();
-        $user->name = $request->name;
-        $user->email= $request->email;
-        $user->password = Hash::make($request->password);
-        $user->save();
-        return response()->json($user);
-    }
+    
 
     /**
-     * Display the specified resource.
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function show()
-    {
-        //
-        try{
-            $user = Auth::user();
-            // $user->workPlateId;
-            return $this->sendResponse($user,"thanh cong");
-        } catch(Exception $e){
-            return $this->sendError("error",$e);
-        }
-    }
-
-    /**
-     * Update the specified resource in storage.
+     * Update the current user.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
@@ -202,17 +172,17 @@ class create_user extends Controller
         }
         switch($request->type) {
             case 'name':
-                DB::table('users')->where('id', '=', $id)->update(['name' => $request->name, 'updated_at' => getTime::getTime()]);
+                DB::table('users')->where('id', '=', $id)->update(['name' => $request->name, 'updated_at' => $this->getTime()]);
                 break;
             case 'password':
-                DB::table('users')->where('id', '=', $id)->update(['password' => Hash::make(bcrypt($request->password)), 'updated_at' => getTime::getTime()]);
+                DB::table('users')->where('id', '=', $id)->update(['password' => Hash::make(bcrypt($request->password)), 'updated_at' => $this->getTime()]);
                 break;
             case 'image':
                 if ($request->file('image') != null) {
                     DB::table('users')->where('id', '=', $id)
                         ->update([
-                            'imageId' => Image::create(['img' => $request->file('image')->store('public')]),
-                            'updated_at' => getTime::getTime()
+                            'imageId' => ImageController::storeImage($request),
+                            'updated_at' => $this->getTime()
                         ]);
                 }
                 break;
@@ -223,19 +193,6 @@ class create_user extends Controller
     }
 
 
-    // public function updateCurrentUser(Request $request,$id){
-    //     $user = User::find($id);
-    //     switch($request->type){
-    //         case 'name':
-    //             $user->name = $request->name;
-    //             break;
-    //         case '':
-    //             break;
-    //     }
-    //     // $user->updated_at = Carbon::now()->format('Y-m-d H:i:s');
-    //     $user->save();
-    //     return $this->sendResponse([], 'thanh cong');
-    // }
 
     /**
      * Remove the specified resource from storage.
@@ -243,11 +200,12 @@ class create_user extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy($id)
-    {
-        //
-            $res = DB::table('users')->where('id','=',$id)->delete();
+    public function destroy($id){
+        $res = DB::table('users')->where('id','=',$id)->delete();
+        if($res==1)
             return $this->sendResponse([$res],'thanh cong');
+        else
+            return $this->sendError('that bai',[]);
     }
 
     public function getAllRole() {

@@ -66,10 +66,8 @@ Route::post('/image', [ImageController::class, 'store']);
 
 //notification
 Route::get('/request/{id}', [NotificationController::class, 'show']);
-Route::get('/request/user/{id}',[NotificationController::class,'getAllNotification']);
-Route::get('/request/recv/{id}', [NotificationController::class, 'showRecvNotification']);
 Route::post('/request/create', [NotificationController::class, 'create']);
-Route::patch('request/{id}/update', [NotificationController::class, 'requestNotification']);
+Route::post('/request/{id}/update', [NotificationController::class, 'requestNotification']);
 
 //workPlate
 Route::get('work-plates', [WorkPlateController::class, 'index']);

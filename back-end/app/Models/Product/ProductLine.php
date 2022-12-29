@@ -15,6 +15,8 @@ class ProductLine extends Model
         'name',
         'info',
         'quantity',
-        'imgId'
+        'imgId',
+        'created_at',
+        'updated_at'
     ];
 }

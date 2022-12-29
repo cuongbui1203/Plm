@@ -58,16 +58,38 @@ const roles = [
   },
 ];
 
+const loai = [
+  {
+    label: "Thông Báo",
+    value: 1,
+  },
+  {
+    label: "Luân chuyển",
+    value: 2,
+  },
+  {
+    label: "Bán",
+    value: 3,
+  },
+  {
+    label: "Bảo hành",
+    value: 4,
+  },
+  {
+    label: "Lỗi",
+    value: 5,
+  },
+];
+
 function CR({ handleClose }) {
   const [workPlate, setWorkPlate] = useState([]);
   const [loginState, updateLoginState] = useLoginContext();
   const [dataSend, setDataSend] = useState([]);
-  const [checkAllValue, setCheckAllValue] = useState(false);
   const [workPlateId, setWorkPlateId] = useState();
   const [showAdd, setShowAdd] = useState(false);
-  const [checkAll, setCheckAll] = useState(false);
   const [title, setTtitle] = useState("");
   const [para, setPara] = useState("");
+  const [loaiRq, setLoaiRq] = useState(0);
   // const [idDel, setIdDel] = useState(-1);
   let role = 1;
   const handleGetAllWorkPlate = async () => {
@@ -125,16 +147,23 @@ function CR({ handleClose }) {
       para: para,
       data: dataSend,
     };
+
+    console.log(JSON.stringify(metaData));
+    dataForm.append("loai", loaiRq);
     dataForm.append("idSender", loginState.user.id);
     dataForm.append("nameSender", loginState.user.name);
     dataForm.append("idReceiver", workPlateId.value);
     dataForm.append("nameReceiver", workPlateId.label);
     dataForm.append("data", JSON.stringify(metaData));
+
     const response = await createRequestApi(dataForm);
     if (response.success) {
       Notification("success", "Tạo Request thành công");
     } else {
       Notification("error", "Tạo Request thất bại");
+      response.error.response.data.data.map((e, i) => {
+        Notification("error", e);
+      });
     }
     handleClose();
   };
@@ -177,10 +206,19 @@ function CR({ handleClose }) {
     if (response.success) {
       const tg = [];
       response.data.map((e, index) => {
-        tg.push({
-          label: `Tên: ${e.name} | Dòng: ${e.productLine} | Status ${e.status}`,
-          value: e.productId,
-        });
+        let add = true;
+        for (let i = 0; i < dataSend.length; i++) {
+          if (data[i].id === e.id) {
+            add = false;
+            break;
+          }
+        }
+        if (add) {
+          tg.push({
+            label: `Tên: ${e.name} | Dòng: ${e.productLine} | Status ${e.status}`,
+            value: e.productId,
+          });
+        }
       });
       setData(tg);
     }
@@ -205,10 +243,19 @@ function CR({ handleClose }) {
     if (response.success) {
       const tg = [];
       response.data.map((e, i) => {
-        tg.push({
-          label: `Tên: ${e.name}`,
-          value: e.productLineId,
-        });
+        let add = true;
+        for (let i = 0; i < dataSend.length; i++) {
+          if (data[i].id === e.id) {
+            add = false;
+            break;
+          }
+        }
+        if (add) {
+          tg.push({
+            label: `Tên: ${e.name}`,
+            value: e.productLineId,
+          });
+        }
       });
       setData(tg);
     }
@@ -219,8 +266,23 @@ function CR({ handleClose }) {
       <div className="box" style={{ minWidth: "400px", minHeight: "600px" }}>
         <div className="form">
           <h3>Gửi yêu cầu</h3>
+
           <div className="form-group">
-            <label style={{ color: "#45f3ff" }}>Loại</label>
+            <label style={{ color: "#45f3ff" }}>Loại yêu cầu</label>
+            <Select
+              options={loai}
+              isSearchable={true}
+              defaultValue={loai[0]}
+              onChange={(e) => {
+                setLoaiRq(e.value);
+              }}
+              styles={customStyles}
+            />
+            <i></i>
+          </div>
+
+          <div className="form-group">
+            <label style={{ color: "#45f3ff" }}>Bộ phận Nhận</label>
             <Select
               options={roles}
               isSearchable={true}
@@ -313,6 +375,7 @@ function CR({ handleClose }) {
                       className="bt"
                       size="sm"
                       onClick={handleShow}
+                      disabled={loaiRq === 1}
                     >
                       {" "}
                       <IoAdd />{" "}
