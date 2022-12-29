@@ -9,6 +9,8 @@ use App\Http\Controllers\Api\ProductLineController;
 use App\Http\Controllers\Api\StatusController;
 use App\Http\Controllers\Api\NotificationController;
 use App\Http\Controllers\Api\WorkPlateController;
+use App\Models\Other\Notification;
+use App\Models\Product\Product;
 use App\Models\Role;
 use Illuminate\Support\Facades\DB;
 
@@ -32,7 +34,7 @@ Route::post('/user/login',[create_user::class,'login']);
 Route::get('/user/logout',[create_user::class,'logout']);
 Route::get('/users/orderby', [create_user::class, 'getOrderByColum']);
 Route::delete('/users/{id}/delete',[create_user::class,'destroy']);
-Route::patch('/users/{id}/change', [create_user::class, 'update']);
+Route::post('/users/{id}/change', [create_user::class, 'update']);
 Route::get('users', [create_user::class, 'getAllUsers']);
 // Role
 Route::get('/roles', [create_user::class,'getAllRole']);
@@ -48,7 +50,8 @@ Route::get('/products/get/{id}',[ProductController::class,'getId']);
 Route::get('/products/orderby', [ProductController::class, 'getOrderByColum']);
 Route::post('/products/create',[ProductController::class,'create']);
 Route::post('/products/search', [ProductController::class, 'search']);
-Route::patch('/products/{id}/change',[ProductController::class,'update']);
+Route::post('/products/{id}/change',[ProductController::class,'update']);
+Route::post('/product/{id}/ban', [ProductController::class, 'bans']);
 Route::delete('/products/{id}/delete', [ProductController::class, 'deleteId']);
 //productLine
 Route::get('/product-lines',[ProductLineController::class,'index']);
@@ -57,7 +60,7 @@ Route::get('/product-lines/orderby', [ProductLineController::class, 'getOrderByC
 Route::post('product-lines/search', [ProductLineController::class, 'search']);
 Route::post('/product-lines/create',[ProductLineController::class,'create']);
 Route::get('/product-lines/{idProductLine}/status/{idStatus}', [ProductLineController::class, 'getProductByStatus']);
-Route::patch('product-lines/{id}/update', [ProductLineController::class, 'update']);
+Route::post('product-lines/{id}/update', [ProductLineController::class, 'update']);
 Route::delete('product-lines/{id}/delete', [ProductLineController::class, 'deleteId']);
 
 //img
@@ -66,15 +69,17 @@ Route::post('/image', [ImageController::class, 'store']);
 
 //notification
 Route::get('/request/{id}', [NotificationController::class, 'show']);
+Route::get('/request/user/{id}',[NotificationController::class,'getAllNotification']);
 Route::post('/request/create', [NotificationController::class, 'create']);
 Route::post('/request/{id}/update', [NotificationController::class, 'requestNotification']);
+Route::delete('/request/{id}/delete', [NotificationController::class, 'destroy']);
 
 //workPlate
 Route::get('work-plates', [WorkPlateController::class, 'index']);
 Route::get('work-plate/{id}', [WorkPlateController::class, 'getWorkPlateById']);
 Route::post('work-plate/create', [WorkPlateController::class, 'create']);
 Route::get('work-plates/role/{id}', [WorkPlateController::class,'getByIdRole']);
-Route::patch('work-plate/{id}/update', [WorkPlateController::class,'update']);
+Route::post('work-plate/{id}/update', [WorkPlateController::class,'update']);
 Route::delete('work-plate/{id}/delete', [WorkPlateController::class,'deleteId']);
 // Route::group(['middleware'=>'auth:sanctum'],function(){
 //     //user

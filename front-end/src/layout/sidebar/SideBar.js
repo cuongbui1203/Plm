@@ -127,6 +127,7 @@ const SideBar = () => {
 
   const handleChange = (e) => {
     setId(e.value);
+    document.getElementById("numOfProduct").value = e.label;
   };
 
   const vald = (e) => {

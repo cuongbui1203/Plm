@@ -136,6 +136,26 @@ const delPlApi = async (id) => {
     return { success: false, error: e };
   }
 };
+
+const banApi = async (id, data) => {
+  try {
+    const response = await net.post(
+      process.env.REACT_APP_API_ENDPOINT + `/product/${id}/ban`,
+      data,
+      {
+        headers: {
+          accept: "application/json",
+          "Accept-Language": "en-US,en;q=0.8",
+          "Content-Type": `multipart/form-data; boundary=${data._boundary}`,
+        },
+      }
+    );
+    console.log(response);
+    return response.data;
+  } catch (e) {
+    return { success: false, error: e };
+  }
+};
 export {
   getAllProductApi,
   getAllProductLine,
@@ -147,4 +167,5 @@ export {
   getAllUsersApi,
   QuatityOnStatus,
   delPlApi,
+  banApi,
 };

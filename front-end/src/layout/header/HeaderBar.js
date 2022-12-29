@@ -1,12 +1,14 @@
-import { useEffect, useState } from "react";
-import { NavLink } from "react-bootstrap";
+import { useState } from "react";
+import { Button, Modal, NavLink } from "react-bootstrap";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import { FaCannabis } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import Select from "react-select";
 import { logoutApi } from "../../API/auth";
+import { banApi, getAllProductApi } from "../../API/productApi";
 import { Executive_Board, Factory, Shop, TTBH } from "../../auth/Role";
 import Notification from "../../components/notification/notification";
 import {
@@ -18,11 +20,7 @@ import {
   setLoaded,
   setLoading,
 } from "../../state/actions/settingActions";
-import {
-  useDataContext,
-  useLoginContext,
-  useSettingContext,
-} from "../../state/hook/hooks";
+import { useLoginContext, useSettingContext } from "../../state/hook/hooks";
 import "./HeaderBar.css";
 
 const getChucVu = (roleId) => {
@@ -54,11 +52,16 @@ const headerButton = (roleId) => {
       return null;
   }
 };
-function HeaderBar({ role }) {
+function HeaderBar() {
   const navig = useNavigate();
   const [settingState, updateSettingState] = useSettingContext();
   const [loginState, updateLoginState] = useLoginContext();
   const [btns, setBtns] = useState(headerButton(loginState.user.roleId));
+  const [showModal, setShowModal] = useState(false);
+  const [idSp, setIdSp] = useState("");
+  const [sp, setSP] = useState([]);
+  const [name, setName] = useState("");
+  const [address, setAddress] = useState("");
   const logout = async () => {
     // eslint-disable-next-line react-hooks/rules-of-hooks
     updateSettingState(setLoading());
@@ -82,9 +85,61 @@ function HeaderBar({ role }) {
     navig(e.target.name);
     console.log(e.target.title);
   };
-  const handleClickNavLink = () => {};
+
   const navigateProfile = () => {
     navig(`/home/profile/${loginState.user.id}`);
+  };
+  const isShop = () => {
+    if (loginState.user.roleId === 3) {
+      return (
+        <>
+          <NavLink
+            key={4}
+            name={"Bán"}
+            title={"Bán"}
+            onClick={() => {
+              getAllProduct().then((e) => {
+                setShowModal(true);
+              });
+            }}
+          >
+            {"Bán"}
+          </NavLink>
+        </>
+      );
+    }
+    return <></>;
+  };
+  const handleBan = async () => {
+    console.log(idSp);
+    console.log(name);
+    console.log(address);
+    const info = {
+      name: name,
+      address: address,
+    };
+    const data = new FormData();
+    data.append("info", JSON.stringify(info));
+    const response = await banApi(idSp, data);
+    if (response.success) {
+      Notification("success", "thanh cong");
+    } else {
+      Notification("error", "that bai");
+    }
+    setShowModal(false);
+  };
+  const getAllProduct = async () => {
+    const response = await getAllProductApi();
+    if (response.success) {
+      const tg = [];
+      response.data.map((e, index) => {
+        tg.push({
+          label: `Tên: ${e.name} | Dòng: ${e.productLine} | Status ${e.status}`,
+          value: e.productId,
+        });
+      });
+      setSP(tg);
+    }
   };
   return (
     <div>
@@ -116,6 +171,7 @@ function HeaderBar({ role }) {
                   </NavLink>
                 );
               })}
+              {isShop()}
               <NavDropdown
                 title={loginState.user.name}
                 id="navbarScrollingDropdown"
@@ -130,6 +186,51 @@ function HeaderBar({ role }) {
           </Navbar.Collapse>
         </Container>
       </Navbar>
+
+      <Modal
+        show={showModal}
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+        backdrop="static"
+        onHide={() => setShowModal(false)}
+      >
+        <Modal.Header closeButton>Nhập thông tin người mua</Modal.Header>
+        <Modal.Body>
+          <div>
+            <label>Chọn Sản phẩm</label>
+            <Select
+              options={sp}
+              isSearchable
+              defaultValue={sp[0]}
+              onChange={(e) => {
+                setIdSp(e.value);
+              }}
+              // styles={customStyles}
+            />
+          </div>
+          <div>
+            <label>Tên</label>
+            <input
+              onChange={(e) => {
+                setName(e.target.value);
+              }}
+            />
+          </div>
+          <div>
+            <label>Địa chỉ</label>
+            <input
+              onChange={(e) => {
+                setAddress(e.target.value);
+              }}
+            />
+          </div>
+          {/* <div></div> */}
+        </Modal.Body>
+        <Modal.Footer>
+          <Button onClick={() => setShowModal(false)}>Cancel</Button>
+          <Button onClick={handleBan}>OK</Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 }

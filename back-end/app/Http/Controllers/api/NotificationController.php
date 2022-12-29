@@ -184,4 +184,12 @@ class NotificationController extends Controller {
             return $this->sendError('error',$e);
         }
     }
+    
+    public function destroy($id){
+        if(Notification::where('id', '=', $id)->delete() != 0)
+            return $this->sendResponse([],'thanh cong');
+        else
+            return $this->sendError('that bai',[]);
+    }
+
 }

@@ -22,6 +22,7 @@ return new class extends Migration
             $table->bigInteger('idStatus')->unsigned()->nullable(false)->default(1);
             $table->string('canAddRequest')->nullable(false)->default('1');
             $table->string('history');
+            $table->string('infoCustomer');
             $table->timestamps();
         });
     }

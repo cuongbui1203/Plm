@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use app\Http\Controllers\Api\getTime;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\CreateID\create_id;
 use App\Models\Product\Product;
@@ -211,5 +212,16 @@ class ProductController extends Controller
         return $this->sendResponse(["thanh cong"],"xoa thanh cong");
         else
             return $this->sendError('that bai',[]);
+    }
+
+    public function bans(Request $request, $id){
+        DB::table('products')->where('productId', '=', $id)
+            ->update([
+                'updated_at' => $this->getTime(),
+                'history'=>"",
+                'idStatus' => 3,
+                'infoCustomer' => $request->info
+            ]);
+        return $this->sendResponse([],'thanh cong');
     }
 }

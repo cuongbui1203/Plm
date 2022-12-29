@@ -3,7 +3,8 @@ import Table from "react-bootstrap/Table";
 import { useState } from "react";
 import { Button, Modal } from "react-bootstrap";
 import "../../components/createRequest/CR.css";
-import { getRequestId } from "../../API/Other";
+import { deleteRequestApi, getRequestId } from "../../API/Other";
+import Notification from "../../components/notification/notification";
 /**
  * Gửi
  * @returns
@@ -27,6 +28,16 @@ export const CrRQ = ({ data }) => {
     });
     setListRQ(tg);
   }, [data]);
+
+  const handeDelete = async () => {
+    const response = await deleteRequestApi(rq.id);
+    if (response.success) {
+      Notification("success", "Thanh cong");
+    } else {
+      Notification("error", "That bai");
+    }
+    setShowModal(false);
+  };
 
   const showStatus = (v) => {
     switch (v) {
@@ -67,11 +78,12 @@ export const CrRQ = ({ data }) => {
                     onClick={() => {
                       getRequestId(prd.id).then((res) => {
                         console.log(res.data);
-                        const date = new Date(res.data[0].created_at);
-                        const metaData = JSON.parse(res.data[0].data);
+                        const date = new Date(res.data[0][0].created_at);
+                        const metaData = JSON.parse(res.data[0][0].data);
                         setRq({
-                          sender: res.data[0].sender,
-                          receiver: res.data[0].Receiver,
+                          id: res.data[0][0].id,
+                          sender: res.data[0][0].sender,
+                          receiver: res.data[0][0].Receiver,
                           title: metaData.title,
                           para: metaData.para,
                           data: metaData.data,
@@ -159,7 +171,15 @@ export const CrRQ = ({ data }) => {
                 <div align="end">
                   <Button
                     variant="outline-danger"
-                    size="sm"
+                    size="md"
+                    style={{ marginRight: "5px" }}
+                    onClick={handeDelete}
+                  >
+                    Xoá
+                  </Button>
+                  <Button
+                    variant="outline-success"
+                    size="md"
                     style={{ marginRight: "5px" }}
                     onClick={() => setShowModal(false)}
                   >
