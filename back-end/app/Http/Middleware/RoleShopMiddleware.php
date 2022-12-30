@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class RoleFactoryMiddleware
+class RoleShopMiddleware
 {
     /**
      * Handle an incoming request.
@@ -17,7 +17,7 @@ class RoleFactoryMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        if(Auth::user()->roleId == 2){
+        if(Auth::user()->roleId == 3){
             return $next($request);
         }else{
             return request()->json([

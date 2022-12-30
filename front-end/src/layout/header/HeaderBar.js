@@ -133,10 +133,12 @@ function HeaderBar() {
     if (response.success) {
       const tg = [];
       response.data.map((e, index) => {
-        tg.push({
-          label: `Tên: ${e.name} | Dòng: ${e.productLine} | Status ${e.status}`,
-          value: e.productId,
-        });
+        if (e.status != 3) {
+          tg.push({
+            label: `Tên: ${e.name} | Dòng: ${e.productLine} | Status ${e.status}`,
+            value: e.productId,
+          });
+        }
       });
       setSP(tg);
     }
