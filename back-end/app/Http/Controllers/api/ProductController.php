@@ -83,14 +83,12 @@ class ProductController extends Controller
             'idProductLine'=>'required',
             'name'=>'required',
             'num'=>'required|numeric',
-            // 'batch'=>'required'  
+            'workPlateId' =>'required'
+            // 'batch'=>'required'
         ]);
         if($validator->fails()){
             return $this->sendError('Validation Error.',$validator->errors());
         }
-        // if()
-        $name = $request->name;
-
         $idStatus = $request->idStatus;
         // $id = Product::createId($request->idProductLine,$request->num);
         // $id = 1233;
@@ -99,13 +97,13 @@ class ProductController extends Controller
             for($i = 0;$i < (int)$request->num;$i++){
                 $product = new Product();
                 $product->productId = create_id::createIdProduct();
-                $product->name = $name;
+                $product->name = $request->name;
                 $product->idStatus = 1;
+                $product->visit = $request->workPlateId;
                 $product->idProductLine=$request->idProductLine;
                 $product->history = $request->idProductLine;
-                // $product->created_at = date('Y-m-d H:i:s');
-                $product->created_at = $this->getTime();
-                $product->updated_at = $this->getTime();
+                $product->created_at = getTime::getTime();
+                $product->updated_at = getTime::getTime();
                 $product->save();
                 array_push($res,$product);
             }
@@ -132,6 +130,7 @@ class ProductController extends Controller
             'idProductLine'=>'required',
             'name'=>'required',
             'num'=>'required|numeric',
+            'workPlateId'=>'required'
             //'batch'=>'required'
         ]);
         if($validator->fails()){
@@ -169,7 +168,7 @@ class ProductController extends Controller
             'type'=>'required',
             // 'name'=>'',
             // 'num'=>'required|numeric',
-            
+
             //'batch'=>'required'
         ]);
         if($validator->fails()){
