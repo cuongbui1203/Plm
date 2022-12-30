@@ -3,7 +3,11 @@ import Table from "react-bootstrap/Table";
 import { useState } from "react";
 import { getAllProductLine } from "../../API/productApi";
 import { Button, Modal } from "react-bootstrap";
-import { getRequestId, updateRequestApi } from "../../API/Other";
+import {
+  deleteRequestApi,
+  getRequestId,
+  updateRequestApi,
+} from "../../API/Other";
 import Select from "react-select";
 import Notification from "../../components/notification/notification";
 
@@ -93,13 +97,14 @@ const customStyles = {
  * Nhận
  * @returns
  */
-export const NRQ = ({ data }) => {
+export const NRQ = ({ data, getRQ }) => {
   const [listRq, setListRQ] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [rq, setRq] = useState();
   const [idStatus, setIdStatus] = useState(1);
   const [showIdStatus, setShowIdStatus] = useState(false);
-  useEffect(() => {
+  const handleResetRQ = () => {
+    getRQ();
     const tg = [];
     data?.map((e, i) => {
       const data = JSON.parse(e.data);
@@ -112,6 +117,9 @@ export const NRQ = ({ data }) => {
       tg.push(tgg);
     });
     setListRQ(tg);
+  };
+  useEffect(() => {
+    handleResetRQ();
   }, [data]);
 
   const handleAccept = async () => {
@@ -127,6 +135,7 @@ export const NRQ = ({ data }) => {
     }
     setShowModal(false);
     setShowIdStatus(false);
+    handleResetRQ();
   };
   const handleReject = async () => {
     const data = {
@@ -140,6 +149,17 @@ export const NRQ = ({ data }) => {
       Notification("error", "that bai");
     }
     setShowModal(false);
+    handleResetRQ();
+  };
+  const handeDelete = async () => {
+    const response = await deleteRequestApi(rq.id);
+    if (response.success) {
+      Notification("success", "Thanh cong");
+    } else {
+      Notification("error", "That bai");
+    }
+    setShowModal(false);
+    handleResetRQ();
   };
 
   const showBtn = (status) => {
@@ -170,6 +190,7 @@ export const NRQ = ({ data }) => {
             variant="outline-danger"
             size="sm"
             style={{ marginRight: "5px" }}
+            onClick={handeDelete}
           >
             Xoá
           </Button>

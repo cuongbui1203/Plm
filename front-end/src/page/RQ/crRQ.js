@@ -9,7 +9,7 @@ import Notification from "../../components/notification/notification";
  * Gửi
  * @returns
  */
-export const CrRQ = ({ data }) => {
+export const CrRQ = ({ data, getRQ }) => {
   const [listRQ, setListRQ] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [rq, setRq] = useState();
@@ -37,6 +37,7 @@ export const CrRQ = ({ data }) => {
       Notification("error", "That bai");
     }
     setShowModal(false);
+    getRQ();
   };
 
   const showStatus = (v) => {

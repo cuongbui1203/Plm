@@ -49,34 +49,48 @@ class NotificationController extends Controller {
             $err = [];
             if($request->loai != 1){
                 $data = json_decode($request->data)->data;
+                // return $data[0];
                 foreach($data as $e){
+                    // return $e->id;
                     try{
-                        $name = ProductLine::where('productLineId', '=', $e->id)->select('name')->get()[0]->name;
-                        $r2 = Product::where('idProductLine', '=', $e->id)
-                            ->where('canAddRequest','=','1')
-                            ->select(DB::raw('count(productId) as num'))
-                            ->get()[0]->num;
-                        if($e->sl > $r2){
-                            $err[] = 'Số lượng sản phẩm khả dụng có dòng sản phẩm ' . $name . ' không đủ. Số lượng tối đa ' . $r2;
-                        }else{
-                            $arrProduct = DB::table('products')
-                                            ->where('idProductLine', '=', $e->id)
-                                            ->where('canAddRequest','=','1')
-                                            ->limit($e->sl)
-                                            ->select(DB::raw('products.productId as id'))
-                                            ->get();
-                            $err[] = $arrProduct;
-                            foreach($arrProduct as $p){
-                                Product::where('productId','=',$p->id)
-
+                        $name = ProductLine::where('productLineId', '=', $e->id)->select('name')->get();
+                        if(count($name) != 0){
+                            // return $name;
+                            $r2 = DB::table('products')->where('idProductLine', '=', $e->id)
+                                ->where('canAddRequest','=','1')
+                                ->select(DB::raw('count(productId) as num'))
+                                ->get()[0]->num;
+                            if($e->sl > $r2){
+                                $err[] = 'Số lượng sản phẩm khả dụng có dòng sản phẩm ' . $name . ' không đủ. Số lượng tối đa ' . $r2;
+                            }else{
+                                $arrProduct = DB::table('products')
+                                                ->where('idProductLine', '=', $e->id)
+                                                ->where('canAddRequest','=','1')
+                                                ->limit($e->sl)
+                                                ->select(DB::raw('products.productId as id'))
+                                                ->get();
+                                $arrProduct;
+                                foreach($arrProduct as $p){
+                                    DB::table('products')
+                                        ->where('productId','=',$p->id)
                                         ->update([
                                             'canAddRequest'=>$addId,
-                                            'updated_at'=>getTime::getTime()
-
+                                            'updated_at'=>$this->getTime()
                                         ]);
+                                }
                             }
+                        }else{
+                            DB::table('products')->where('productId', '=', $e->id)
+                            ->where('canAddRequest', '=', '1')
+                            ->update([
+                                'canAddRequest' => $addId,
+                                'updated_at' => $this->getTime()
+                            ]);
                         }
-                    }catch(Exception $ex){}
+                        
+                    }catch(Exception $ex){
+                        return $ex;
+                    }
                 }
             }
             // return $this->sendResponse($err,'test');
@@ -119,42 +133,47 @@ class NotificationController extends Controller {
         try{
             $res = "";
             $query = DB::table('notifications')->where('id', '=', $id);
-            $addId = $query->select('addId')->get()[0]->addId;
+            $tg = $query->select('addId','idReceiver')->get()[0];
+            $addId = $tg->addId;
+            $idStore = $tg->idReceiver;
+            // return $request->data;
             switch($request->data) {
                 case 'pending':
-                    if ($query->update(['accepted' => 'pending', 'updated_at' => getTime::getTime()])
+                    if ($query->update(['accepted' => 'pending', 'updated_at' => $this->getTime()])
                     || count($query->select()->get())
                     ) $res = 'pending';
                     break;
-                case 'reject':
-                    if ($query->update(['accepted' => 'reject', 'updated_at' => getTime::getTime()])
-                    || count($query->select()->get())
-                    ) $res = 'reject';
+                    case 'reject':
+                        if ($query->update(['accepted' => 'reject', 'updated_at' => $this->getTime()])
+                        || count($query->select()->get())
+                        ) $res = 'reject';
+                        DB::table('products')->where('canAddRequest', '=', $addId)
+                        ->update([
+                            // 'idStatus' => $request->status,
+                            'canAddRequest'=>'1',
+                                'updated_at' => $this->getTime()
+                            ]);
                     break;
                 case 'accept':
-                    if ($query->update(['accepted' => 'accept', 'updated_at' => getTime::getTime()])
+                    if ($query->update(['accepted' => 'accept', 'updated_at' => $this->getTime()])
                     || count($query->select()->get())
-                    ) $res = 'accept';
+                    ) {$res = 'accept';
+                    DB::table('products')->where('canAddRequest', '=', $addId)
+                        ->update([
+                            'idStatus' => $request->status,
+                            'visit'=> $idStore,
+                            'canAddRequest'=>'1',
+                            'updated_at' => $this->getTime()
+                        ]);}
+
                     break;
                 default:
                     break;
             }
 
-            if($res == 'accept'){
-                DB::table('products')->where('canAddRequest', '=', $addId)
-                    ->update([
-                        'idStatus' => $request->status,
-                        'canAddRequest'=>'1',
-                        'updated_at' => getTime::getTime()
-                    ]);
-            }else if($res == 'reject'){
-                DB::table('products')->where('canAddRequest', '=', $addId)
-                    ->update([
-                        // 'idStatus' => $request->status,
-                        'canAddRequest'=>'1',
-                        'updated_at' => getTime::getTime()
-                    ]);
-            }
+            // if($res == 'accept'){
+            // }else if($res == 'reject'){
+            // }
 
             return $this->sendResponse([],'thanh cong');
         } catch (Exception $e){

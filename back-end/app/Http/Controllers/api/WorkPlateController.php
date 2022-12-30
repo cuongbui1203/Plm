@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\CreateID\create_id;
-use App\Models\Other\Image;
 use App\Models\User;
 use App\Models\WorkPlates;
 use Carbon\Carbon;
@@ -14,7 +13,7 @@ use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\Response;
 use Exception;
 
-class WorkPlateController extends Controller
+class WorkPlateController extends Controller    
 {
     //
 

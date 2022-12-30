@@ -13,12 +13,13 @@ import {
 import Select from "react-select";
 import Notification from "../../components/notification/notification";
 import { MDBInput } from "mdb-react-ui-kit";
-import { useSettingContext } from "../../state/hook/hooks";
+import { useLoginContext, useSettingContext } from "../../state/hook/hooks";
 import { DSP, RQ, SP, TK, WP } from "../../state/constants";
 import RegisterForm from "../../components/registerForm/registerForm";
 import CreateWorkPlate from "../../components/workPlates/createWorkPlate";
 import CR from "../../components/createRequest/CR";
 const SideBar = () => {
+  const [loginState, updateLoginState] = useLoginContext();
   const [show, setShow] = useState(false);
   const [productLines, handle] = useState([]);
   const [plShow, setPlShow] = useState(false);
@@ -76,6 +77,30 @@ const SideBar = () => {
         setVisible("none");
     }
   }, [settingState.create]);
+
+  useEffect(() => {
+    setVisible("block");
+    switch (settingState.create) {
+      case SP:
+        setBtnLabel("Tạo sản phẩm mới");
+        break;
+      case DSP:
+        setBtnLabel("Tạo dòng sản phẩm mới");
+        break;
+      case TK:
+        setBtnLabel("Tạo tài khoản mới");
+        break;
+      case WP:
+        setBtnLabel("Tạo Work Plate Mới");
+        break;
+      case RQ:
+        setBtnLabel("Tạo yêu cầu mới");
+        break;
+      default:
+        setBtnLabel("");
+        setVisible("none");
+    }
+  }, []);
 
   const handleShow = () => {
     console.log(settingState);
@@ -167,6 +192,7 @@ const SideBar = () => {
       console.log(response.data);
       Notification("error", "tạo dòng sản phẩm thất bại");
     }
+    handleClose();
   };
 
   const handleSend = async () => {
@@ -177,6 +203,7 @@ const SideBar = () => {
       idProductLine: selectId,
       name: document.getElementById("nameOfProduct").value,
       num: document.getElementById("numOfProduct").value,
+      workPlateId: loginState.user.workPlateId,
     };
     let response = await createProduct(data);
     if (response.success) {
@@ -338,7 +365,7 @@ const SideBar = () => {
           </Form.Group>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" className="mb-3 ">
+          <Button variant="secondary" className="mb-3 " onClick={handleClose}>
             cancel
           </Button>
           <Button

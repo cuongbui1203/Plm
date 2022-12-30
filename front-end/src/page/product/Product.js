@@ -4,7 +4,7 @@ import { getAllProductApi } from "../../API/productApi";
 import Notification from "../../components/notification/notification";
 import PaginationComponent from "../../components/pagination/Pagination";
 import ProductComponent from "../../components/showProducts/ProductComponent";
-import { useDataContext } from "../../state/hook/hooks";
+import { useDataContext, useLoginContext } from "../../state/hook/hooks";
 import "./Product.css";
 
 function Product() {
@@ -13,7 +13,7 @@ function Product() {
   const [ProductPerPage, setProductPerPage] = useState(12);
   const [currentPage, setCurrentPage] = useState(1);
   // const scrollPosition = useScroll();
-
+  const [loginState, updateLoginState] = useLoginContext();
   const lastSessionNumber = currentPage * ProductPerPage;
   const firstSessionIndex = lastSessionNumber - ProductPerPage;
   const limitedProduct = products.slice(firstSessionIndex, lastSessionNumber);
@@ -28,7 +28,13 @@ function Product() {
       response.data.forEach((e) => {
         e.imgUrl = process.env.REACT_APP_API_ENDPOINT + e.imgPath;
       });
-      setProduct(response.data);
+      const tg = [];
+      response.data.map((e, i) => {
+        if (e.visit === loginState.user.workPlateId) {
+          tg.push(e);
+        }
+      });
+      setProduct(tg);
       // await handleGetPlImage(response.data);
       // console.log(products);
     } else {

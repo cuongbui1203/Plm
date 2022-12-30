@@ -64,7 +64,9 @@ function HeaderBar() {
   const [address, setAddress] = useState("");
   const logout = async () => {
     // eslint-disable-next-line react-hooks/rules-of-hooks
+    updateSettingState(setCreate(""));
     updateSettingState(setLoading());
+
     let response = await logoutApi();
     if (response.success) {
       updateLoginState(setLogoutSuccess());
@@ -131,9 +133,12 @@ function HeaderBar() {
   const getAllProduct = async () => {
     const response = await getAllProductApi();
     if (response.success) {
+      // console.log(response.data);
       const tg = [];
       response.data.map((e, index) => {
-        if (e.status != 3) {
+        console.log(e.visit);
+
+        if (e.statusId !== 3 && e.visit === loginState.user.workPlateId) {
           tg.push({
             label: `Tên: ${e.name} | Dòng: ${e.productLine} | Status ${e.status}`,
             value: e.productId,
@@ -201,7 +206,6 @@ function HeaderBar() {
           <div>
             <label>Chọn Sản phẩm</label>
             <Select
-              
               options={sp}
               isSearchable
               defaultValue={sp[0]}

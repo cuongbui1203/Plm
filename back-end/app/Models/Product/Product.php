@@ -23,7 +23,7 @@ class Product extends Model
         'productId',
         'idProductLine',
         'name',
-	'visit',
+	    'visit',
         'idStatus',
         'history',
         'created_at',

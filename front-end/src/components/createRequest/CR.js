@@ -108,9 +108,6 @@ function CR({ handleClose }) {
     }
   };
 
-  console.log(workPlate);
-  console.log(dataSend);
-
   const handleChangeRole = (e) => {
     role = e.value;
     handleGetAllWorkPlate();
@@ -204,9 +201,12 @@ function CR({ handleClose }) {
   const handleGetProduct = async () => {
     const response = await getAllProductApi();
     if (response.success) {
+      console.log(response.data);
       const tg = [];
       response.data.map((e, index) => {
-        let add = true;
+        let add = e.can === "1";
+        // console.log(e.can != "1");
+
         for (let i = 0; i < dataSend.length; i++) {
           if (data[i].id === e.id) {
             add = false;

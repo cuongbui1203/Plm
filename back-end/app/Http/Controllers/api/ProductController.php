@@ -28,7 +28,10 @@ class ProductController extends Controller
                     DB::raw('productLines.info as info'),
                     'products.history',
                     'products.created_at',
-                    'products.updated_at',
+                'infoCustomer',
+                'products.updated_at',
+                    'products.visit',
+                    DB::raw('canAddRequest as can'),
                     DB::raw('statuses.id as statusId'),
                     DB::raw('statuses.title as status'),
                     DB::raw('images.id as imgId')
@@ -55,7 +58,10 @@ class ProductController extends Controller
                     DB::raw('productLines.info as info'),
                     'products.history',
                     'products.created_at',
-                    'products.updated_at',
+                    'products.visit',
+                'infoCustomer',
+                'products.updated_at',
+                    DB::raw('canAddRequest as can'),
                     DB::raw('statuses.id as statusId'),
                     DB::raw('statuses.title as status'),
                     DB::raw('images.id as imgId')
@@ -102,8 +108,8 @@ class ProductController extends Controller
                 $product->visit = $request->workPlateId;
                 $product->idProductLine=$request->idProductLine;
                 $product->history = $request->idProductLine;
-                $product->created_at = getTime::getTime();
-                $product->updated_at = getTime::getTime();
+                $product->created_at = $this->getTime();
+                $product->updated_at = $this->getTime();
                 $product->save();
                 array_push($res,$product);
             }
@@ -149,6 +155,7 @@ class ProductController extends Controller
                 'products.history',
                 'products.created_at',
                 'products.updated_at',
+                'infoCustomer',
                 DB::raw('statuses.title as status'),
                 DB::raw('images.id as imgId')
             )

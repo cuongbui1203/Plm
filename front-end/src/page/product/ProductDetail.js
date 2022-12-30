@@ -13,6 +13,7 @@ export const ProductDetail = () => {
   const [product, updateProduct] = useDataContext();
   const navi = useNavigate();
   const info = JSON.parse(product.data.info);
+  const infoCustomer = JSON.parse(product.data.infoCustomer);
   console.log(product.data);
 
   const handleDelete = async () => {
@@ -101,7 +102,27 @@ export const ProductDetail = () => {
           </tr>
           <tr>
             <td>Thông tin khách hàng</td>
-            <td>Larry the Bird</td>
+            <td>
+              <Table striped bordered hover variant="dark">
+                <thead>
+                  <tr>
+                    <td>Thuộc tính</td>
+                    <td>Giá trị</td>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Tên</td>
+                    <td>{infoCustomer.name}</td>
+                  </tr>
+
+                  <tr>
+                    <td>Địa Chỉ</td>
+                    <td>{infoCustomer.address}</td>
+                  </tr>
+                </tbody>
+              </Table>
+            </td>
           </tr>
         </tbody>
       </Table>
