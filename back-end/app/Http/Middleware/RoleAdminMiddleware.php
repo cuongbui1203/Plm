@@ -16,7 +16,7 @@ class RoleAdminMiddleware
      * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse|\Illuminate\Http\JsonResponse
      */
     public function handle(Request $request, Closure $next) {
-        if(Auth::user()->ruleId == 0)
+        if(Auth::user()->ruleId == 1)
             return $next($request);
         else{
             return request()->json([
