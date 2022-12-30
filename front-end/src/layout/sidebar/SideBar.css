@@ -77,6 +77,15 @@ ul.sort li.desc span.arrow::after {
     border-color: hsl(0, 0%, 80%);
     color: black;
 }
+#nameOfProduct {
+    width: 100%;
+    border-radius: 5px;
+    padding: 5px 10px;
+
+    border: 1px solid grey;
+    border-color: hsl(0, 0%, 80%);
+    color: black;
+}
 #numOfProduct:focus {
     outline: 2px solid #0d6efd;
 }

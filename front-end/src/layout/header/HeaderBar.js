@@ -199,6 +199,7 @@ function HeaderBar() {
           <div>
             <label>Chọn Sản phẩm</label>
             <Select
+              
               options={sp}
               isSearchable
               defaultValue={sp[0]}
@@ -208,17 +209,19 @@ function HeaderBar() {
               // styles={customStyles}
             />
           </div>
-          <div>
+          <div style={{ padding: "5px" }}>
             <label>Tên</label>
             <input
+              style={{ float: "right", width: "380px" }}
               onChange={(e) => {
                 setName(e.target.value);
               }}
             />
           </div>
-          <div>
+          <div style={{ padding: "5px" }}>
             <label>Địa chỉ</label>
             <input
+              style={{ float: "right", width: "380px" }}
               onChange={(e) => {
                 setAddress(e.target.value);
               }}
