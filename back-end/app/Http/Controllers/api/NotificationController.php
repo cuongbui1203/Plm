@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Validator;
 
 class NotificationController extends Controller {
 
-    
+
 
     /**
      * create thông báo cho các bên
@@ -29,7 +29,7 @@ class NotificationController extends Controller {
             'data'=>'required',
             'loai'=>'required|numeric'
         ]);
-        
+
         if($validator->fails()){
             return $this->sendError('Validator Error', $validator->errors());
         }
@@ -68,11 +68,11 @@ class NotificationController extends Controller {
                             $err[] = $arrProduct;
                             foreach($arrProduct as $p){
                                 Product::where('productId','=',$p->id)
-                                        
+
                                         ->update([
                                             'canAddRequest'=>$addId,
-                                            'updated_at'=>$this->getTime()
-                                            
+                                            'updated_at'=>getTime::getTime()
+
                                         ]);
                             }
                         }
@@ -122,17 +122,17 @@ class NotificationController extends Controller {
             $addId = $query->select('addId')->get()[0]->addId;
             switch($request->data) {
                 case 'pending':
-                    if ($query->update(['accepted' => 'pending', 'updated_at' => $this->getTime()])
+                    if ($query->update(['accepted' => 'pending', 'updated_at' => getTime::getTime()])
                     || count($query->select()->get())
                     ) $res = 'pending';
                     break;
                 case 'reject':
-                    if ($query->update(['accepted' => 'reject', 'updated_at' => $this->getTime()])
+                    if ($query->update(['accepted' => 'reject', 'updated_at' => getTime::getTime()])
                     || count($query->select()->get())
                     ) $res = 'reject';
                     break;
                 case 'accept':
-                    if ($query->update(['accepted' => 'accept', 'updated_at' => $this->getTime()])
+                    if ($query->update(['accepted' => 'accept', 'updated_at' => getTime::getTime()])
                     || count($query->select()->get())
                     ) $res = 'accept';
                     break;
@@ -145,14 +145,14 @@ class NotificationController extends Controller {
                     ->update([
                         'idStatus' => $request->status,
                         'canAddRequest'=>'1',
-                        'updated_at' => $this->getTime()
+                        'updated_at' => getTime::getTime()
                     ]);
             }else if($res == 'reject'){
                 DB::table('products')->where('canAddRequest', '=', $addId)
                     ->update([
                         // 'idStatus' => $request->status,
                         'canAddRequest'=>'1',
-                        'updated_at' => $this->getTime()
+                        'updated_at' => getTime::getTime()
                     ]);
             }
 
@@ -171,7 +171,7 @@ class NotificationController extends Controller {
             $tb1 = DB::table('notifications') -> where('idSender', '=', $id)
                 ->get();
         $workPlateId = DB::table('users')->where('id', '=', $id)->limit(1)->get('workPlateId')[0]->workPlateId;
-            $tb2 = DB::table('notifications') 
+            $tb2 = DB::table('notifications')
                 ->where('IdReceiver', '=', $workPlateId)
                 ->select('notifications.*')
                 ->get();
@@ -184,7 +184,7 @@ class NotificationController extends Controller {
             return $this->sendError('error',$e);
         }
     }
-    
+
     public function destroy($id){
         if(Notification::where('id', '=', $id)->delete() != 0)
             return $this->sendResponse([],'thanh cong');
