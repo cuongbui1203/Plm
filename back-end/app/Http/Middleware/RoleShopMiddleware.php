@@ -20,7 +20,7 @@ class RoleShopMiddleware
         if(Auth::user()->roleId == 3){
             return $next($request);
         }else{
-            return request()->json([
+            return response()->json([
                 'success' => false,
                 'message' => 'you don`t have the permission'
             ]);

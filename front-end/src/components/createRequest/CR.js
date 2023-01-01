@@ -67,18 +67,6 @@ const loai = [
     label: "Luân chuyển",
     value: 2,
   },
-  {
-    label: "Bán",
-    value: 3,
-  },
-  {
-    label: "Bảo hành",
-    value: 4,
-  },
-  {
-    label: "Lỗi",
-    value: 5,
-  },
 ];
 
 function CR({ handleClose }) {

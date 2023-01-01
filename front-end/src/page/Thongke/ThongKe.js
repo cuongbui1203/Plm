@@ -6,11 +6,14 @@ import { getAllProductLine } from "../../API/productApi";
 export const ThongKe = () => {
   const [listPrd, setListPrd] = useState([]);
   const [listPrdt, setListPrdt] = useState([]);
+  // const [info, setInfo] = useState("");
   const loadAllPrd = async () => {
     const response = await getAllProductLine();
     console.log(response.data);
     setListPrdt(response.data);
     setListPrd(response.data);
+    // setInfo(JSON.parse());
+    console.log(response.data);
   };
   useEffect(() => {
     loadAllPrd();
@@ -39,21 +42,51 @@ export const ThongKe = () => {
         </thead>
         <tbody>
           {listPrd.map((prd, index) => {
+            const info = JSON.parse(prd.info);
+            console.log(info);
             return (
               <tr>
                 <td>{index + 1}</td>
                 <td>{prd.name}</td>
-                <td>{prd.info}</td>
+                <td>
+                  <Table striped bordered hover>
+                    <thead>
+                      <tr>
+                        <td>Thuộc tính</td>
+                        <td>Giá trị</td>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Màu</td>
+                        <td>{info.color}</td>
+                      </tr>
+
+                      <tr>
+                        <td>Khối Lượng</td>
+                        <td>{info.mass} Kg</td>
+                      </tr>
+
+                      <tr>
+                        <td>Màn hình</td>
+                        <td>{info.display} inch</td>
+                      </tr>
+
+                      <tr>
+                        <td>RAM/ROM</td>
+                        <td>{info.ramRom}</td>
+                      </tr>
+                      <tr>
+                        <td>Mô tả thêm</td>
+                        <td>{info.dec}</td>
+                      </tr>
+                    </tbody>
+                  </Table>
+                </td>
                 <td>{prd.quantity}</td>
               </tr>
             );
           })}
-          {/* <tr>
-            <td>a</td>
-            <td>a</td>
-            <td>a</td>
-            <td>@mdo</td>
-          </tr> */}
         </tbody>
       </Table>
     </div>

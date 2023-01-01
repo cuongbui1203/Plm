@@ -16,10 +16,10 @@ class RoleAdminMiddleware
      * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse|\Illuminate\Http\JsonResponse
      */
     public function handle(Request $request, Closure $next) {
-        if(Auth::user()->ruleId == 1)
+        if(Auth::user()->roleId == 1)
             return $next($request);
         else{
-            return request()->json([
+            return response()->json([
                 'success' => false,
                 'message' => 'you don`t have the permission'
             ]);

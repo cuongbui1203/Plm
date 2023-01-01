@@ -13,7 +13,11 @@ export const ProductDetail = () => {
   const [product, updateProduct] = useDataContext();
   const navi = useNavigate();
   const info = JSON.parse(product.data.info);
-  const infoCustomer = JSON.parse(product.data.infoCustomer);
+  const infoCustomer = JSON.parse(
+    product.data.infoCustomer
+      ? product.data.infoCustomer
+      : '{"name":"nan","address":"nan"}'
+  );
   console.log(product.data);
 
   const handleDelete = async () => {

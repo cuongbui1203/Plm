@@ -1,10 +1,21 @@
-import axios from "axios";
 import { net } from "./axiosConfig";
 
 const getAllProductApi = async () => {
   try {
     const response = await net.get(
-      process.env.REACT_APP_API_ENDPOINT + "/products"
+      process.env.REACT_APP_API_ENDPOINT + "/products",
+
+      {
+        headers: {
+          accept: "application/json",
+          Authorization: "Bearer " + localStorage.getItem("token"),
+          "Accept-Language": "en-US,en;q=0.8",
+          // "Content-Type": `multipart/form-data; boundary=${data._boundary}`,
+          "X-CSRF-TOKEN": document
+            .querySelector('meta[name="csrf-token"]')
+            .getAttribute("content"),
+        },
+      }
     );
     return response.data;
   } catch (e) {
@@ -14,7 +25,19 @@ const getAllProductApi = async () => {
 const getProductApi = async (id) => {
   try {
     const response = await net.get(
-      process.env.REACT_APP_API_ENDPOINT + `/products/${id}`
+      process.env.REACT_APP_API_ENDPOINT + `/products/${id}`,
+
+      {
+        headers: {
+          accept: "application/json",
+          Authorization: "Bearer " + localStorage.getItem("token"),
+          "Accept-Language": "en-US,en;q=0.8",
+          // "Content-Type": `multipart/form-data; boundary=${data._boundary}`,
+          "X-CSRF-TOKEN": document
+            .querySelector('meta[name="csrf-token"]')
+            .getAttribute("content"),
+        },
+      }
     );
     return response.data;
   } catch (e) {
@@ -24,7 +47,19 @@ const getProductApi = async (id) => {
 const getAllProductLine = async () => {
   try {
     const response = await net.get(
-      process.env.REACT_APP_API_ENDPOINT + "/product-lines"
+      process.env.REACT_APP_API_ENDPOINT + "/product-lines",
+
+      {
+        headers: {
+          accept: "application/json",
+          Authorization: "Bearer " + localStorage.getItem("token"),
+          "Accept-Language": "en-US,en;q=0.8",
+          // "Content-Type": `multipart/form-data; boundary=${data._boundary}`,
+          "X-CSRF-TOKEN": document
+            .querySelector('meta[name="csrf-token"]')
+            .getAttribute("content"),
+        },
+      }
     );
     return response.data;
   } catch (e) {
@@ -34,7 +69,19 @@ const getAllProductLine = async () => {
 const deleteProductLineById = async (id) => {
   try {
     const response = await net.delete(
-      process.env.REACT_APP_API_ENDPOINT + `/product-lines/${id}/delete`
+      process.env.REACT_APP_API_ENDPOINT + `/product-lines/${id}/delete`,
+
+      {
+        headers: {
+          accept: "application/json",
+          Authorization: "Bearer " + localStorage.getItem("token"),
+          "Accept-Language": "en-US,en;q=0.8",
+          // "Content-Type": `multipart/form-data; boundary=${data._boundary}`,
+          "X-CSRF-TOKEN": document
+            .querySelector('meta[name="csrf-token"]')
+            .getAttribute("content"),
+        },
+      }
     );
     return response.data;
   } catch (e) {
@@ -46,7 +93,19 @@ const createProduct = async (data) => {
   try {
     const response = await net.post(
       process.env.REACT_APP_API_ENDPOINT + "/products/create",
-      data
+      data,
+
+      {
+        headers: {
+          accept: "application/json",
+          Authorization: "Bearer " + localStorage.getItem("token"),
+          "Accept-Language": "en-US,en;q=0.8",
+          // "Content-Type": `multipart/form-data; boundary=${data._boundary}`,
+          "X-CSRF-TOKEN": document
+            .querySelector('meta[name="csrf-token"]')
+            .getAttribute("content"),
+        },
+      }
     );
     console.log(response);
     return response.data;
@@ -58,7 +117,19 @@ const createProduct = async (data) => {
 const deleteProductApi = async (id) => {
   try {
     const response = await net.delete(
-      process.env.REACT_APP_API_ENDPOINT + `/products/${id}/delete`
+      process.env.REACT_APP_API_ENDPOINT + `/products/${id}/delete`,
+
+      {
+        headers: {
+          accept: "application/json",
+          Authorization: "Bearer " + localStorage.getItem("token"),
+          "Accept-Language": "en-US,en;q=0.8",
+          // "Content-Type": `multipart/form-data; boundary=${data._boundary}`,
+          "X-CSRF-TOKEN": document
+            .querySelector('meta[name="csrf-token"]')
+            .getAttribute("content"),
+        },
+      }
     );
     console.log(response);
     return response.data;
@@ -70,7 +141,19 @@ const deleteProductApi = async (id) => {
 const getAllUsersApi = async () => {
   try {
     const response = await net.get(
-      process.env.REACT_APP_API_ENDPOINT + `/users`
+      process.env.REACT_APP_API_ENDPOINT + `/users`,
+
+      {
+        headers: {
+          accept: "application/json",
+          Authorization: "Bearer " + localStorage.getItem("token"),
+          "Accept-Language": "en-US,en;q=0.8",
+          // "Content-Type": `multipart/form-data; boundary=${data._boundary}`,
+          "X-CSRF-TOKEN": document
+            .querySelector('meta[name="csrf-token"]')
+            .getAttribute("content"),
+        },
+      }
     );
     console.log(response);
     return response.data;
@@ -84,11 +167,16 @@ const createProductLineApi = async (data) => {
     const response = await net.post(
       process.env.REACT_APP_API_ENDPOINT + `/product-lines/create`,
       data,
+
       {
         headers: {
           accept: "application/json",
+          Authorization: "Bearer " + localStorage.getItem("token"),
           "Accept-Language": "en-US,en;q=0.8",
           "Content-Type": `multipart/form-data; boundary=${data._boundary}`,
+          "X-CSRF-TOKEN": document
+            .querySelector('meta[name="csrf-token"]')
+            .getAttribute("content"),
         },
       }
     );
@@ -107,8 +195,12 @@ const QuatityOnStatus = async (idProductLine, idStatus) => {
       {
         headers: {
           accept: "application/json",
+          Authorization: "Bearer " + localStorage.getItem("token"),
           "Accept-Language": "en-US,en;q=0.8",
           // "Content-Type": `multipart/form-data; boundary=${data._boundary}`,
+          "X-CSRF-TOKEN": document
+            .querySelector('meta[name="csrf-token"]')
+            .getAttribute("content"),
         },
       }
     );
@@ -122,11 +214,16 @@ const delPlApi = async (id) => {
   try {
     const response = await net.delete(
       process.env.REACT_APP_API_ENDPOINT + `/product-lines/${id}/delete`,
+
       {
         headers: {
           accept: "application/json",
+          Authorization: "Bearer " + localStorage.getItem("token"),
           "Accept-Language": "en-US,en;q=0.8",
           // "Content-Type": `multipart/form-data; boundary=${data._boundary}`,
+          "X-CSRF-TOKEN": document
+            .querySelector('meta[name="csrf-token"]')
+            .getAttribute("content"),
         },
       }
     );
@@ -142,11 +239,16 @@ const banApi = async (id, data) => {
     const response = await net.post(
       process.env.REACT_APP_API_ENDPOINT + `/product/${id}/ban`,
       data,
+
       {
         headers: {
           accept: "application/json",
+          Authorization: "Bearer " + localStorage.getItem("token"),
           "Accept-Language": "en-US,en;q=0.8",
           "Content-Type": `multipart/form-data; boundary=${data._boundary}`,
+          "X-CSRF-TOKEN": document
+            .querySelector('meta[name="csrf-token"]')
+            .getAttribute("content"),
         },
       }
     );

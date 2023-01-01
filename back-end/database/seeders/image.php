@@ -17,6 +17,6 @@ class image extends Seeder
      */
     public function run()
     {
-        DB::table('images')->insert(['img'=>'public/2TtZ0ciSa23amXdrVlGyBWIxbZaQvRckoX4iHVee.png']);
+        DB::table('images')->insert(['img'=>'public/default-avatar.jpg']);
     }
 }

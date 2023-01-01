@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Testing\Fluent\Concerns\Has;
 use Laravel\Sanctum\PersonalAccessToken;
 
 class create_user extends Controller
@@ -102,7 +103,7 @@ class create_user extends Controller
                                 ->get()[0]->name;
         // $path = `${$user->imageId}`;
         // $user->imgPath = $path;
-        $user->imgPath = '/images/get/'.$user->imageId;
+        $user->imgPath = '/image/get/'.$user->imageId;
         return $this->sendResponse([$user], "ok");
     }
 
@@ -113,7 +114,7 @@ class create_user extends Controller
             $id = explode('|', $success['token'])[0];
             // $user->currentAccessToken();
             // $success['name'] =  $user->name;
-            $user->imgPath = '/images/get/'.$user->imageId;
+            $user->imgPath = '/image/get/'.$user->imageId;
             $success['user'] = $user;
             DB::table('personal_access_tokens')->where('id','=',$id)
             ->update([
@@ -163,7 +164,7 @@ class create_user extends Controller
      */
     public function update(Request $request, $id) {
         $validator = Validator::make($request->all(),[
-            'name'=>'required|string',
+            // 'name'=>'required|string',
             'password' => 'confirmed|min:6',
             'image'=>'image|mimes:jpg,png,jpeg,gif,svg'
         ]);
@@ -175,6 +176,8 @@ class create_user extends Controller
                 DB::table('users')->where('id', '=', $id)->update(['name' => $request->name, 'updated_at' => $this->getTime()]);
                 break;
             case 'password':
+                $hashedPassword = Auth::user()->getAuthPassword();
+                if(!Hash::check($request->oldPass, $hashedPassword)) return $this->sendError("password cũ không khớp",["password cũ không khớp"]);
                 DB::table('users')->where('id', '=', $id)->update(['password' => Hash::make(bcrypt($request->password)), 'updated_at' => $this->getTime()]);
                 break;
             case 'image':

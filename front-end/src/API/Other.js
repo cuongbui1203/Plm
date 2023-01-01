@@ -5,7 +5,19 @@ import { net } from "./axiosConfig";
 const getAllRoleApi = async () => {
   try {
     const response = await axios.get(
-      process.env.REACT_APP_API_ENDPOINT + "/roles"
+      process.env.REACT_APP_API_ENDPOINT + "/roles",
+
+      {
+        headers: {
+          accept: "application/json",
+          Authorization: "Bearer " + localStorage.getItem("token"),
+          "Accept-Language": "en-US,en;q=0.8",
+          // "Content-Type": `multipart/form-data; boundary=${data._boundary}`,
+          "X-CSRF-TOKEN": document
+            .querySelector('meta[name="csrf-token"]')
+            .getAttribute("content"),
+        },
+      }
     );
     // console.log(response);
     return response.data;
@@ -20,7 +32,13 @@ const getImageApi = async (id) => {
       {
         responseType: "blob",
         headers: {
-          "Access-Control-Allow-Origin": "*",
+          Authorization: "Bearer " + localStorage.getItem("token"),
+          accept: "application/json",
+          "Accept-Language": "en-US,en;q=0.8",
+          // "Content-Type": `multipart/form-data; boundary=${data._boundary}`,
+          "X-CSRF-TOKEN": document
+            .querySelector('meta[name="csrf-token"]')
+            .getAttribute("content"),
         },
       }
     );
@@ -35,7 +53,18 @@ const sendImageApi = async (data) => {
   try {
     const response = await axios.post(
       process.env.REACT_APP_API_ENDPOINT + "/image",
-      data
+      data,
+      {
+        headers: {
+          accept: "application/json",
+          Authorization: "Bearer " + localStorage.getItem("token"),
+          "Accept-Language": "en-US,en;q=0.8",
+          // "Content-Type": `multipart/form-data; boundary=${data._boundary}`,
+          "X-CSRF-TOKEN": document
+            .querySelector('meta[name="csrf-token"]')
+            .getAttribute("content"),
+        },
+      }
     );
     return response;
   } catch (error) {
@@ -46,7 +75,19 @@ const sendImageApi = async (data) => {
 const getRoleId = async (id) => {
   try {
     const response = await axios.get(
-      process.env.REACT_APP_API_ENDPOINT + `/roles/${id}`
+      process.env.REACT_APP_API_ENDPOINT + `/roles/${id}`,
+
+      {
+        headers: {
+          accept: "application/json",
+          Authorization: "Bearer " + localStorage.getItem("token"),
+          "Accept-Language": "en-US,en;q=0.8",
+          // "Content-Type": `multipart/form-data; boundary=${data._boundary}`,
+          "X-CSRF-TOKEN": document
+            .querySelector('meta[name="csrf-token"]')
+            .getAttribute("content"),
+        },
+      }
     );
     // console.log(response);
     return response.data;
@@ -58,7 +99,19 @@ const getRoleId = async (id) => {
 const getAllWorkPlatesApi = async () => {
   try {
     const response = await axios.get(
-      process.env.REACT_APP_API_ENDPOINT + `/work-plates`
+      process.env.REACT_APP_API_ENDPOINT + `/work-plates`,
+
+      {
+        headers: {
+          accept: "application/json",
+          Authorization: "Bearer " + localStorage.getItem("token"),
+          "Accept-Language": "en-US,en;q=0.8",
+          // "Content-Type": `multipart/form-data; boundary=${data._boundary}`,
+          "X-CSRF-TOKEN": document
+            .querySelector('meta[name="csrf-token"]')
+            .getAttribute("content"),
+        },
+      }
     );
     // console.log(response);
     return response.data;
@@ -69,7 +122,19 @@ const getAllWorkPlatesApi = async () => {
 const getWorkPlatesApi = async (idRole) => {
   try {
     const response = await axios.get(
-      process.env.REACT_APP_API_ENDPOINT + `/work-plates/role/${idRole}`
+      process.env.REACT_APP_API_ENDPOINT + `/work-plates/role/${idRole}`,
+
+      {
+        headers: {
+          accept: "application/json",
+          Authorization: "Bearer " + localStorage.getItem("token"),
+          "Accept-Language": "en-US,en;q=0.8",
+          // "Content-Type": `multipart/form-data; boundary=${data._boundary}`,
+          "X-CSRF-TOKEN": document
+            .querySelector('meta[name="csrf-token"]')
+            .getAttribute("content"),
+        },
+      }
     );
     // console.log(response);
     return response.data;
@@ -83,11 +148,16 @@ const createWorkPlateApi = async (data) => {
     const response = await net.post(
       process.env.REACT_APP_API_ENDPOINT + "/work-plate/create",
       data,
+
       {
         headers: {
           accept: "application/json",
+          Authorization: "Bearer " + localStorage.getItem("token"),
           "Accept-Language": "en-US,en;q=0.8",
-          "Content-Type": `multipart/form-data; boundary=${data._boundary}`,
+          // "Content-Type": `multipart/form-data; boundary=${data._boundary}`,
+          "X-CSRF-TOKEN": document
+            .querySelector('meta[name="csrf-token"]')
+            .getAttribute("content"),
         },
       }
     );
@@ -104,11 +174,16 @@ const getWorkPlatesByIdApi = async (id) => {
   try {
     const response = await net.get(
       process.env.REACT_APP_API_ENDPOINT + `/work-plate/${id}`,
+
       {
         headers: {
           accept: "application/json",
+          Authorization: "Bearer " + localStorage.getItem("token"),
           "Accept-Language": "en-US,en;q=0.8",
           // "Content-Type": `multipart/form-data; boundary=${data._boundary}`,
+          "X-CSRF-TOKEN": document
+            .querySelector('meta[name="csrf-token"]')
+            .getAttribute("content"),
         },
       }
     );
@@ -125,11 +200,16 @@ const delWpApi = async (id) => {
   try {
     const response = await net.delete(
       process.env.REACT_APP_API_ENDPOINT + `/work-plate/${id}/delete`,
+
       {
         headers: {
           accept: "application/json",
+          Authorization: "Bearer " + localStorage.getItem("token"),
           "Accept-Language": "en-US,en;q=0.8",
           // "Content-Type": `multipart/form-data; boundary=${data._boundary}`,
+          "X-CSRF-TOKEN": document
+            .querySelector('meta[name="csrf-token"]')
+            .getAttribute("content"),
         },
       }
     );
@@ -147,11 +227,16 @@ const createRequestApi = async (data) => {
     const response = await net.post(
       process.env.REACT_APP_API_ENDPOINT + `/request/create`,
       data,
+
       {
         headers: {
           accept: "application/json",
+          Authorization: "Bearer " + localStorage.getItem("token"),
           "Accept-Language": "en-US,en;q=0.8",
           "Content-Type": `multipart/form-data; boundary=${data._boundary}`,
+          "X-CSRF-TOKEN": document
+            .querySelector('meta[name="csrf-token"]')
+            .getAttribute("content"),
         },
       }
     );
@@ -168,11 +253,16 @@ const getRequest = async (id) => {
   try {
     const response = await net.get(
       process.env.REACT_APP_API_ENDPOINT + `/request/user/${id}`,
+
       {
         headers: {
           accept: "application/json",
+          Authorization: "Bearer " + localStorage.getItem("token"),
           "Accept-Language": "en-US,en;q=0.8",
           // "Content-Type": `multipart/form-data; boundary=${data._boundary}`,
+          "X-CSRF-TOKEN": document
+            .querySelector('meta[name="csrf-token"]')
+            .getAttribute("content"),
         },
       }
     );
@@ -190,11 +280,16 @@ const getRequestId = async (id) => {
   try {
     const response = await net.get(
       process.env.REACT_APP_API_ENDPOINT + `/request/${id}`,
+
       {
         headers: {
           accept: "application/json",
+          Authorization: "Bearer " + localStorage.getItem("token"),
           "Accept-Language": "en-US,en;q=0.8",
           // "Content-Type": `multipart/form-data; boundary=${data._boundary}`,
+          "X-CSRF-TOKEN": document
+            .querySelector('meta[name="csrf-token"]')
+            .getAttribute("content"),
         },
       }
     );
@@ -211,11 +306,16 @@ const handleRequestApi = async () => {
   try {
     const response = await net.get(
       process.env.REACT_APP_API_ENDPOINT + `/request/`,
+
       {
         headers: {
           accept: "application/json",
+          Authorization: "Bearer " + localStorage.getItem("token"),
           "Accept-Language": "en-US,en;q=0.8",
           // "Content-Type": `multipart/form-data; boundary=${data._boundary}`,
+          "X-CSRF-TOKEN": document
+            .querySelector('meta[name="csrf-token"]')
+            .getAttribute("content"),
         },
       }
     );
@@ -232,11 +332,16 @@ const updateRequestApi = async (id, data) => {
     const response = await net.post(
       process.env.REACT_APP_API_ENDPOINT + `/request/${id}/update`,
       data,
+
       {
         headers: {
           accept: "application/json",
+          Authorization: "Bearer " + localStorage.getItem("token"),
           "Accept-Language": "en-US,en;q=0.8",
           // "Content-Type": `multipart/form-data; boundary=${data._boundary}`,
+          "X-CSRF-TOKEN": document
+            .querySelector('meta[name="csrf-token"]')
+            .getAttribute("content"),
         },
       }
     );
@@ -253,11 +358,16 @@ const deleteRequestApi = async (id) => {
   try {
     const response = await net.delete(
       process.env.REACT_APP_API_ENDPOINT + `/request/${id}/delete`,
+
       {
         headers: {
           accept: "application/json",
+          Authorization: "Bearer " + localStorage.getItem("token"),
           "Accept-Language": "en-US,en;q=0.8",
           // "Content-Type": `multipart/form-data; boundary=${data._boundary}`,
+          "X-CSRF-TOKEN": document
+            .querySelector('meta[name="csrf-token"]')
+            .getAttribute("content"),
         },
       }
     );

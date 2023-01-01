@@ -39,7 +39,7 @@ function LoginForm() {
         setLoginSuccess(response.data.token, response.data.user)
       );
       Notification("success", "Login Success");
-
+      localStorage.setItem("token", response.data.token);
       //   navigation("/home");
       // console.log(state)
     } else {

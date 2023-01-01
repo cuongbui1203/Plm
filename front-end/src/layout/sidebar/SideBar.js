@@ -224,11 +224,16 @@ const SideBar = () => {
         onSelect={(selectedKey) => alert(`selected ${selectedKey}`)}
       >
         <div style={{ display: show2 }}>
-          <Button variant="outline-success" className="bt" onClick={handleShow}>
-            {" "}
-            <IoAdd />{" "}
+          <Button
+            // variant="outline-success"
+            style={{ width: "100%", marginTop: "30px" }}
+            // className="bt"
+            onClick={handleShow}
+          >
+            {/* {" "} */}
+            {/* <IoAdd />{" "} */}
+            {btnLabel}
           </Button>
-          <div>{btnLabel}</div>
         </div>
         <i></i>
       </Nav>
